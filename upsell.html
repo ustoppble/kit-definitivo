@@ -64,6 +64,11 @@ li{margin:0 0 9px}
 .valor{width:100%;border-collapse:collapse;margin:0 0 18px;background:#fff}
 .valor td{border:1px solid var(--borda);padding:12px 14px;vertical-align:top}
 .valor td:last-child{text-align:right;white-space:nowrap;font-weight:700;width:1%}
+/* O nowrap acima serve pro numero nao quebrar no meio ("R$ / 15.000"). Frase
+   dentro da celula precisa voltar a quebrar, senao vira uma linha inquebravel
+   que empurra a tabela e estoura a pagina na horizontal no celular. */
+.valor td:last-child small{display:block;white-space:normal;font-weight:400;
+  color:var(--texto-suave);line-height:1.35;margin-top:3px}
 .valor tr:last-child td{background:var(--amarelo);font-weight:800}
 
 /* preco */
@@ -210,8 +215,7 @@ li{margin:0 0 9px}
       <tr>
         <td>Acesso à conta Active Campaign By Laschuk — as automações montadas, do jeito
         que rodam</td>
-        <td>R$15.000<br><small style="font-weight:400;color:var(--texto-suave)">é o que eu
-        cobro para implementar</small></td>
+        <td>R$15.000<small>é o que eu cobro para implementar</small></td>
       </tr>
       <tr>
         <td>As campanhas de e-mail dentro dos fluxos, prontas para você ler e reproduzir</td>
