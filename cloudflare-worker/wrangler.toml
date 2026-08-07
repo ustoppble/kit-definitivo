@@ -1,0 +1,11 @@
+name = "blackbird-kit-51-emails"
+main = "worker.js"
+compatibility_date = "2026-08-07"
+
+[[routes]]
+pattern = "www.blackbird.ac/kit-51-emails*"
+zone_name = "blackbird.ac"
+
+[[kv_namespaces]]
+binding = "COMPRADORES"
+id = "542b0e7612f64a4e8aa23943ac558a11"

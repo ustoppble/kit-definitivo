@@ -28,12 +28,12 @@
  *   - Secret "LINK_DE_ACESSO"             (o link real do Kit, Drive/Docs)
  */
 
-const ORIGIN = 'https://sue-blackbird.github.io';
+const ORIGIN = 'https://ustoppble.github.io';
 
 // Caminho publico (o que o visitante ve) e caminho real no GitHub Pages.
 // Se um dia o repo for renomeado, so este par muda.
 const PUBLICO = '/kit-51-emails';
-const REPO = '/kit-definitivo';
+const REPO = '/kit-51-emails';
 
 // Valores de href/src que nunca devem ser reescritos.
 const ABSOLUTO = /^(https?:)?\/\/|^[a-z][a-z0-9+.-]*:|^#|^\//i;
@@ -45,7 +45,7 @@ const ABSOLUTO = /^(https?:)?\/\/|^[a-z][a-z0-9+.-]*:|^#|^\//i;
 const ORIGENS_PERMITIDAS = new Set([
   'https://www.blackbird.ac',
   'https://blackbird.ac',
-  'https://sue-blackbird.github.io',
+  'https://ustoppble.github.io',
 ]);
 
 // Palavras usadas pra classificar o evento da Eduzz como aprovacao ou
