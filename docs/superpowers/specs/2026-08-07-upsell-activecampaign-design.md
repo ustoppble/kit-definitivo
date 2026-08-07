@@ -191,6 +191,68 @@ exige ver um payload real da Eduzz, como o próprio README do Worker já sugere.
 8. `upsell.html` entrega o link de pular para o Kit sem exigir o upsell
 9. Página e assets 200 através de `www.blackbird.ac`
 
+## Atualização — funil completo (2026-08-07, depois do design original)
+
+O escopo cresceu de "página de upsell" para o funil inteiro. O que mudou em
+relação ao desenho acima:
+
+**Canal do alerta: Discord, não WhatsApp.** O "1x1" era DM do bot ZERO para o
+Laschuk. Implementado, mas o Discord recusa a DM com o código **50278**
+("no mutual guilds"), que na prática é a privacidade do perfil bloqueando
+mensagem direta de membros do servidor. O Worker tenta a DM primeiro e cai para
+uma menção em canal quando ela falha. Ligar "permitir mensagens diretas" no
+Discord faz a DM voltar a funcionar sozinha, sem mexer em código.
+
+**Páginas novas:**
+
+| Página | Papel |
+|---|---|
+| `upsell.html` | R$97, VSL com autoplay, copy estilo Brunson |
+| `oto.html` | one time offer depois da compra do upsell |
+| `diagnostico.html` | downsell de quem **recusa** o upsell |
+
+**Rotas novas:** `/api/oto-checkout` e `/api/agendar-diagnostico`, além das já
+previstas `/api/upsell-checkout` e `/api/recusar-upsell`.
+
+**Vídeo hospedado no próprio repo.** `assets/vsl.mp4`, 12 MB, H.264 + AAC com
+`faststart`. O original era HEVC de 99 MB, que não toca na maioria dos
+navegadores. O Worker repassa o header `Range`, então o player faz seek sem
+baixar o arquivo inteiro.
+
+**Corte do vídeo executado:** removido `01:00.9 → 01:23.0`. Verificado por
+transcrição do arquivo final: zero ocorrências de "197", "portal" e "botão
+único", e o CTA preservado. Duração final 88.8s.
+
+**A obrigado.html agora passa pelo upsell.** Ao confirmar o e-mail ela guarda o
+link do Kit em `sessionStorage` e segue para `upsell.html`. Quem recusa, quem
+pula e quem fecha continua a um clique do material. Quem **já comprou** o upsell
+nunca vê a oferta de novo — `verificar-acesso` checa `sandbox:<email>` e devolve
+`upsell_url: null`.
+
+**Empilhamento de valor sem número inventado.** A copy propunha âncoras de
+R$2.000 e R$1.500 que não são preços praticados. A tabela ficou só com o
+R$15.000 real; os outros itens entram como "incluso".
+
+**Preço da OTO assumido, não decidido.** A copy veio com `[DEFINIR PREÇO]` e
+`[DEFINIR PRODUTO]`. A página foi montada com a recomendação do copywriter —
+implementação assistida ao vivo, R$297 ancorado em R$597. É premissa, não
+decisão: trocar exige editar `oto.html` e o checkout correspondente.
+
+## O que falta para o funil vender
+
+Nada disso é código — são valores que só o Laschuk tem:
+
+| Secret | Sem ele, o quê |
+|---|---|
+| `LINK_DE_ACESSO` | comprador do Kit confirma o e-mail e não recebe o material |
+| `CHECKOUT_UPSELL_URL` | botão do upsell abre um destino vazio |
+| `CHECKOUT_OTO_URL` | botão da OTO abre um destino vazio |
+| `SANDBOX_ACESSO` | comprador do upsell não recebe a credencial |
+| `EDUZZ_PRODUTO_UPSELL` / `EDUZZ_PRODUTO_OTO` | o webhook não distingue produto e trata toda compra como Kit |
+
+Enquanto os dois últimos não existirem, o comportamento é o seguro: compra
+desconhecida libera **só** o Kit, nunca a sandbox.
+
 ## Transcrição relevante
 
 > Nos últimos dois anos eu fiquei 100% focado apenas vendendo através de email
