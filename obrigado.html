@@ -342,12 +342,25 @@ document.querySelectorAll('[data-cta]').forEach(el => {
     try {
       const resp = await fetch(ENDPOINT, {
         method: 'POST',
+        // credentials: o Worker responde com o cookie de sessao assinado, que e
+        // como a pagina de upsell sabe quem esta do outro lado sem carregar o
+        // e-mail na URL.
+        credentials: 'include',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ email }),
       });
       const data = await resp.json();
 
       if (data.ok && data.kit_url) {
+        // O Kit fica guardado para a proxima tela: quem recusar a oferta chega
+        // nele em um clique, e quem fechar tudo volta aqui e destrava de novo.
+        try { sessionStorage.setItem('kit51_kit_url', data.kit_url); } catch (e) {}
+
+        if (data.upsell_url) {
+          status.textContent = 'Confirmado! Um segundo...';
+          window.location.href = data.upsell_url;
+          return;
+        }
         status.textContent = 'Confirmado! Abrindo o Kit...';
         window.location.href = data.kit_url;
         return;

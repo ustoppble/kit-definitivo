@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Diagnóstico gratuito de e-mail marketing — Blackbird</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul:#234A95; --vermelho:#FE0000; --bege:#F8F3EF; --branco:#FFFFFF;
+  --preto:#0D0D0F; --verde:#00A82E; --lavanda:#D0D2DF;
+  --texto:#2B2B2B; --texto-suave:#4A4A4A; --borda:#E2DAD3;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bege);color:var(--texto);
+  font-family:Barlow,system-ui,sans-serif;font-size:17.5px;line-height:1.62;
+  min-height:100vh;display:flex;flex-direction:column}
+.marca{background:var(--preto);color:#fff;text-align:center;padding:12px 16px;
+  font-weight:700;font-size:12.5px;letter-spacing:2px}
+main{flex:1;max-width:660px;margin:0 auto;padding:44px 20px 20px}
+h1{font-family:Roboto,sans-serif;font-size:clamp(26px,4.8vw,38px);font-weight:900;
+  line-height:1.16;color:var(--preto);margin:0 0 12px}
+.sub{font-size:clamp(18px,3vw,21px);color:var(--azul);font-weight:600;margin:0 0 26px}
+p{margin:0 0 14px}
+.lista{background:var(--branco);border:1px solid var(--borda);border-radius:12px;
+  padding:22px 24px 10px;margin:26px 0}
+.lista h2{font-family:Roboto,sans-serif;font-size:19px;font-weight:800;margin:0 0 14px;
+  color:var(--preto)}
+.lista ul{margin:0;padding-left:20px}
+.lista li{margin:0 0 11px}
+.btn{display:block;width:100%;max-width:520px;margin:26px auto 8px;padding:19px 22px;
+  background:var(--verde);color:#fff;border:0;border-radius:10px;cursor:pointer;
+  font-family:Roboto,sans-serif;font-size:clamp(16px,3.3vw,20px);font-weight:900;
+  text-align:center;text-decoration:none;box-shadow:0 6px 0 #00871f;
+  transition:transform .06s,box-shadow .06s}
+.btn:active{transform:translateY(3px);box-shadow:0 3px 0 #00871f}
+.btn[disabled]{opacity:.65;cursor:wait}
+.btn-nota{text-align:center;font-size:14px;color:var(--texto-suave);margin:0}
+.fechamento{margin-top:34px;padding-top:22px;border-top:1px solid var(--borda)}
+.discreto{display:inline-block;color:var(--texto-suave);font-size:15px}
+.rodape{background:var(--preto);color:#9A9A9A;text-align:center;padding:22px 20px;
+  font-size:13px}
+.erro{background:#FFECEC;border:1px solid var(--vermelho);color:#8B0000;
+  border-radius:8px;padding:12px 14px;margin:10px auto 0;max-width:520px;
+  text-align:center;font-size:15px}
+.erro[hidden]{display:none}
+</style>
+</head>
+<body>
+
+<div class="marca">BLACKBIRD · E-MAIL MARKETING</div>
+
+<main>
+  <h1>Beleza. Então não é a hora de copiar a minha estrutura.</h1>
+  <p class="sub">Talvez faça mais sentido alguém olhar a sua.</p>
+
+  <p>Copiar uma conta pronta funciona para quem já sabe o que quer montar.</p>
+  <p>Se esse não é o seu caso agora, tem um caminho que começa antes: descobrir o que a
+  sua operação está deixando na mesa hoje.</p>
+  <p>Por isso o estrategista sênior do meu time reserva 30 minutos, por vídeo, para quem
+  comprou o Kit.</p>
+  <p>É gratuito e sem compromisso. Você entra com a sua conta aberta e sai com um plano
+  escrito.</p>
+
+  <div class="lista">
+    <h2>O que sai da conversa</h2>
+    <ul>
+      <li>Qual das 7 sequências do Kit dá mais retorno no <strong>seu</strong> cenário —
+      e por onde começar</li>
+      <li>Onde os seus e-mails estão caindo hoje: caixa de entrada, Promoções ou spam,
+      e por quê</li>
+      <li>O que ajustar na sua ferramenta antes do próximo disparo</li>
+      <li>Um plano de aplicação, por escrito, para você rodar sozinho depois</li>
+    </ul>
+  </div>
+
+  <button class="btn" id="agendar" type="button">AGENDAR MEU DIAGNÓSTICO GRATUITO →</button>
+  <p class="btn-nota">30 minutos · por vídeo · sem custo</p>
+  <div class="erro" id="erro" hidden></div>
+  <p class="btn-nota" style="margin-top:12px">Você escolhe o horário na próxima tela. Se
+  nenhum servir, os horários são liberados toda semana.</p>
+
+  <div class="fechamento">
+    <p>O Kit continua seu, liberado, independente de você agendar ou não.</p>
+    <a class="discreto" id="acessos" href="obrigado.html">Ir para os meus acessos →</a>
+  </div>
+</main>
+
+<div class="rodape">GUILHERME LASCHUK © 2026 — Todos os direitos reservados.</div>
+
+<script>
+(function(){
+  'use strict';
+  // Fallback fixo: se a API nao responder, o botao ainda leva pro agendamento.
+  // O link e publico e a oferta e gratuita, entao nao ha nada a proteger aqui —
+  // o unico custo de falhar e nao conseguir taguear quem agendou.
+  var TIDYCAL = 'https://tidycal.com/team/blackbird/email-scan-diagnostico';
+  var b = document.getElementById('agendar');
+  var erro = document.getElementById('erro');
+
+  // Quem chegou aqui recusando o upsell ja destravou o Kit na obrigado.html.
+  // Mandar de volta para digitar o e-mail seria punir quem so disse "nao".
+  try {
+    var kit = sessionStorage.getItem('kit51_kit_url');
+    var a = document.getElementById('acessos');
+    if (kit && a) a.href = kit;
+  } catch (e) {}
+
+  b.addEventListener('click', async function(){
+    b.disabled = true; b.textContent = 'abrindo a agenda...';
+    try {
+      var r = await fetch('/kit-51-emails/api/agendar-diagnostico', {
+        method:'POST', credentials:'include',
+        headers:{'content-type':'application/json'}, body:'{}'
+      });
+      var d = await r.json();
+      location.href = (d && d.url) ? d.url : TIDYCAL;
+    } catch (e) {
+      location.href = TIDYCAL;
+    }
+  });
+})();
+</script>
+</body>
+</html>

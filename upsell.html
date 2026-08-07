@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Active Campaign By Laschuk — oferta única por R$97</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,600&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul:#234A95; --azul-btn:#2D589D; --azul-btn-hover:#1E427F;
+  --vermelho:#FE0000; --bege:#F8F3EF; --branco:#FFFFFF; --preto:#0D0D0F;
+  --verde:#00A82E; --lavanda:#D0D2DF; --laranja:#F8B89C; --amarelo:#F2F07F;
+  --texto:#2B2B2B; --texto-suave:#4A4A4A; --borda:#E2DAD3; --wrap:760px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bege);color:var(--texto);
+  font-family:Barlow,system-ui,sans-serif;font-size:17px;line-height:1.6}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:Roboto,system-ui,sans-serif;line-height:1.15;color:var(--preto)}
+h1{font-size:clamp(28px,5.2vw,44px);font-weight:900;margin:0 0 16px}
+h2{font-size:clamp(23px,4vw,32px);font-weight:900;margin:0 0 14px}
+h3{font-size:20px;font-weight:700;margin:0 0 8px}
+p{margin:0 0 14px}
+strong{color:var(--preto)}
+section{padding:38px 0;border-top:1px solid var(--borda)}
+section:first-of-type{border-top:0}
+
+/* tarja de urgencia */
+.tarja{background:var(--vermelho);color:#fff;text-align:center;padding:11px 16px;
+  font-weight:800;font-size:15px;letter-spacing:.3px;position:sticky;top:0;z-index:50}
+.tarja small{display:block;font-weight:500;font-size:13px;opacity:.92;letter-spacing:0}
+
+/* video */
+.vsl{padding-top:26px}
+.eyebrow{text-align:center;font-weight:800;font-size:13px;letter-spacing:1.4px;
+  color:var(--vermelho);margin:0 0 8px}
+.vsl-linha{text-align:center;font-weight:600;margin:0 0 14px;color:var(--texto-suave)}
+.player{position:relative;border-radius:12px;overflow:hidden;background:#000;
+  box-shadow:0 10px 34px rgba(13,13,15,.22)}
+.player video{display:block;width:100%;height:auto}
+.som{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(13,13,15,.42);border:0;cursor:pointer;color:#fff;
+  font-family:Barlow,sans-serif;font-size:17px;font-weight:700;gap:10px}
+.som span{background:var(--vermelho);padding:13px 22px;border-radius:999px;
+  box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.som[hidden]{display:none}
+.vsl-legenda{text-align:center;font-size:14px;color:var(--texto-suave);margin:10px 0 0}
+
+/* blocos */
+.destaque{background:var(--branco);border:1px solid var(--borda);border-radius:12px;
+  padding:22px 22px 8px}
+.nao-e{background:#fff;border-left:4px solid var(--vermelho);padding:16px 18px 4px;
+  border-radius:0 8px 8px 0;margin:0 0 16px}
+.e-sim{background:#fff;border-left:4px solid var(--verde);padding:16px 18px 4px;
+  border-radius:0 8px 8px 0}
+ul{margin:0 0 14px;padding-left:20px}
+li{margin:0 0 9px}
+
+/* valor */
+.valor{width:100%;border-collapse:collapse;margin:0 0 18px;background:#fff}
+.valor td{border:1px solid var(--borda);padding:12px 14px;vertical-align:top}
+.valor td:last-child{text-align:right;white-space:nowrap;font-weight:700;width:1%}
+.valor tr:last-child td{background:var(--amarelo);font-weight:800}
+
+/* preco */
+.preco{text-align:center;background:var(--azul);color:#fff;border-radius:14px;padding:30px 22px}
+.preco .de{font-size:17px;opacity:.85;margin:0 0 2px}
+.preco .de s{opacity:.75}
+.preco .hoje{font-size:15px;opacity:.9;margin:0 0 6px}
+.preco .num{font-family:Roboto,sans-serif;font-size:clamp(52px,12vw,78px);font-weight:900;
+  line-height:1;margin:0 0 4px;color:var(--amarelo)}
+.preco .cond{font-size:15px;opacity:.9;margin:0}
+
+/* CTA */
+.btn{display:block;width:100%;max-width:520px;margin:22px auto 8px;padding:19px 22px;
+  background:var(--verde);color:#fff;border:0;border-radius:10px;cursor:pointer;
+  font-family:Roboto,sans-serif;font-size:clamp(17px,3.4vw,21px);font-weight:900;
+  text-align:center;text-decoration:none;letter-spacing:.2px;
+  box-shadow:0 6px 0 #00871f;transition:transform .06s,box-shadow .06s}
+.btn:active{transform:translateY(3px);box-shadow:0 3px 0 #00871f}
+.btn[disabled]{opacity:.65;cursor:wait}
+.btn-nota{text-align:center;font-size:14px;color:var(--texto-suave);margin:0 0 4px}
+.recusa{display:block;text-align:center;margin:26px auto 0;color:var(--texto-suave);
+  font-size:15.5px;text-decoration:underline;background:0;border:0;cursor:pointer;
+  font-family:Barlow,sans-serif}
+.pular{display:block;text-align:center;margin:14px auto 0;color:#8A8A8A;font-size:13.5px}
+
+/* objecoes */
+.obj{background:#fff;border:1px solid var(--borda);border-radius:10px;
+  padding:18px 20px 6px;margin:0 0 12px}
+.obj h3{color:var(--azul)}
+
+.autor{background:var(--lavanda);border-radius:12px;padding:22px 22px 8px}
+.garantia{background:var(--branco);border:2px dashed var(--verde);border-radius:12px;
+  padding:22px 22px 8px;text-align:center}
+.rodape{background:var(--preto);color:#9A9A9A;text-align:center;padding:24px 20px;
+  font-size:13px;margin-top:34px}
+.erro{background:#FFECEC;border:1px solid var(--vermelho);color:#8B0000;
+  border-radius:8px;padding:12px 14px;margin:12px auto 0;max-width:520px;
+  text-align:center;font-size:15px}
+.erro[hidden]{display:none}
+</style>
+</head>
+<body>
+
+<div class="tarja">
+  ESPERA — NÃO FECHE ESTA PÁGINA
+  <small>Sua compra do Kit já está confirmada. Esta oferta aparece uma única vez.</small>
+</div>
+
+<div class="wrap">
+
+  <section class="vsl">
+    <p class="eyebrow">OFERTA ÚNICA · SÓ NESTA PÁGINA</p>
+    <p class="vsl-linha">Aperta o play. São 90 segundos.</p>
+    <div class="player">
+      <video id="vsl" src="assets/vsl.mp4" poster="assets/vsl-poster.jpg"
+             muted autoplay loop playsinline preload="metadata"></video>
+      <button class="som" id="som" type="button" aria-label="Ativar o som do vídeo">
+        <span>🔊 clique para ativar o som</span>
+      </button>
+    </div>
+    <p class="vsl-legenda">Sem som? Está tudo escrito aqui embaixo.</p>
+  </section>
+
+  <section>
+    <h1>O Kit te deu os e-mails.<br>Agora eu te dou a conta onde eles rodam.</h1>
+    <p>Por R$97, você entra na minha conta do ActiveCampaign e vê — do lado de dentro —
+    as automações, as campanhas e a estrutura que eu uso para vender por e-mail. Aberta.
+    Para você olhar e copiar do seu jeito.</p>
+  </section>
+
+  <section>
+    <h2>Por que essa página existe</h2>
+    <p>Nos últimos dois anos eu fiquei 100% focado em uma coisa só: vender por e-mail
+    marketing para os meus clientes.</p>
+    <p>Nesses dois anos, mais de <strong>R$20 milhões vendidos por e-mail</strong>.</p>
+    <p>Foi nessa mesma conta que eu estruturei o ActiveCampaign do lançamento do
+    <strong>Thiago Finch</strong>.</p>
+    <p>E é nessa mesma conta que estão as contas de e-commerce que passaram de
+    <strong>R$10 milhões vendidos por e-mail</strong>.</p>
+    <p>Quando um cliente me procura para montar isso na conta dele, o preço é
+    <strong>R$15.000</strong> pela implementação — mais comissão sobre as vendas.</p>
+    <p>Não é caro porque eu escrevo bonito.</p>
+    <p>É caro porque montar a estrutura é a parte lenta. O texto do e-mail você resolve
+    em uma tarde. O que demora é decidir o que dispara o quê, quem entra em qual fluxo,
+    quem sai, quem é marcado com o quê, e em que ordem tudo isso acontece.</p>
+    <p>Você acabou de comprar 51 e-mails prontos.</p>
+    <p>Ótimo. Você resolveu <strong>o que escrever</strong>.</p>
+    <p>O que ficou de fora é <strong>onde isso vive</strong>.</p>
+    <p>E é exatamente isso que eu estou abrindo aqui.</p>
+  </section>
+
+  <section>
+    <h2>O que é o Active Campaign By Laschuk</h2>
+    <p>Vou ser bem literal, para não ter mal-entendido depois.</p>
+    <p>Você recebe <strong>um acesso a uma conta ActiveCampaign minha, montada como
+    sandbox</strong>. Lá dentro estão as automações, as campanhas e a estrutura que eu uso.</p>
+    <p>Você entra, navega, abre cada fluxo, vê a lógica inteira na tela — e
+    <strong>refaz na sua conta</strong>, do seu jeito, no seu ritmo.</p>
+
+    <div class="nao-e">
+      <h3>O que isso NÃO é</h3>
+      <ul>
+        <li>Não é um botão que instala nada na sua conta.</li>
+        <li>Não é clone automático de um clique.</li>
+        <li>Não é software, plugin ou integração.</li>
+        <li>Não é a minha conta de produção com dado de cliente.</li>
+      </ul>
+    </div>
+
+    <div class="e-sim">
+      <h3>O que isso É</h3>
+      <p>É a porta aberta. Você entra e copia com os próprios olhos e as próprias mãos.</p>
+      <p>Que é, honestamente, como todo mundo que sabe fazer isso aprendeu: olhando uma
+      conta que já funciona.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>O que você vai ver lá dentro</h2>
+    <ul>
+      <li><strong>As automações</strong>, montadas e conectadas — cada gatilho, cada
+      condição, cada saída.</li>
+      <li><strong>As campanhas de e-mail</strong> dentro delas — o que é enviado, em que
+      ordem, com que intervalo.</li>
+      <li><strong>A estrutura por trás</strong>: como as tags são nomeadas, como a base é
+      segmentada, quem entra e quem sai de cada fluxo.</li>
+      <li><strong>A lógica das decisões</strong> — a parte que nenhum tutorial mostra,
+      porque tutorial ensina a clicar, não a decidir.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>O Kit e a estrutura, juntos</h2>
+    <p>O Kit sem a estrutura é um documento bonito no seu Drive.</p>
+    <p>A estrutura sem o Kit é um monte de fluxo vazio esperando texto.</p>
+    <p>Junto, é uma operação.</p>
+    <p>Você pega o e-mail número 3 da sequência de Carrinho Abandonado, vê exatamente em
+    que ponto do fluxo ele entra, com que intervalo dispara e para quem — e monta igual.</p>
+  </section>
+
+  <section>
+    <h2>O que está na mesa</h2>
+    <table class="valor">
+      <tr>
+        <td>Acesso à conta Active Campaign By Laschuk — as automações montadas, do jeito
+        que rodam</td>
+        <td>R$15.000<br><small style="font-weight:400;color:var(--texto-suave)">é o que eu
+        cobro para implementar</small></td>
+      </tr>
+      <tr>
+        <td>As campanhas de e-mail dentro dos fluxos, prontas para você ler e reproduzir</td>
+        <td>incluso</td>
+      </tr>
+      <tr>
+        <td>A estrutura de tags e segmentação — a nomenclatura que sustenta tudo</td>
+        <td>incluso</td>
+      </tr>
+      <tr>
+        <td>O direito de copiar tudo isso para a sua conta, sem me pagar comissão nenhuma</td>
+        <td>incluso</td>
+      </tr>
+      <tr>
+        <td>Você paga hoje, uma única vez</td>
+        <td>R$97</td>
+      </tr>
+    </table>
+    <p>Uma vez. Sem mensalidade. Sem comissão sobre as suas vendas.</p>
+  </section>
+
+  <section>
+    <div class="preco">
+      <p class="de">De <s>R$497</s></p>
+      <p class="hoje">Hoje, nesta página, uma única vez:</p>
+      <p class="num">R$97</p>
+      <p class="cond">pagamento único · 7 dias de garantia</p>
+    </div>
+    <button class="btn" data-cta type="button">QUERO O ACTIVE CAMPAIGN POR R$97 →</button>
+    <p class="btn-nota">acesso liberado logo após a confirmação do pagamento</p>
+    <p class="btn-nota">Pagamento único. Cartão, Pix ou boleto, pela Eduzz. Check-out seguro.</p>
+    <div class="erro" id="erro" hidden></div>
+  </section>
+
+  <section>
+    <div class="autor">
+      <h2>Quem está te abrindo a conta</h2>
+      <p><strong>Guilherme Laschuk.</strong></p>
+      <p>Dois anos 100% focado em vender por e-mail marketing para clientes.</p>
+      <p>Mais de R$20 milhões vendidos por e-mail nesse período.</p>
+      <p>Estruturei o ActiveCampaign do lançamento do Thiago Finch.</p>
+      <p>Tenho contas de e-commerce que passaram de R$10 milhões vendidos por e-mail.</p>
+      <p>Cobro R$15.000 para implementar um ActiveCampaign para um cliente, mais comissão
+      sobre as vendas.</p>
+      <p>Hoje, R$97 para você entrar e olhar.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>O que você deve estar pensando</h2>
+
+    <div class="obj">
+      <h3>“Eu não uso ActiveCampaign. Uso outra ferramenta.”</h3>
+      <p>Então você copia a lógica, não os cliques.</p>
+      <p>Fluxo, gatilho, condição, intervalo e segmentação existem em qualquer ferramenta
+      séria — muda o nome do botão. O que você está levando daqui é a decisão por trás de
+      cada automação, e isso é o que não muda de ferramenta para ferramenta.</p>
+      <p>Sendo justo com você: se você usa outra ferramenta, o valor cai um pouco, porque
+      você vai ter que traduzir na mão. Se você usa ActiveCampaign, é literalmente copiar
+      o que está na tela.</p>
+    </div>
+
+    <div class="obj">
+      <h3>“Isso instala tudo na minha conta automaticamente?”</h3>
+      <p>Não. E eu prefiro te dizer isso agora do que você descobrir depois.</p>
+      <p>Você recebe <strong>acesso para ver e copiar</strong>. Nada é instalado,
+      provisionado ou clonado na sua conta. Você entra, olha, e refaz.</p>
+      <p>Se o que você quer é alguém montando na sua conta, isso é o serviço de R$15.000 —
+      e não é o que está sendo vendido aqui.</p>
+    </div>
+
+    <div class="obj">
+      <h3>“Acabei de gastar R$17. Agora R$97?”</h3>
+      <p>Sim, e é justamente por isso que este preço existe.</p>
+      <p>R$97 é o que eu consigo cobrar de quem já comprou algo meu hoje e já está com a
+      cabeça no assunto. Não é uma oferta que eu consigo repetir em anúncio, porque em
+      anúncio ela não se paga.</p>
+      <p>O que você está comparando não é R$17 com R$97. É R$97 com R$15.000.</p>
+    </div>
+
+    <div class="obj">
+      <h3>“Eu sou iniciante. Não vou saber copiar.”</h3>
+      <p>Copiar é a parte fácil — é olhar e refazer.</p>
+      <p>O difícil é inventar. Inventar exige saber qual e-mail vai em que ponto do fluxo,
+      e é exatamente isso que você não precisa mais decidir sozinho, porque está montado
+      na tela.</p>
+      <p>Se você já conseguiu criar uma conta no ActiveCampaign, você consegue reproduzir
+      uma automação olhando para ela.</p>
+    </div>
+
+    <div class="obj">
+      <h3>“Eu ainda não tenho lista.”</h3>
+      <p>Melhor ainda.</p>
+      <p>Quem tem lista grande e estrutura errada tem que desmontar antes de montar de
+      novo. Você não tem nada para desmontar.</p>
+      <p>Você monta certo desde o primeiro contato que entrar.</p>
+    </div>
+
+    <div class="obj">
+      <h3>“Já vi tutorial de ActiveCampaign de graça no YouTube.”</h3>
+      <p>Viu, e eu também publico. Tutorial ensina a clicar.</p>
+      <p>O que nenhum tutorial te mostra é uma conta que já vendeu R$20 milhões, aberta,
+      com as decisões tomadas. Tutorial é aula. Isso aqui é gabarito.</p>
+    </div>
+
+    <button class="btn" data-cta type="button">SIM, ME DÁ O ACESSO →</button>
+    <p class="btn-nota">R$97 · pagamento único · 7 dias de garantia</p>
+  </section>
+
+  <section>
+    <div class="garantia">
+      <h2>7 dias. Igual ao Kit.</h2>
+      <p>Entra, abre os fluxos, olha tudo.</p>
+      <p>Se você achar que não valeu, responde o e-mail da compra e eu devolvo os R$97.</p>
+      <p>Sem formulário, sem justificativa, sem ficar tentando te segurar. E a gente segue
+      como amigos.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Por que essa página não volta</h2>
+    <p>Isso não é contagem regressiva de mentira.</p>
+    <p>Esta oferta existe só neste ponto do fluxo, uma vez, para quem acabou de comprar
+    o Kit.</p>
+    <p>Você fecha esta página, ela não recarrega. Não tem link para voltar. Não vai chegar
+    por e-mail depois.</p>
+    <p>Fora daqui, montar essa estrutura comigo custa R$15.000.</p>
+  </section>
+
+  <section>
+    <h2>Recapitulando o que você leva por R$97</h2>
+    <ul>
+      <li>Acesso à conta Active Campaign By Laschuk, para ver e copiar</li>
+      <li>As automações montadas — gatilho, condição, intervalo, saída</li>
+      <li>As campanhas de e-mail dentro de cada fluxo</li>
+      <li>A estrutura de tags e segmentação por trás de tudo</li>
+      <li>7 dias de garantia, dinheiro de volta</li>
+    </ul>
+    <p>De <s>R$497</s> por <strong>R$97</strong>. Pagamento único.</p>
+
+    <button class="btn" data-cta type="button">SIM, QUERO ENTRAR NO ACTIVE CAMPAIGN →</button>
+    <p class="btn-nota">R$97 · pagamento único · 7 dias de garantia</p>
+
+    <button class="recusa" id="recusa" type="button">Não, obrigado. Meu problema agora não é a estrutura →</button>
+    <a class="pular" id="pular" href="obrigado.html">Só quero baixar o Kit que eu já comprei →</a>
+  </section>
+
+</div>
+
+<div class="rodape">GUILHERME LASCHUK © 2026 — Todos os direitos reservados.</div>
+
+<script>
+(function(){
+  'use strict';
+  var API = '/kit-51-emails/api';
+  var erro = document.getElementById('erro');
+
+  // Autoplay so passa se o video comecar mudo. O overlay existe pra devolver o
+  // som num gesto do usuario, que e o que o navegador exige.
+  var v = document.getElementById('vsl');
+  var som = document.getElementById('som');
+  if (v && som) {
+    som.addEventListener('click', function(){
+      v.muted = false;
+      v.play().catch(function(){});
+      som.hidden = true;
+    });
+    v.addEventListener('play', function(){ if (!v.muted) som.hidden = true; });
+    // Se o navegador bloquear ate o autoplay mudo, o overlay vira "dar play".
+    var p = v.play();
+    if (p && p.catch) p.catch(function(){
+      som.querySelector('span').textContent = '▶ clique para assistir';
+    });
+  }
+
+  function mostrarErro(msg){
+    if (!erro) return;
+    erro.textContent = msg;
+    erro.hidden = false;
+    erro.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+
+  async function chamar(rota, botao, textoOriginal){
+    try {
+      var r = await fetch(API + rota, {
+        method:'POST',
+        credentials:'include',
+        headers:{'content-type':'application/json'},
+        body:'{}'
+      });
+      var d = await r.json();
+
+      if (r.status === 401) {
+        // Sessao expirada ou pagina aberta direto, sem passar pela obrigado.
+        mostrarErro('Sua sessão expirou. Confirme seu e-mail de novo para continuar.');
+        setTimeout(function(){ location.href = 'obrigado.html'; }, 2200);
+        return;
+      }
+      if (d && d.ok && d.url) { location.href = d.url; return; }
+      mostrarErro('Não consegui abrir o checkout agora. Tenta de novo em alguns segundos.');
+    } catch (e) {
+      mostrarErro('Falha de conexão. Verifica sua internet e tenta de novo.');
+    }
+    if (botao) { botao.disabled = false; botao.textContent = textoOriginal; }
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-cta]'), function(b){
+    b.addEventListener('click', function(){
+      var t = b.textContent;
+      b.disabled = true; b.textContent = 'abrindo o checkout...';
+      chamar('/upsell-checkout', b, t);
+    });
+  });
+
+  var rec = document.getElementById('recusa');
+  if (rec) rec.addEventListener('click', function(){
+    rec.disabled = true;
+    chamar('/recusar-upsell', null, null);
+  });
+
+  // A obrigado.html guardou o link do Kit ao confirmar o e-mail. Usar ele aqui
+  // evita mandar quem so quer o material baixado para digitar o e-mail de novo.
+  try {
+    var kit = sessionStorage.getItem('kit51_kit_url');
+    var pular = document.getElementById('pular');
+    if (kit && pular) pular.href = kit;
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>

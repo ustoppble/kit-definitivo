@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Implementação assistida ao vivo — última oferta</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul:#234A95; --vermelho:#FE0000; --bege:#F8F3EF; --branco:#FFFFFF;
+  --preto:#0D0D0F; --verde:#00A82E; --lavanda:#D0D2DF; --amarelo:#F2F07F;
+  --texto:#2B2B2B; --texto-suave:#4A4A4A; --borda:#E2DAD3; --wrap:720px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bege);color:var(--texto);
+  font-family:Barlow,system-ui,sans-serif;font-size:17px;line-height:1.6}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:Roboto,sans-serif;line-height:1.16;color:var(--preto)}
+h1{font-size:clamp(26px,5vw,40px);font-weight:900;margin:0 0 14px}
+h2{font-size:clamp(21px,3.8vw,29px);font-weight:900;margin:0 0 12px}
+h3{font-size:19px;font-weight:700;margin:0 0 8px}
+p{margin:0 0 14px}
+section{padding:34px 0;border-top:1px solid var(--borda)}
+section:first-of-type{border-top:0}
+.tarja{background:var(--preto);color:#fff;text-align:center;padding:11px 16px;
+  font-weight:800;font-size:13px;letter-spacing:1.6px;position:sticky;top:0;z-index:50}
+.confirmado{background:#E8F7EC;border:1px solid var(--verde);border-radius:12px;
+  padding:20px 22px 8px;margin:26px 0 0}
+.eyebrow{font-weight:800;font-size:12.5px;letter-spacing:1.6px;color:var(--verde);
+  margin:0 0 6px}
+.oferta{background:var(--branco);border:1px solid var(--borda);border-radius:12px;
+  padding:22px 24px 10px}
+ul{margin:0 0 14px;padding-left:20px}
+li{margin:0 0 10px}
+.valor{width:100%;border-collapse:collapse;margin:0 0 16px;background:#fff}
+.valor td{border:1px solid var(--borda);padding:12px 14px;vertical-align:top}
+.valor td:last-child{text-align:right;white-space:nowrap;font-weight:700;width:1%}
+.valor tr:last-child td{background:var(--amarelo);font-weight:800}
+.preco{text-align:center;background:var(--azul);color:#fff;border-radius:14px;padding:28px 22px}
+.preco .de{font-size:17px;opacity:.85;margin:0 0 4px}
+.preco .num{font-family:Roboto,sans-serif;font-size:clamp(48px,11vw,70px);font-weight:900;
+  line-height:1;margin:0 0 4px;color:var(--amarelo)}
+.preco .cond{font-size:15px;opacity:.9;margin:0}
+.btn{display:block;width:100%;max-width:520px;margin:22px auto 8px;padding:19px 22px;
+  background:var(--verde);color:#fff;border:0;border-radius:10px;cursor:pointer;
+  font-family:Roboto,sans-serif;font-size:clamp(16px,3.3vw,20px);font-weight:900;
+  text-align:center;text-decoration:none;box-shadow:0 6px 0 #00871f;
+  transition:transform .06s,box-shadow .06s}
+.btn:active{transform:translateY(3px);box-shadow:0 3px 0 #00871f}
+.btn[disabled]{opacity:.65;cursor:wait}
+.btn-nota{text-align:center;font-size:14px;color:var(--texto-suave);margin:0 0 4px}
+.obj{background:#fff;border:1px solid var(--borda);border-radius:10px;
+  padding:17px 20px 5px;margin:0 0 12px}
+.obj h3{color:var(--azul)}
+.garantia{background:var(--branco);border:2px dashed var(--verde);border-radius:12px;
+  padding:20px 22px 8px;text-align:center}
+.recusa{display:block;text-align:center;margin:24px auto 0;color:var(--texto-suave);
+  font-size:15.5px;text-decoration:underline}
+.rodape{background:var(--preto);color:#9A9A9A;text-align:center;padding:22px 20px;
+  font-size:13px;margin-top:30px}
+.erro{background:#FFECEC;border:1px solid var(--vermelho);color:#8B0000;
+  border-radius:8px;padding:12px 14px;margin:10px auto 0;max-width:520px;
+  text-align:center;font-size:15px}
+.erro[hidden]{display:none}
+</style>
+</head>
+<body>
+
+<div class="tarja">ÚLTIMA PÁGINA · NÃO SE REPETE</div>
+
+<div class="wrap">
+
+  <div class="confirmado">
+    <p class="eyebrow">PAGAMENTO CONFIRMADO</p>
+    <h2>Pronto. O acesso ao Active Campaign é seu.</h2>
+    <p>Os dados de acesso estão indo para o seu e-mail agora. Antes de você ir lá —
+    trinta segundos.</p>
+  </div>
+
+  <section>
+    <h1>Você acabou de comprar o gabarito.<br>Falta a única coisa que ninguém compra: fazer.</h1>
+    <p><strong>Implementação assistida ao vivo</strong> — para você não sair da minha conta
+    com printscreen e boa intenção, e sim com a estrutura rodando na sua.</p>
+  </section>
+
+  <section>
+    <h2>Deixa eu adivinhar o que vai acontecer</h2>
+    <p>Você entra na conta. Abre as automações. Acha tudo muito claro.</p>
+    <p>Fecha a aba.</p>
+    <p>E aí a semana acontece.</p>
+    <p>Eu vejo isso todo mês. Não é preguiça — é que “copiar uma estrutura inteira” nunca
+    é a tarefa mais urgente de uma terça-feira.</p>
+    <p>O que resolve não é mais material.</p>
+    <p><strong>É prazo, e alguém junto.</strong></p>
+  </section>
+
+  <section>
+    <div class="oferta">
+      <h2>Implementação assistida ao vivo</h2>
+      <ul>
+        <li>Uma sessão ao vivo, em grupo, com a <strong>sua</strong> conta aberta na tela —
+        você monta enquanto eu monto junto.</li>
+        <li>Você sai da sessão com os fluxos principais <strong>rodando na sua conta</strong>,
+        não anotados num caderno.</li>
+        <li>Os pontos onde todo mundo trava — gatilho duplicado, contato preso em dois
+        fluxos, tag que não dispara — resolvidos na hora, com você olhando.</li>
+        <li>Gravação da sessão, para você refazer qualquer passo depois no seu ritmo.</li>
+      </ul>
+      <p>Você sai daqui com a estrutura montada, não com a intenção de montar.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>O que está na mesa</h2>
+    <table class="valor">
+      <tr>
+        <td>A sessão ao vivo, com a sua conta na tela e os fluxos sendo montados junto</td>
+        <td>principal</td>
+      </tr>
+      <tr>
+        <td>Gravação da sessão, sua para sempre</td>
+        <td>incluso</td>
+      </tr>
+      <tr>
+        <td>Os travamentos clássicos resolvidos na hora, na sua conta</td>
+        <td>incluso</td>
+      </tr>
+      <tr>
+        <td>Nesta página, pagamento único</td>
+        <td>R$297</td>
+      </tr>
+    </table>
+    <p>Lembrando o que essa mesma estrutura custa contratada comigo:
+    <strong>R$15.000</strong>, mais comissão sobre as vendas.</p>
+  </section>
+
+  <section>
+    <div class="preco">
+      <p class="de">De <s>R$597</s> por</p>
+      <p class="num">R$297</p>
+      <p class="cond">pagamento único · vaga liberada na hora</p>
+    </div>
+    <button class="btn" data-cta type="button">QUERO MONTAR AO VIVO COM VOCÊ →</button>
+    <p class="btn-nota">pagamento único · 7 dias de garantia</p>
+    <div class="erro" id="erro" hidden></div>
+  </section>
+
+  <section>
+    <h2>O que você deve estar pensando</h2>
+
+    <div class="obj">
+      <h3>“Eu já gastei R$114 hoje.”</h3>
+      <p>Gastou. E é exatamente por isso que eu estou te oferecendo isto agora, e não
+      daqui a três meses num anúncio.</p>
+      <p>Você está com a conta aberta e o assunto na cabeça. Daqui a três meses você vai
+      estar com outro problema, e essa estrutura vai continuar sem sair do lugar.</p>
+    </div>
+
+    <div class="obj">
+      <h3>“Eu consigo fazer sozinho.”</h3>
+      <p>Consegue. Você tem o acesso, tem os e-mails e tem a lógica na tela.</p>
+      <p>A pergunta não é se você consegue. É quando.</p>
+      <p>Se a resposta for “esta semana, com certeza”, ignora esta página e vai fazer.
+      Sério.</p>
+    </div>
+
+    <div class="obj">
+      <h3>“E se eu travar no meio?”</h3>
+      <p>É para isso que serve. A sessão é ao vivo — você levanta a mão, mostra a tela, e
+      a gente destrava ali mesmo, antes de você sair.</p>
+    </div>
+
+    <div class="obj">
+      <h3>“Isso é obrigatório para usar o acesso que eu já comprei?”</h3>
+      <p>Não. Zero. O que você comprou já está liberado e não depende disso.</p>
+      <p>Isto aqui é atalho, não pedágio.</p>
+    </div>
+
+    <div class="obj">
+      <h3>“E se não for para mim?”</h3>
+      <p>7 dias de garantia, igual a tudo que eu vendo. Você avisa, eu devolvo, seguimos
+      amigos.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="garantia">
+      <h2>A mesma garantia de sempre</h2>
+      <p>7 dias. Não gostou, me avisa, devolvo integral.</p>
+    </div>
+  </section>
+
+  <section>
+    <button class="btn" data-cta type="button">SIM, QUERO A SESSÃO AO VIVO →</button>
+    <p class="btn-nota">R$297 · pagamento único · 7 dias de garantia</p>
+    <a class="recusa" href="obrigado.html">Não, obrigado. Quero ir para os meus acessos →</a>
+  </section>
+
+</div>
+
+<div class="rodape">GUILHERME LASCHUK © 2026 — Todos os direitos reservados.</div>
+
+<script>
+(function(){
+  'use strict';
+  var erro = document.getElementById('erro');
+
+  function mostrarErro(msg){
+    erro.textContent = msg; erro.hidden = false;
+    erro.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-cta]'), function(b){
+    b.addEventListener('click', async function(){
+      var t = b.textContent;
+      b.disabled = true; b.textContent = 'abrindo o checkout...';
+      try {
+        var r = await fetch('/kit-51-emails/api/oto-checkout', {
+          method:'POST', credentials:'include',
+          headers:{'content-type':'application/json'}, body:'{}'
+        });
+        var d = await r.json();
+        if (r.status === 401) {
+          mostrarErro('Sua sessão expirou. Confirme seu e-mail de novo para continuar.');
+          setTimeout(function(){ location.href = 'obrigado.html'; }, 2200);
+          return;
+        }
+        if (d && d.ok && d.url) { location.href = d.url; return; }
+        mostrarErro('Não consegui abrir o checkout agora. Tenta de novo em alguns segundos.');
+      } catch (e) {
+        mostrarErro('Falha de conexão. Verifica sua internet e tenta de novo.');
+      }
+      b.disabled = false; b.textContent = t;
+    });
+  });
+})();
+</script>
+</body>
+</html>
