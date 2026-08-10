@@ -950,9 +950,8 @@ const CONFIG = {
   // 3. Minutos do contador do topo
   timerMinutes: 15,
 
-  // 4. Pixels (deixe '' para não carregar)
-  metaPixelId: '',
-  ga4Id: ''
+  // 4. Pixel da Meta e GA4 nao ficam mais aqui: sao disparados pelo container
+  //    GTM-PM2H5BRC. Esta pagina so empurra evento no dataLayer.
 };
 
 /* ═══ datas da barra de urgência ═══ */
@@ -1059,35 +1058,21 @@ const CONFIG = {
   });
 })();
 
-/* ═══ tracking ═══ */
+/* ═══ tracking ═══
+   Pixel da Meta e GA4 sao disparados PELO GTM, nao daqui. Esta pagina so
+   empurra o evento no dataLayer; quem decide o que fazer com ele e o container
+   GTM-PM2H5BRC. Carregar o fbevents.js aqui de novo dispararia PageView em
+   duplicado com a tag do GTM. */
 function track(evento, dados){
-  try { if (window.fbq) fbq('track', evento, dados || {}); } catch(e){}
-  try { if (window.gtag) gtag('event', evento, dados || {}); } catch(e){}
+  try {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(Object.assign({event: evento}, dados || {}));
+  } catch(e){}
 }
 
 document.querySelectorAll('[data-cta]').forEach(el => {
   el.addEventListener('click', () => track('InitiateCheckout', {cta: el.dataset.cta}));
 });
-
-/* ═══ pixels (só carregam se o ID estiver preenchido) ═══ */
-(function(){
-  if (CONFIG.metaPixelId) {
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
-    (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', CONFIG.metaPixelId); fbq('track', 'PageView');
-  }
-  if (CONFIG.ga4Id) {
-    const s = document.createElement('script'); s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + CONFIG.ga4Id;
-    document.head.appendChild(s);
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function(){dataLayer.push(arguments)};
-    gtag('js', new Date()); gtag('config', CONFIG.ga4Id);
-  }
-})();
 </script>
 </body>
 </html>

@@ -1,0 +1,59 @@
+name: Deploy do Worker
+
+# As paginas (HTML, CSS, assets) sao publicadas pelo proprio GitHub Pages a cada
+# push na main — isso ja funciona sozinho e nao precisa de workflow.
+#
+# O que NAO era automatico era o Cloudflare Worker: ele so ia pro ar quando
+# alguem rodava `wrangler deploy` na propria maquina. Este workflow fecha esse
+# buraco, para que uma alteracao no proxy, nas rotas de API ou no gate de acesso
+# suba junto com o resto.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'cloudflare-worker/**'
+      - '.github/workflows/deploy-worker.yml'
+  # Permite disparar na mao pela aba Actions, sem precisar de commit.
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Falha cedo e com mensagem clara. Sem isso, o wrangler erra com
+      # "Authentication error [code: 10000]", que nao diz o que fazer.
+      - name: Conferir se o token existe
+        run: |
+          if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ]; then
+            echo "::error::Falta o secret CLOUDFLARE_API_TOKEN no repositorio."
+            echo "Settings -> Secrets and variables -> Actions -> New repository secret"
+            exit 1
+          fi
+
+      - name: Deploy
+        working-directory: cloudflare-worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx --yes wrangler@4 deploy
+
+      - name: Conferir que o funil respondeu
+        run: |
+          # O deploy leva alguns segundos para propagar em todos os edges.
+          for i in $(seq 1 12); do
+            ok=1
+            for p in "" /obrigado.html /upsell.html /oto.html /diagnostico.html; do
+              c=$(curl -s -o /dev/null -w '%{http_code}' "https://www.blackbird.ac/kit-51-emails$p")
+              [ "$c" = "200" ] || ok=0
+            done
+            [ "$ok" = "1" ] && echo "Funil no ar, 5 paginas respondendo 200." && exit 0
+            sleep 10
+          done
+          echo "::error::Alguma pagina do funil nao voltou 200 depois do deploy."
+          exit 1

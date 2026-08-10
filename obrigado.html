@@ -293,42 +293,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 /* ═══ CONFIGURAÇÃO ═══ */
 const CONFIG = {
   valorProduto: 17.00,
-  moeda: 'BRL',
-  metaPixelId: '',   // mesmo ID da index.html
-  ga4Id: ''          // mesmo ID da index.html
+  moeda: 'BRL'
 };
 
 document.getElementById('ano').textContent = new Date().getFullYear();
 
-/* ═══ pixels + evento de compra ═══ */
+/* ═══ evento de compra ═══
+   Pixel da Meta e GA4 sao disparados PELO GTM. Esta pagina so anuncia a compra
+   no dataLayer — o container GTM-PM2H5BRC escuta o evento "purchase" e dispara
+   as tags. Carregar o fbevents.js aqui tambem faria PageView e Purchase saírem
+   duplicados. */
 (function(){
-  if (CONFIG.metaPixelId) {
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
-    (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', CONFIG.metaPixelId);
-    fbq('track', 'PageView');
-    fbq('track', 'Purchase', {value: CONFIG.valorProduto, currency: CONFIG.moeda,
-      content_name: 'Kit Definitivo do Email Marketing'});
-  }
-  if (CONFIG.ga4Id) {
-    const s = document.createElement('script'); s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + CONFIG.ga4Id;
-    document.head.appendChild(s);
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function(){dataLayer.push(arguments)};
-    gtag('js', new Date());
-    gtag('config', CONFIG.ga4Id);
-    gtag('event', 'purchase', {value: CONFIG.valorProduto, currency: CONFIG.moeda});
-  }
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'purchase',
+    value: CONFIG.valorProduto,
+    currency: CONFIG.moeda,
+    content_name: 'Kit Definitivo do Email Marketing'
+  });
 })();
 
 document.querySelectorAll('[data-cta]').forEach(el => {
   el.addEventListener('click', () => {
-    try { if (window.fbq) fbq('trackCustom', 'CTA_Obrigado', {cta: el.dataset.cta}); } catch(e){}
-    try { if (window.gtag) gtag('event', 'cta_obrigado', {cta: el.dataset.cta}); } catch(e){}
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({event: 'cta_obrigado', cta: el.dataset.cta});
+    } catch(e){}
   });
 });
 

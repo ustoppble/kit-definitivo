@@ -139,17 +139,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </script>
 
 <script>
-// Rastreamento dos CTAs. O GTM e a unica tag que dispara de fato hoje — o
-// metaPixelId e o ga4Id estao vazios nas paginas existentes, entao fbq e gtag
-// ficam protegidos por guarda e passam a valer sozinhos no dia que forem
-// preenchidos, sem precisar mexer aqui de novo.
+// Rastreamento dos CTAs. O evento vai so pro dataLayer — quem dispara Pixel da
+// Meta e GA4 e o container GTM-PM2H5BRC. Nenhuma tag e carregada por esta
+// pagina, pra nao correr risco de evento duplicado.
 (function(){
   document.querySelectorAll('[data-cta]').forEach(function(el){
     el.addEventListener('click', function(){
       var nome = el.dataset.cta || 'sem-nome';
       try { (window.dataLayer = window.dataLayer || []).push({event: 'cta_diagnostico', cta: nome}); } catch(e){}
-      try { if (window.fbq) fbq('trackCustom', 'CTA_Diagnostico', {cta: nome}); } catch(e){}
-      try { if (window.gtag) gtag('event', 'cta_diagnostico', {cta: nome}); } catch(e){}
     });
   });
 })();
