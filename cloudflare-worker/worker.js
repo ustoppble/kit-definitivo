@@ -32,9 +32,9 @@
  *   secret  SESSAO_HMAC            chave que assina o cookie de sessao
  *   secret  AC_ACCOUNT             subdominio da conta ActiveCampaign
  *   secret  AC_API_KEY             token da API do ActiveCampaign
- *   secret  DISCORD_BOT_TOKEN      bot ZERO
- *   secret  DISCORD_ADMIN_USER_ID  destino da DM
- *   secret  DISCORD_CANAL_FALLBACK canal usado se a DM for recusada
+ *   secret  DISCORD_BOT_TOKEN      bot Maverick
+ *   secret  DISCORD_ADMIN_USER_ID  so para mencionar no canal (@voce)
+ *   secret  DISCORD_CANAL_ALERTAS  canal privado que recebe TODOS os alertas
  *   secret  CHECKOUT_UPSELL_URL    checkout Eduzz de R$97
  *   secret  CHECKOUT_OTO_URL       checkout Eduzz da OTO
  *   secret  EDUZZ_PRODUTO_UPSELL   identificador do produto upsell na Eduzz
@@ -115,6 +115,7 @@ async function rotaApi(resto, request, env, ctx) {
   }
 
   switch (resto) {
+    case '/api/visita': return registrarVisita(request, env, ctx);
     case '/api/lead': return novoLead(request, env, ctx);
     case '/api/verificar-acesso': return verificarAcesso(request, env);
     case '/api/upsell-checkout': return upsellCheckout(request, env, ctx);
@@ -293,37 +294,31 @@ async function acContato(env, email, nome, telefone, tagId) {
 
 // ── Discord ─────────────────────────────────────────────────────────────────
 
+// Destino unico: o canal privado configurado em DISCORD_CANAL_ALERTAS.
+//
+// A versao anterior tentava DM primeiro e so caia pro canal se a DM falhasse.
+// Isso espalhava alerta em dois lugares dependendo da configuracao de
+// privacidade do Discord — exatamente o que nao se quer. Agora e um destino so,
+// explicito: se o canal nao estiver configurado, nao manda nada, em vez de
+// procurar outro lugar para entregar.
 async function notificar(env, texto) {
-  if (!env.DISCORD_BOT_TOKEN) return;
-  const cab = {
-    Authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
-    'Content-Type': 'application/json',
-  };
+  if (!env.DISCORD_BOT_TOKEN || !env.DISCORD_CANAL_ALERTAS) return;
 
-  // Caminho preferido: DM. So funciona se o admin permitir mensagem direta de
-  // membros do servidor — se estiver desligado o Discord responde 50278 e a
-  // notificacao cai para o canal, com mencao, para nao se perder.
-  if (env.DISCORD_ADMIN_USER_ID) {
-    try {
-      const c = await fetch('https://discord.com/api/v10/users/@me/channels', {
-        method: 'POST', headers: cab,
-        body: JSON.stringify({ recipient_id: env.DISCORD_ADMIN_USER_ID }),
-      });
-      const canal = (await c.json())?.id;
-      if (canal) {
-        const m = await fetch(`https://discord.com/api/v10/channels/${canal}/messages`, {
-          method: 'POST', headers: cab, body: JSON.stringify({ content: texto }),
-        });
-        if (m.ok) return;
-      }
-    } catch { /* cai pro canal abaixo */ }
-  }
-
-  if (!env.DISCORD_CANAL_FALLBACK) return;
-  const mencao = env.DISCORD_ADMIN_USER_ID ? `<@${env.DISCORD_ADMIN_USER_ID}> ` : '';
-  await fetch(`https://discord.com/api/v10/channels/${env.DISCORD_CANAL_FALLBACK}/messages`, {
-    method: 'POST', headers: cab, body: JSON.stringify({ content: mencao + texto }),
-  });
+  // Sem mencao: o canal e privado e dedicado a isso, entao quem precisa ver ja
+  // esta nele. allowed_mentions vazio garante que nenhum texto vindo de fora
+  // (nome digitado no formulario, por exemplo) consiga pingar ninguem.
+  const r = await fetch(
+    `https://discord.com/api/v10/channels/${env.DISCORD_CANAL_ALERTAS}/messages`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ content: texto, allowed_mentions: { parse: [] } }),
+    }
+  );
+  if (!r.ok) throw new Error(`discord ${r.status}`);
 }
 
 // Tag e aviso sao acessorios: a venda nao pode cair porque o AC ou o Discord
@@ -341,6 +336,52 @@ function emSegundoPlano(ctx, env, email, tagId, texto) {
 }
 
 // ── Rotas ───────────────────────────────────────────────────────────────────
+
+// Nomes amigaveis das paginas, para o alerta nao dizer "/oto.html".
+const PAGINAS = {
+  '/': 'pagina de vendas (Kit R$17)',
+  '/index.html': 'pagina de vendas (Kit R$17)',
+  '/obrigado.html': 'obrigado (pos-compra do Kit)',
+  '/upsell.html': 'upsell (AC By Laschuk R$97)',
+  '/oto.html': 'OTO (implementacao ao vivo R$297)',
+  '/diagnostico.html': 'diagnostico (downsell)',
+};
+
+// Visita de pagina. Um aviso por visitante por pagina a cada 6h — sem isso, uma
+// landing com trafego de anuncio entope o canal em minutos e o Discord comeca a
+// limitar o bot, fazendo a gente perder os avisos que importam (venda).
+async function registrarVisita(request, env, ctx) {
+  const origin = request.headers.get('origin') || '';
+  if (origin && !ORIGENS_PERMITIDAS.has(origin)) {
+    return json(request, { ok: false }, 403);
+  }
+
+  let body = {};
+  try { body = await request.json(); } catch { /* segue com pagina desconhecida */ }
+
+  const caminho = String(body.pagina || '').slice(0, 60);
+  const nome = PAGINAS[caminho] || caminho || 'pagina desconhecida';
+
+  // Identidade aproximada do visitante: IP + navegador. Nao da para contar
+  // pessoa de verdade sem cookie, e cookie aqui seria consentimento a pedir por
+  // uma metrica que serve so para avisar. Aproximado resolve.
+  const ip = request.headers.get('cf-connecting-ip') || '';
+  const ua = request.headers.get('user-agent') || '';
+  const bruto = new TextEncoder().encode(`${ip}|${ua}|${caminho}`);
+  const digest = await crypto.subtle.digest('SHA-256', bruto);
+  const chave = `visita:${b64url(digest).slice(0, 24)}`;
+
+  if (!(await env.COMPRADORES.get(chave))) {
+    await env.COMPRADORES.put(chave, '1', { expirationTtl: 6 * 3600 });
+    const pais = request.cf?.country ? ` · ${request.cf.country}` : '';
+    ctx.waitUntil(
+      notificar(env, `👀 **[KIT51] visita** — ${nome}${pais}`)
+        .catch((e) => console.log('[visita] discord falhou:', String(e)))
+    );
+  }
+
+  return json(request, { ok: true }, 200);
+}
 
 // Cadastro na pagina de conversao — dispara antes de o visitante ir pro
 // checkout, entao e o unico ponto em que a gente fica sabendo de quem nao
@@ -506,6 +547,8 @@ async function webhookEduzz(request, env, ctx) {
     // os identificadores da Eduzz nao estiverem configurados, o pior caso e o
     // comprador do Kit nao ganhar a sandbox — nunca o contrario.
     await env.COMPRADORES.put(email, '1');
+    emSegundoPlano(ctx, env, email, null,
+      `💰 **[KIT51] COMPROU o Kit** (R$17)\n\`${email}\``);
   }
 
   return new Response('OK', { status: 200 });

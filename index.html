@@ -1071,5 +1071,19 @@ document.querySelectorAll('[data-cta]').forEach(el => {
   el.addEventListener('click', () => track('InitiateCheckout', {cta: el.dataset.cta}));
 });
 </script>
+<script>
+/* Avisa o funil que esta pagina foi aberta. Quem deduplica e o Worker (um aviso
+   por visitante por pagina a cada 6h), entao aqui pode disparar sempre. */
+(function(){
+  try {
+    fetch('/kit-51-emails/api/visita', {
+      method: 'POST',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify({pagina: location.pathname.replace('/kit-51-emails','') || '/'}),
+      keepalive: true
+    }).catch(function(){});
+  } catch(e){}
+})();
+</script>
 </body>
 </html>
