@@ -2,6 +2,13 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PM2H5BRC');</script>
+<!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Diagnóstico gratuito de e-mail marketing — Blackbird</title>
 <meta name="robots" content="noindex,nofollow">
@@ -55,13 +62,6 @@ p{margin:0 0 14px}
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PM2H5BRC"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PM2H5BRC');</script>
-<!-- End Google Tag Manager -->
 
 
 <div class="marca">BLACKBIRD · E-MAIL MARKETING</div>
@@ -90,7 +90,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </ul>
   </div>
 
-  <button class="btn" id="agendar" type="button">AGENDAR MEU DIAGNÓSTICO GRATUITO →</button>
+  <button class="btn" id="agendar" data-cta="agendar-diagnostico" type="button">AGENDAR MEU DIAGNÓSTICO GRATUITO →</button>
   <p class="btn-nota">30 minutos · por vídeo · sem custo</p>
   <div class="erro" id="erro" hidden></div>
   <p class="btn-nota" style="margin-top:12px">Você escolhe o horário na próxima tela. Se
@@ -134,6 +134,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     } catch (e) {
       location.href = TIDYCAL;
     }
+  });
+})();
+</script>
+
+<script>
+// Rastreamento dos CTAs. O GTM e a unica tag que dispara de fato hoje — o
+// metaPixelId e o ga4Id estao vazios nas paginas existentes, entao fbq e gtag
+// ficam protegidos por guarda e passam a valer sozinhos no dia que forem
+// preenchidos, sem precisar mexer aqui de novo.
+(function(){
+  document.querySelectorAll('[data-cta]').forEach(function(el){
+    el.addEventListener('click', function(){
+      var nome = el.dataset.cta || 'sem-nome';
+      try { (window.dataLayer = window.dataLayer || []).push({event: 'cta_diagnostico', cta: nome}); } catch(e){}
+      try { if (window.fbq) fbq('trackCustom', 'CTA_Diagnostico', {cta: nome}); } catch(e){}
+      try { if (window.gtag) gtag('event', 'cta_diagnostico', {cta: nome}); } catch(e){}
+    });
   });
 })();
 </script>

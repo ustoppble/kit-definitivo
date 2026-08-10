@@ -2,6 +2,13 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PM2H5BRC');</script>
+<!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Implementação assistida ao vivo — última oferta</title>
 <meta name="robots" content="noindex,nofollow">
@@ -73,13 +80,6 @@ li{margin:0 0 10px}
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PM2H5BRC"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PM2H5BRC');</script>
-<!-- End Google Tag Manager -->
 
 
 <div class="tarja">ÚLTIMA PÁGINA · NÃO SE REPETE</div>
@@ -156,7 +156,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <p class="num">R$297</p>
       <p class="cond">pagamento único · vaga liberada na hora</p>
     </div>
-    <button class="btn" data-cta type="button">QUERO MONTAR AO VIVO COM VOCÊ →</button>
+    <button class="btn" data-cta="cta_oto-principal" type="button">QUERO MONTAR AO VIVO COM VOCÊ →</button>
     <p class="btn-nota">pagamento único · 7 dias de garantia</p>
     <div class="erro" id="erro" hidden></div>
   </section>
@@ -207,7 +207,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </section>
 
   <section>
-    <button class="btn" data-cta type="button">SIM, QUERO A SESSÃO AO VIVO →</button>
+    <button class="btn" data-cta="cta_oto-principal" type="button">SIM, QUERO A SESSÃO AO VIVO →</button>
     <p class="btn-nota">R$297 · pagamento único · 7 dias de garantia</p>
     <a class="recusa" href="obrigado.html">Não, obrigado. Quero ir para os meus acessos →</a>
   </section>
@@ -247,6 +247,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         mostrarErro('Falha de conexão. Verifica sua internet e tenta de novo.');
       }
       b.disabled = false; b.textContent = t;
+    });
+  });
+})();
+</script>
+
+<script>
+// Rastreamento dos CTAs. O GTM e a unica tag que dispara de fato hoje — o
+// metaPixelId e o ga4Id estao vazios nas paginas existentes, entao fbq e gtag
+// ficam protegidos por guarda e passam a valer sozinhos no dia que forem
+// preenchidos, sem precisar mexer aqui de novo.
+(function(){
+  document.querySelectorAll('[data-cta]').forEach(function(el){
+    el.addEventListener('click', function(){
+      var nome = el.dataset.cta || 'sem-nome';
+      try { (window.dataLayer = window.dataLayer || []).push({event: 'cta_oto', cta: nome}); } catch(e){}
+      try { if (window.fbq) fbq('trackCustom', 'CTA_OTO', {cta: nome}); } catch(e){}
+      try { if (window.gtag) gtag('event', 'cta_oto', {cta: nome}); } catch(e){}
     });
   });
 })();

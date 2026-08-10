@@ -2,6 +2,13 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PM2H5BRC');</script>
+<!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Active Campaign By Laschuk — oferta única por R$97</title>
 <meta name="robots" content="noindex,nofollow">
@@ -115,13 +122,6 @@ li{margin:0 0 9px}
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PM2H5BRC"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PM2H5BRC');</script>
-<!-- End Google Tag Manager -->
 
 
 <div class="tarja">
@@ -256,7 +256,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <p class="num">R$97</p>
       <p class="cond">pagamento único · 7 dias de garantia</p>
     </div>
-    <button class="btn" data-cta type="button">QUERO O ACTIVE CAMPAIGN POR R$97 →</button>
+    <button class="btn" data-cta="cta_upsell-principal" type="button">QUERO O ACTIVE CAMPAIGN POR R$97 →</button>
     <p class="btn-nota">acesso liberado logo após a confirmação do pagamento</p>
     <p class="btn-nota">Pagamento único. Cartão, Pix ou boleto, pela Eduzz. Check-out seguro.</p>
     <div class="erro" id="erro" hidden></div>
@@ -333,7 +333,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       com as decisões tomadas. Tutorial é aula. Isso aqui é gabarito.</p>
     </div>
 
-    <button class="btn" data-cta type="button">SIM, ME DÁ O ACESSO →</button>
+    <button class="btn" data-cta="cta_upsell-principal" type="button">SIM, ME DÁ O ACESSO →</button>
     <p class="btn-nota">R$97 · pagamento único · 7 dias de garantia</p>
   </section>
 
@@ -368,10 +368,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </ul>
     <p>De <s>R$497</s> por <strong>R$97</strong>. Pagamento único.</p>
 
-    <button class="btn" data-cta type="button">SIM, QUERO ENTRAR NO ACTIVE CAMPAIGN →</button>
+    <button class="btn" data-cta="cta_upsell-principal" type="button">SIM, QUERO ENTRAR NO ACTIVE CAMPAIGN →</button>
     <p class="btn-nota">R$97 · pagamento único · 7 dias de garantia</p>
 
-    <button class="recusa" id="recusa" type="button">Não, obrigado. Meu problema agora não é a estrutura →</button>
+    <button class="recusa" id="recusa" data-cta="recusou-upsell" type="button">Não, obrigado. Meu problema agora não é a estrutura →</button>
     <a class="pular" id="pular" href="obrigado.html">Só quero baixar o Kit que eu já comprei →</a>
   </section>
 
@@ -455,6 +455,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     var pular = document.getElementById('pular');
     if (kit && pular) pular.href = kit;
   } catch (e) {}
+})();
+</script>
+
+<script>
+// Rastreamento dos CTAs. O GTM e a unica tag que dispara de fato hoje — o
+// metaPixelId e o ga4Id estao vazios nas paginas existentes, entao fbq e gtag
+// ficam protegidos por guarda e passam a valer sozinhos no dia que forem
+// preenchidos, sem precisar mexer aqui de novo.
+(function(){
+  document.querySelectorAll('[data-cta]').forEach(function(el){
+    el.addEventListener('click', function(){
+      var nome = el.dataset.cta || 'sem-nome';
+      try { (window.dataLayer = window.dataLayer || []).push({event: 'cta_upsell', cta: nome}); } catch(e){}
+      try { if (window.fbq) fbq('trackCustom', 'CTA_Upsell', {cta: nome}); } catch(e){}
+      try { if (window.gtag) gtag('event', 'cta_upsell', {cta: nome}); } catch(e){}
+    });
+  });
 })();
 </script>
 </body>
