@@ -1,5 +1,9 @@
 # Proxy `www.blackbird.ac/kit-51-emails`
 
+> **Atenção:** este README descreve só o proxy original. O funil completo
+> (upsell, OTO, downsell, tags no ActiveCampaign, alertas no Discord e o
+> cron do TidyCal) está documentado no `README.md` da raiz do repositório.
+
 O site do Kit fica hospedado no GitHub Pages, mas é servido sob o domínio
 principal do Blackbird. Este diretório tem o Worker que faz a ponte.
 
@@ -26,7 +30,7 @@ visitante  ->  Cloudflare  ->  rota bate /kit-51-emails*?
                   Worker                  Webflow
                      |                  (site normal)
                      v
-   sue-blackbird.github.io/kit-definitivo/...
+   ustoppble.github.io/kit-definitivo/...
 ```
 
 Um detalhe que importa: o Webflow responde **301 de `www.blackbird.ac` para
@@ -52,7 +56,7 @@ Hoje está — resolve pros IPs da Cloudflare (`104.21.6.25`, `172.67.154.151`).
 ## O que NÃO fazer
 
 - **Não** preencher *Custom domain* em Settings → Pages do repositório. O Pages
-  precisa continuar respondendo em `sue-blackbird.github.io`, que é o origin do
+  precisa continuar respondendo em `ustoppble.github.io`, que é o origin do
   Worker. Preencher ali quebra o proxy.
 - **Não** commitar arquivo `CNAME` no repositório, pelo mesmo motivo.
 
