@@ -195,6 +195,17 @@ async function servirEstatico(resto, url, request) {
   headers.delete('content-encoding');
   headers.delete('etag');
 
+  // O GitHub Pages manda max-age=14400 (4h) e isso vale tambem para o HTML.
+  // Numa pagina de venda o efeito e caro: alterar preco, cupom ou copy e
+  // publicar nao muda nada para quem ja abriu o site — o navegador dele segura
+  // a versao velha por quatro horas, mesmo depois de a borda atualizar. Ja
+  // aconteceu com um 404 que ficou preso depois de uma publicacao.
+  //
+  // Um minuto e o suficiente para a pagina continuar rapida e para uma correcao
+  // urgente chegar rapido. Assets (imagem, video, fonte) nao passam por aqui:
+  // a resposta nao-HTML sai antes deste ponto, com o cache longo da origem.
+  headers.set('cache-control', 'public, max-age=60, must-revalidate');
+
   // O HTML usa caminhos relativos (assets/foo.png, obrigado.html). Sem barra
   // final na URL o navegador resolveria para /assets/foo.png e cairia no
   // Webflow. Reescrever para absoluto resolve isso sem redirect, e mantem as
