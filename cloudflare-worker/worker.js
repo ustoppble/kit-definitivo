@@ -13,10 +13,16 @@
  *
  * ── O funil ──
  *   index.html      Kit 51 e-mails, R$17
- *   obrigado.html   destrava o Kit com o e-mail da compra
- *   upsell.html     Active Campaign By Laschuk, R$97 (de R$497)
- *   oto.html        one time offer, so para quem comprou o upsell
- *   diagnostico.html  downsell: quem recusa o upsell cai aqui
+ *   oto.html        Active Campaign By Laschuk, R$97 (de R$497)
+ *   diagnostico.html  quem COMPROU o AC: destrava o Kit e agenda o diagnostico
+ *   obrigado.html   quem RECUSOU: destrava o Kit e agenda o diagnostico
+ *
+ * As duas ultimas fazem a mesma coisa e terminam no mesmo lugar (TidyCal). Sao
+ * duas paginas porque a copy muda: quem comprou tem Kit + AC e precisa ativar
+ * os dois; quem recusou tem so o Kit e precisa saber por onde comecar.
+ *
+ * "upsell" nao aparece em nome de arquivo de proposito: o nome fica visivel na
+ * barra de enderecos do comprador.
  *
  * ── Por que existe gate de acesso ──
  * O repo e as paginas sao publicos. Sem gate, qualquer um abriria obrigado.html
@@ -28,7 +34,10 @@
  *   KV      COMPRADORES
  *   secret  EDUZZ_WEBHOOK_SECRET   token na URL do webhook
  *   secret  LINK_DE_ACESSO         link real do Kit
- *   secret  SANDBOX_ACESSO         credencial da conta AC sandbox
+ *   secret  SANDBOX_ACESSO         o que o comprador do upsell recebe: o link de
+ *                                  compartilhamento que instala as automacoes na
+ *                                  conta dele. (O nome do secret e historico — a
+ *                                  entrega deixou de ser acesso a uma sandbox.)
  *   secret  SESSAO_HMAC            chave que assina o cookie de sessao
  *   secret  AC_ACCOUNT             subdominio da conta ActiveCampaign
  *   secret  AC_API_KEY             token da API do ActiveCampaign
@@ -36,9 +45,7 @@
  *   secret  DISCORD_ADMIN_USER_ID  so para mencionar no canal (@voce)
  *   secret  DISCORD_CANAL_ALERTAS  canal privado que recebe TODOS os alertas
  *   secret  CHECKOUT_UPSELL_URL    checkout Eduzz de R$97
- *   secret  CHECKOUT_OTO_URL       checkout Eduzz da OTO
  *   secret  EDUZZ_PRODUTO_UPSELL   identificador do produto upsell na Eduzz
- *   secret  EDUZZ_PRODUTO_OTO      identificador do produto OTO na Eduzz
  */
 
 const ORIGIN = 'https://ustoppble.github.io';
@@ -54,6 +61,21 @@ const ABSOLUTO = /^(https?:)?\/\/|^[a-z][a-z0-9+.-]*:|^#|^\//i;
 // nada a proteger, e deixar no codigo evita um secret a mais para gerenciar.
 const TIDYCAL_URL = 'https://tidycal.com/team/blackbird/email-scan-diagnostico';
 
+// Checkout do upsell (Active Campaign By Laschuk). Mesma logica do TIDYCAL_URL:
+// link de checkout e publico por natureza — qualquer comprador ve a URL na barra
+// de enderecos —, entao guardar em secret so criava mais um item pendente pra
+// pagina entrar no ar. O secret CHECKOUT_UPSELL_URL continua valendo como
+// override, caso o link mude sem deploy.
+//
+// O ?cupom=OTO NAO e opcional: o preco cadastrado do produto e R$497 e o cupom
+// e o que leva a R$97, que e o valor anunciado na oto.html. Sem ele o comprador
+// e cobrado cinco vezes o prometido.
+//
+// urlCheckoutUpsell() acrescenta nome/e-mail/telefone a esta base. Testado no
+// checkout do Kit: cupom + dados do comprador funciona; o que quebra e somar
+// skip=1 a isso — ver o comentario em irParaCheckout, no index.html.
+const CHECKOUT_UPSELL = 'https://chk.eduzz.com/8017V3XQ07?cupom=OTO';
+
 const ORIGENS_PERMITIDAS = new Set([
   'https://www.blackbird.ac',
   'https://blackbird.ac',
@@ -68,7 +90,6 @@ const TAGS = {
   checkout: 1152,
   recusouUpsell: 1153,
   compraAprovada: 1154,
-  otoAprovada: 1155,
   agendouDiagnostico: 1156,
 };
 
@@ -130,7 +151,6 @@ async function rotaApi(resto, request, env, ctx) {
     case '/api/lead': return novoLead(request, env, ctx);
     case '/api/verificar-acesso': return verificarAcesso(request, env);
     case '/api/upsell-checkout': return upsellCheckout(request, env, ctx);
-    case '/api/oto-checkout': return otoCheckout(request, env, ctx);
     case '/api/recusar-upsell': return recusarUpsell(request, env, ctx);
     case '/api/sandbox': return liberarSandbox(request, env);
     case '/api/agendar-diagnostico': return agendarDiagnostico(request, env, ctx);
@@ -208,7 +228,7 @@ async function servirEstatico(resto, url, request) {
 
 // ── Sessao ──────────────────────────────────────────────────────────────────
 //
-// upsell.html precisa saber QUEM esta na pagina para taguear no AC. Passar o
+// oto.html precisa saber QUEM esta na pagina para taguear no AC. Passar o
 // e-mail em query string criaria um link compartilhavel que qualquer um usaria
 // para se taguear como comprador, e vazaria o e-mail no Referer e nos logs.
 // Em vez disso, verificar-acesso assina um cookie HttpOnly. Stateless: a
@@ -352,10 +372,9 @@ function emSegundoPlano(ctx, env, email, tagId, texto) {
 const PAGINAS = {
   '/': 'pagina de vendas (Kit R$17)',
   '/index.html': 'pagina de vendas (Kit R$17)',
-  '/obrigado.html': 'obrigado (pos-compra do Kit)',
-  '/upsell.html': 'upsell (AC By Laschuk R$97)',
-  '/oto.html': 'OTO (implementacao ao vivo R$297)',
-  '/diagnostico.html': 'diagnostico (downsell)',
+  '/oto.html': 'oferta do AC By Laschuk (R$97)',
+  '/diagnostico.html': 'entrega — comprou o AC',
+  '/obrigado.html': 'entrega — recusou o AC',
 };
 
 // Visita de pagina. Um aviso por visitante por pagina a cada 6h — sem isso, uma
@@ -423,6 +442,15 @@ async function novoLead(request, env, ctx) {
   const repetido = Boolean(await env.COMPRADORES.get(`lead:${email}`));
   if (!repetido) await env.COMPRADORES.put(`lead:${email}`, '1', { expirationTtl: 86400 });
 
+  // Guardado so pra pre-preencher o checkout do upsell mais tarde: la o Worker
+  // conhece o comprador pela sessao assinada, que carrega apenas o e-mail.
+  // TTL de 30 dias porque quem paga o Kit no boleto pode levar dias pra chegar
+  // na oferta — depois disso o dado se apaga sozinho.
+  if (nome || telefone) {
+    await env.COMPRADORES.put(`dados:${email}`, JSON.stringify({ nome, telefone }),
+      { expirationTtl: 60 * 60 * 24 * 30 });
+  }
+
   ctx.waitUntil((async () => {
     const tarefas = [acContato(env, email, nome, telefone, TAGS.novoLead)];
     if (!repetido) {
@@ -458,7 +486,7 @@ async function verificarAcesso(request, env) {
   return json(request, {
     ok: true,
     kit_url: env.LINK_DE_ACESSO,
-    upsell_url: jaComprouUpsell ? null : `${PUBLICO}/upsell.html`,
+    upsell_url: jaComprouUpsell ? null : `${PUBLICO}/oto.html`,
   }, 200, extra);
 }
 
@@ -469,17 +497,38 @@ async function upsellCheckout(request, env, ctx) {
   emSegundoPlano(ctx, env, email, TAGS.checkout,
     `🟡 **[KIT51] checkout do upsell** (R$97)\n\`${email}\``);
 
-  return json(request, { ok: true, url: env.CHECKOUT_UPSELL_URL || '' }, 200);
+  return json(request, { ok: true, url: await urlCheckoutUpsell(email, env) }, 200);
 }
 
-async function otoCheckout(request, env, ctx) {
-  const email = await lerSessao(request, env);
-  if (!email) return json(request, { ok: false, erro: 'sessao_invalida' }, 401);
+// Leva nome, e-mail e telefone pro checkout do upsell, pra pessoa nao redigitar
+// o que ja preencheu na landing. Os dados vem do KV, gravados em /api/lead.
+//
+// NUNCA acrescentar skip=1 aqui. Com dados do comprador na URL, ele faz a Eduzz
+// recusar o cupom — e sem cupom o produto volta a custar R$497. O caso esta
+// documentado em irParaCheckout, no index.html.
+async function urlCheckoutUpsell(email, env) {
+  const base = env.CHECKOUT_UPSELL_URL || CHECKOUT_UPSELL;
+  try {
+    const u = new URL(base);
+    u.searchParams.set('email', email);
 
-  emSegundoPlano(ctx, env, email, null,
-    `🟠 **[KIT51] checkout da OTO** (R$297)\n\`${email}\``);
-
-  return json(request, { ok: true, url: env.CHECKOUT_OTO_URL || '' }, 200);
+    const bruto = await env.COMPRADORES.get(`dados:${email}`);
+    if (bruto) {
+      const d = JSON.parse(bruto);
+      if (d.nome) u.searchParams.set('nome', d.nome);
+      // Mesma normalizacao do index.html: a Eduzz espera DDD + numero, sem o
+      // codigo do pais.
+      const digitos = String(d.telefone || '').replace(/\D/g, '');
+      const cel = digitos.length > 11 ? digitos.slice(-11) : digitos;
+      if (cel) u.searchParams.set('cel', cel);
+    }
+    return u.toString();
+  } catch (e) {
+    // Preenchimento e conveniencia; cobrar nao e. Qualquer falha aqui devolve o
+    // link base, que ja tem o cupom e vende do mesmo jeito.
+    console.log('[upsell] pre-preenchimento falhou:', String(e));
+    return base;
+  }
 }
 
 async function recusarUpsell(request, env, ctx) {
@@ -487,9 +536,11 @@ async function recusarUpsell(request, env, ctx) {
   if (!email) return json(request, { ok: false, erro: 'sessao_invalida' }, 401);
 
   emSegundoPlano(ctx, env, email, TAGS.recusouUpsell,
-    `⚪ **[KIT51] recusou o upsell** — foi pro diagnostico\n\`${email}\``);
+    `⚪ **[KIT51] recusou a oferta do AC** — foi pra entrega\n\`${email}\``);
 
-  return json(request, { ok: true, url: `${PUBLICO}/diagnostico.html` }, 200);
+  // Quem recusa vai pra obrigado.html. Quem compra vai pra diagnostico.html, e
+  // quem manda pra la e o redirect da Eduzz, nao o Worker.
+  return json(request, { ok: true, url: `${PUBLICO}/obrigado.html` }, 200);
 }
 
 async function agendarDiagnostico(request, env, ctx) {
@@ -555,10 +606,6 @@ async function webhookEduzz(request, env, ctx) {
     await env.COMPRADORES.put(`sandbox:${email}`, '1');
     emSegundoPlano(ctx, env, email, TAGS.compraAprovada,
       `🟢 **[KIT51] COMPROU o upsell** (R$97) — sandbox liberada\n\`${email}\``);
-  } else if (produto === 'oto') {
-    await env.COMPRADORES.put(`oto:${email}`, '1');
-    emSegundoPlano(ctx, env, email, TAGS.otoAprovada,
-      `🟢 **[KIT51] COMPROU a OTO**\n\`${email}\``);
   } else {
     // Produto desconhecido cai aqui e libera SO o Kit. E de proposito: enquanto
     // os identificadores da Eduzz nao estiverem configurados, o pior caso e o
@@ -591,8 +638,8 @@ function classificarEvento(body) {
   return 'ignora';
 }
 
-// Com tres produtos na mesma conta Eduzz, o webhook precisa distinguir qual
-// foi comprado — senao a compra do Kit de R$17 liberaria a sandbox de R$97.
+// Com dois produtos na mesma conta Eduzz, o webhook precisa distinguir qual foi
+// comprado — senao a compra do Kit de R$17 liberaria a entrega do AC de R$97.
 function qualProduto(body, env) {
   const texto = [
     body?.product_cod, body?.product_id, body?.product_name,
@@ -603,7 +650,6 @@ function qualProduto(body, env) {
     .map((s) => s.trim()).filter(Boolean).some((s) => texto.includes(s));
 
   if (bate(env.EDUZZ_PRODUTO_UPSELL)) return 'upsell';
-  if (bate(env.EDUZZ_PRODUTO_OTO)) return 'oto';
   return 'kit';
 }
 

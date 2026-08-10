@@ -1,5 +1,14 @@
 # Upsell "Active Campaign By Laschuk" — design
 
+> **Registro histórico.** Este spec descreve o funil como foi desenhado em
+> 07/08/2026: cinco páginas, `upsell.html` + OTO de R$297, entrega por conta
+> sandbox. Nada disso vale mais — em 10/08/2026 a OTO foi eliminada, a página
+> virou `oto.html` e a entrega passou a instalar as automações na conta do
+> comprador. Mantido porque explica decisões de arquitetura que continuam de pé
+> (cookie de sessão assinado, gate de acesso, rotas do Worker).
+>
+> **Fonte da verdade hoje: o `README.md` da raiz.**
+
 Data: 2026-08-07
 Status: aprovado no brainstorming, aguardando revisão do spec
 

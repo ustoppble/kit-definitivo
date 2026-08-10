@@ -34,46 +34,61 @@ Russell Brunson. Isso quer dizer, concretamente:
 - Frases curtas. Parágrafo de uma linha. Muito espaço em branco.
 - CTA repetido ao longo da página, não só no fim
 
-## O funil (5 páginas)
+## O funil (4 páginas)
 
-### 1. `index.html` — página de conversão (JÁ EXISTE, NÃO REESCREVER)
+Atualizado em 10/08/2026. A estrutura mudou: a OTO de R$297 foi eliminada (era
+premissa de copy que nunca foi confirmada) e sobrou **uma única oferta**
+pós-compra. Nenhum arquivo do funil se chama "upsell": o nome aparece na barra
+de endereços do comprador, e jargão de funil ali só serve para ele estranhar.
+
+```
+index → checkout R$17 → oto ─┬─ comprou → diagnostico
+                             └─ recusou → obrigado
+```
+
+### 1. `index.html` — página de vendas do Kit (JÁ EXISTE, NÃO REESCREVER)
 Kit Definitivo do Email Marketing, R$17, 51 e-mails prontos. Só leia para
 manter voz e continuidade.
 
-### 2. `upsell.html` — R$97 (de R$497)
-Produto: **Active Campaign By Laschuk**. O comprador ganha acesso a uma conta
-ActiveCampaign sandbox onde ele VÊ e COPIA as automações, campanhas e
-estratégias que o Laschuk usa.
+### 2. `oto.html` — R$97 (de R$497)
+Produto: **Active Campaign By Laschuk**.
+
+**A entrega é a estrutura pronta na conta do comprador.** As automações são
+instaladas na conta ActiveCampaign dele por um link de compartilhamento —
+montadas e conectadas. O que sobra para ele é ajustar o que é seu: as tags, os
+dados da oferta e do comprador.
+
+CUIDADO — o eixo da copy é **estado, não processo**. Escreva "as automações
+estão prontas na sua conta". Não escreva "você entra, olha e refaz", que era a
+premissa antiga e é falsa; nem "as automações entram/são instaladas", que é
+mecanismo — explicar mecanismo confunde o lead e atrasa a venda.
+
+Ter conta ActiveCampaign é pré-requisito de fato. Por decisão de negócio, isso
+**não** aparece na página; está nos Termos de Uso.
 
 Âncora: implementação avulsa custa R$15.000.
 
-CUIDADO — não prometa provisionamento automático, clone de 1 clique, nem
-portal que instala na conta do comprador. A entrega é acesso a uma conta
-sandbox para ver e copiar manualmente. Escrever mais que isso vira reembolso.
-
-A página tem um vídeo (VSL) no topo, com autoplay. Sua copy vem abaixo dele e
+A página tem um vídeo (VSL) no topo, com autoplay mudo e botão de ativar som.
+Logo abaixo do vídeo vêm os dois botões de decisão. Sua copy vem depois deles e
 tem que funcionar para quem NÃO assistiu.
 
-Precisa de: headline, subheadline, história, empilhamento de valor, 5 a 7
-objeções respondidas, garantia, CTA principal e CTAs repetidos, e o texto do
-link de recusa (ver página 4).
+Precisa de: headline, subheadline, história, empilhamento de valor, objeções
+respondidas, CTA principal e CTAs repetidos, e o texto do link de recusa.
 
-### 3. `oto.html` — one time offer agressiva, DEPOIS da compra do upsell
-Só vê quem comprou o upsell de R$97. Oferta única, agressiva, aparece uma vez
-só. Preço e produto: escreva com `[DEFINIR PREÇO]` e `[DEFINIR PRODUTO]` —
-proponha 2 ou 3 opções de oferta que façam sentido como próximo degrau depois
-do Kit (R$17) e do AC sandbox (R$97), e justifique cada uma em uma linha.
+### 3. `diagnostico.html` — entrega para quem COMPROU o AC
+Tom: parabéns, você tem as duas peças — o Kit (o que escrever) e o Active
+Campaign (quando e para quem sai) — e agora é ativar. Oferta: agendar o
+diagnóstico gratuito (TidyCal). A página também destrava o Kit e o AC.
 
-### 4. `diagnostico.html` — downsell, para quem RECUSOU o upsell
-Quem clicar em "não quero" no upsell cai aqui. Oferta: agendar um diagnóstico
-de e-mail marketing com o time (é gratuito, agendamento por TidyCal).
+### 4. `obrigado.html` — entrega para quem RECUSOU
+Tom: o Kit é seu, e agora, por onde começar? Mesma oferta de diagnóstico, outro
+ângulo. A página também destrava o Kit.
 
-O tom aqui NÃO é de consolo nem de insistência no upsell recusado. É uma porta
-diferente: "beleza, não é a hora de copiar a estrutura — então deixa a gente
-olhar a SUA operação". Copy curta, uma tela, CTA único de agendar.
-
-### 5. `obrigado.html` — pós-compra do Kit (JÁ EXISTE)
-Só leia, para manter voz.
+As duas terminam no mesmo lugar. São duas páginas porque a copy muda conforme o
+que a pessoa comprou. Em ambas, o bloco do diagnóstico é curto, abre com "se
+você pular uma coisa hoje, que não seja esta" e o CTA nomeia o que a pessoa
+quer, não a tarefa — "QUERO SABER POR ONDE COMEÇAR", nunca "AGENDAR
+DIAGNÓSTICO".
 
 ## Regras duras
 
@@ -83,8 +98,10 @@ Só leia, para manter voz.
 
 ## Entrega
 
-Crie `docs/copy/upsell.md`, `docs/copy/oto.md`, `docs/copy/diagnostico.md`.
-Cada um com as seções nomeadas na ordem em que aparecem na página.
+Um arquivo por página em `docs/copy/`, com as seções nomeadas na ordem em que
+aparecem na página.
 
-Leia antes: `docs/superpowers/specs/2026-08-07-upsell-activecampaign-design.md`
-e `index.html` / `obrigado.html` (voz).
+Leia antes: o `README.md` da raiz (é a fonte da verdade sobre o funil) e o
+`index.html` (voz). Os arquivos em `docs/copy/` e o spec em `docs/superpowers/`
+são registro histórico e descrevem a estrutura anterior — não siga a premissa
+de entrega deles.

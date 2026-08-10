@@ -1,5 +1,11 @@
 # Copy — `diagnostico.html`
 
+> **Estado:** escrito em 07/08/2026, quando `diagnostico.html` era o downsell de
+> quem RECUSAVA a oferta. Em 10/08/2026 os papéis foram trocados: hoje ela é a
+> entrega de quem **comprou** o Active Campaign, e quem recusa vai para
+> `obrigado.html`. A copy abaixo não corresponde mais à página. Fonte da
+> verdade: o `README.md` da raiz e o próprio HTML.
+
 **Quem vê:** quem clicou em "não quero" no upsell de R$97.
 **Oferta:** diagnóstico de e-mail marketing com o time. Gratuito, 30 minutos, por vídeo.
 **Agendamento:** TidyCal — `https://tidycal.com/team/blackbird/email-scan-diagnostico`

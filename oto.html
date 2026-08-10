@@ -10,67 +10,115 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-PM2H5BRC');</script>
 <!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Implementação assistida ao vivo — última oferta</title>
+<title>Active Campaign By Laschuk — oferta única por R$97</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,600&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --azul:#234A95; --vermelho:#FE0000; --bege:#F8F3EF; --branco:#FFFFFF;
-  --preto:#0D0D0F; --verde:#00A82E; --lavanda:#D0D2DF; --amarelo:#F2F07F;
-  --texto:#2B2B2B; --texto-suave:#4A4A4A; --borda:#E2DAD3; --wrap:720px;
+  --azul:#234A95; --azul-btn:#2D589D; --azul-btn-hover:#1E427F;
+  --vermelho:#FE0000; --bege:#F8F3EF; --branco:#FFFFFF; --preto:#0D0D0F;
+  --verde:#00A82E; --lavanda:#D0D2DF; --laranja:#F8B89C; --amarelo:#F2F07F;
+  --texto:#2B2B2B; --texto-suave:#4A4A4A; --borda:#E2DAD3; --wrap:760px;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bege);color:var(--texto);
   font-family:Barlow,system-ui,sans-serif;font-size:17px;line-height:1.6}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
-h1,h2,h3{font-family:Roboto,sans-serif;line-height:1.16;color:var(--preto)}
-h1{font-size:clamp(26px,5vw,40px);font-weight:900;margin:0 0 14px}
-h2{font-size:clamp(21px,3.8vw,29px);font-weight:900;margin:0 0 12px}
-h3{font-size:19px;font-weight:700;margin:0 0 8px}
+h1,h2,h3{font-family:Roboto,system-ui,sans-serif;line-height:1.15;color:var(--preto)}
+h1{font-size:clamp(28px,5.2vw,44px);font-weight:900;margin:0 0 16px}
+h2{font-size:clamp(23px,4vw,32px);font-weight:900;margin:0 0 14px}
+h3{font-size:20px;font-weight:700;margin:0 0 8px}
 p{margin:0 0 14px}
-section{padding:34px 0;border-top:1px solid var(--borda)}
+strong{color:var(--preto)}
+section{padding:38px 0;border-top:1px solid var(--borda)}
 section:first-of-type{border-top:0}
-.tarja{background:var(--preto);color:#fff;text-align:center;padding:11px 16px;
-  font-weight:800;font-size:13px;letter-spacing:1.6px;position:sticky;top:0;z-index:50}
-.confirmado{background:#E8F7EC;border:1px solid var(--verde);border-radius:12px;
-  padding:20px 22px 8px;margin:26px 0 0}
-.eyebrow{font-weight:800;font-size:12.5px;letter-spacing:1.6px;color:var(--verde);
-  margin:0 0 6px}
-.oferta{background:var(--branco);border:1px solid var(--borda);border-radius:12px;
-  padding:22px 24px 10px}
+
+/* tarja de urgencia */
+.tarja{background:var(--vermelho);color:#fff;text-align:center;padding:11px 16px;
+  font-weight:800;font-size:15px;letter-spacing:.3px;position:sticky;top:0;z-index:50}
+.tarja small{display:block;font-weight:500;font-size:13px;opacity:.92;letter-spacing:0}
+
+/* video */
+.vsl{padding-top:26px}
+.eyebrow{text-align:center;font-weight:800;font-size:13px;letter-spacing:1.4px;
+  color:var(--vermelho);margin:0 0 8px}
+.vsl-linha{text-align:center;font-weight:600;margin:0 0 14px;color:var(--texto-suave)}
+.player{position:relative;border-radius:12px;overflow:hidden;background:#000;
+  box-shadow:0 10px 34px rgba(13,13,15,.22)}
+.player video{display:block;width:100%;height:auto}
+.som{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;
+  background:rgba(13,13,15,.42);border:0;cursor:pointer;color:#fff;
+  font-family:Barlow,sans-serif;font-size:17px;font-weight:700;gap:10px}
+.som span{background:var(--vermelho);padding:13px 22px;border-radius:999px;
+  box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.som[hidden]{display:none}
+/* Pausar sem trazer de volta a barra de controles nativa: um botao pequeno no
+   canto, acima do overlay de som pra continuar clicavel enquanto ele existe. */
+.ctrl{position:absolute;left:12px;bottom:12px;z-index:2;width:40px;height:40px;
+  border-radius:50%;border:0;padding:0;cursor:pointer;color:#fff;
+  background:rgba(13,13,15,.55);display:grid;place-items:center;
+  transition:background .15s,transform .08s}
+.ctrl:hover{background:rgba(13,13,15,.82)}
+.ctrl:active{transform:scale(.94)}
+.ctrl svg{width:16px;height:16px;fill:currentColor;pointer-events:none}
+@media (max-width:560px){ .ctrl{width:36px;height:36px;left:10px;bottom:10px} }
+.vsl-legenda{text-align:center;font-size:14px;color:var(--texto-suave);margin:10px 0 0}
+
+/* blocos */
+.e-sim{background:#fff;border-left:4px solid var(--verde);padding:16px 18px 4px;
+  border-radius:0 8px 8px 0}
 ul{margin:0 0 14px;padding-left:20px}
-li{margin:0 0 10px}
-.valor{width:100%;border-collapse:collapse;margin:0 0 16px;background:#fff}
+li{margin:0 0 9px}
+
+/* valor */
+.valor{width:100%;border-collapse:collapse;margin:0 0 18px;background:#fff}
 .valor td{border:1px solid var(--borda);padding:12px 14px;vertical-align:top}
 .valor td:last-child{text-align:right;white-space:nowrap;font-weight:700;width:1%}
+/* O nowrap acima serve pro numero nao quebrar no meio ("R$ / 15.000"). Frase
+   dentro da celula precisa voltar a quebrar, senao vira uma linha inquebravel
+   que empurra a tabela e estoura a pagina na horizontal no celular. */
+.valor td:last-child small{display:block;white-space:normal;font-weight:400;
+  color:var(--texto-suave);line-height:1.35;margin-top:3px}
 .valor tr:last-child td{background:var(--amarelo);font-weight:800}
-.preco{text-align:center;background:var(--azul);color:#fff;border-radius:14px;padding:28px 22px}
-.preco .de{font-size:17px;opacity:.85;margin:0 0 4px}
-.preco .num{font-family:Roboto,sans-serif;font-size:clamp(48px,11vw,70px);font-weight:900;
+
+/* preco */
+.preco{text-align:center;background:var(--azul);color:#fff;border-radius:14px;padding:30px 22px}
+.preco .de{font-size:17px;opacity:.85;margin:0 0 2px}
+.preco .de s{opacity:.75}
+.preco .hoje{font-size:15px;opacity:.9;margin:0 0 6px}
+.preco .num{font-family:Roboto,sans-serif;font-size:clamp(52px,12vw,78px);font-weight:900;
   line-height:1;margin:0 0 4px;color:var(--amarelo)}
 .preco .cond{font-size:15px;opacity:.9;margin:0}
+
+/* CTA */
 .btn{display:block;width:100%;max-width:520px;margin:22px auto 8px;padding:19px 22px;
   background:var(--verde);color:#fff;border:0;border-radius:10px;cursor:pointer;
-  font-family:Roboto,sans-serif;font-size:clamp(16px,3.3vw,20px);font-weight:900;
-  text-align:center;text-decoration:none;box-shadow:0 6px 0 #00871f;
-  transition:transform .06s,box-shadow .06s}
+  font-family:Roboto,sans-serif;font-size:clamp(17px,3.4vw,21px);font-weight:900;
+  text-align:center;text-wrap:balance;text-decoration:none;letter-spacing:.2px;
+  box-shadow:0 6px 0 #00871f;transition:transform .06s,box-shadow .06s}
 .btn:active{transform:translateY(3px);box-shadow:0 3px 0 #00871f}
 .btn[disabled]{opacity:.65;cursor:wait}
 .btn-nota{text-align:center;font-size:14px;color:var(--texto-suave);margin:0 0 4px}
+.recusa{display:block;text-align:center;margin:26px auto 0;color:var(--texto-suave);
+  font-size:15.5px;text-decoration:underline;background:0;border:0;cursor:pointer;
+  font-family:Barlow,sans-serif}
+.pular{display:block;text-align:center;margin:14px auto 0;color:#8A8A8A;font-size:13.5px}
+
+/* objecoes */
 .obj{background:#fff;border:1px solid var(--borda);border-radius:10px;
-  padding:17px 20px 5px;margin:0 0 12px}
+  padding:18px 20px 6px;margin:0 0 12px}
 .obj h3{color:var(--azul)}
-.garantia{background:var(--branco);border:2px dashed var(--verde);border-radius:12px;
-  padding:20px 22px 8px;text-align:center}
-.recusa{display:block;text-align:center;margin:24px auto 0;color:var(--texto-suave);
-  font-size:15.5px;text-decoration:underline}
-.rodape{background:var(--preto);color:#9A9A9A;text-align:center;padding:22px 20px;
-  font-size:13px;margin-top:30px}
+
+.autor{background:var(--lavanda);border-radius:12px;padding:22px 22px 8px}
+.rodape{background:var(--preto);color:#9A9A9A;text-align:center;padding:24px 20px;
+  font-size:13px;margin-top:34px}
+.rodape a{display:block;margin-top:6px;font-size:12px;color:#7E7E86;text-decoration:none}
+.rodape a:hover{color:#B7B7BC;text-decoration:underline}
 .erro{background:#FFECEC;border:1px solid var(--vermelho);color:#8B0000;
-  border-radius:8px;padding:12px 14px;margin:10px auto 0;max-width:520px;
+  border-radius:8px;padding:12px 14px;margin:12px auto 0;max-width:520px;
   text-align:center;font-size:15px}
 .erro[hidden]{display:none}
 .identidade{max-width:520px;margin:16px auto 0;background:#fff;border:2px solid var(--azul);
@@ -90,84 +138,148 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 
-<div class="tarja">ÚLTIMA PÁGINA · NÃO SE REPETE</div>
+<div class="tarja">
+  ESPERA — NÃO FECHE ESTA PÁGINA
+  <small>Sua compra do Kit já está confirmada. Esta oferta aparece uma única vez.</small>
+</div>
 
 <div class="wrap">
 
-  <div class="confirmado">
-    <p class="eyebrow">PAGAMENTO CONFIRMADO</p>
-    <h2>Pronto. O acesso ao Active Campaign é seu.</h2>
-    <p>Os dados de acesso estão indo para o seu e-mail agora. Antes de você ir lá —
-    trinta segundos.</p>
-  </div>
-
-  <section>
-    <h1>Você acabou de comprar o gabarito.<br>Falta a única coisa que ninguém compra: fazer.</h1>
-    <p><strong>Implementação assistida ao vivo</strong> — para você não sair da minha conta
-    com printscreen e boa intenção, e sim com a estrutura rodando na sua.</p>
-  </section>
-
-  <section>
-    <h2>Deixa eu adivinhar o que vai acontecer</h2>
-    <p>Você entra na conta. Abre as automações. Acha tudo muito claro.</p>
-    <p>Fecha a aba.</p>
-    <p>E aí a semana acontece.</p>
-    <p>Eu vejo isso todo mês. Não é preguiça — é que “copiar uma estrutura inteira” nunca
-    é a tarefa mais urgente de uma terça-feira.</p>
-    <p>O que resolve não é mais material.</p>
-    <p><strong>É prazo, e alguém junto.</strong></p>
-  </section>
-
-  <section>
-    <div class="oferta">
-      <h2>Implementação assistida ao vivo</h2>
-      <ul>
-        <li>Uma sessão ao vivo, em grupo, com a <strong>sua</strong> conta aberta na tela —
-        você monta enquanto eu monto junto.</li>
-        <li>Você sai da sessão com os fluxos principais <strong>rodando na sua conta</strong>,
-        não anotados num caderno.</li>
-        <li>Os pontos onde todo mundo trava — gatilho duplicado, contato preso em dois
-        fluxos, tag que não dispara — resolvidos na hora, com você olhando.</li>
-        <li>Gravação da sessão, para você refazer qualquer passo depois no seu ritmo.</li>
-      </ul>
-      <p>Você sai daqui com a estrutura montada, não com a intenção de montar.</p>
+  <section class="vsl">
+    <p class="eyebrow">OFERTA ÚNICA · SÓ NESTA PÁGINA</p>
+    <p class="vsl-linha">Aperta o play. São 90 segundos.</p>
+    <div class="player">
+      <video id="vsl" src="assets/vsl.mp4" poster="assets/vsl-poster.jpg"
+             muted autoplay loop playsinline preload="metadata"></video>
+      <button class="som" id="som" type="button" aria-label="Ativar o som do vídeo">
+        <span>🔊 clique para ativar o som</span>
+      </button>
+      <button class="ctrl" id="ctrl" type="button" aria-label="Pausar o vídeo">
+        <svg id="ctrl-ico" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="6" y="4" width="4.4" height="16" rx="1.2"/>
+          <rect x="13.6" y="4" width="4.4" height="16" rx="1.2"/>
+        </svg>
+      </button>
     </div>
+    <p class="vsl-legenda">Sem som? Está tudo escrito aqui embaixo.</p>
+
+    <!-- Decisao logo apos o video: quem ja entendeu no video nao precisa rolar a
+         pagina inteira pra decidir. O texto abaixo existe pra quem esta sem som
+         ou quer ler antes. -->
+    <button class="btn" data-cta="cta_upsell-topo" type="button">CONTINUAR →</button>
+    <button class="recusa" data-cta="recusou-upsell" data-acao="recusar" type="button">Não, obrigado. Meu problema agora não é a estrutura →</button>
+  </section>
+
+  <section>
+    <h1>O Kit te deu os e-mails.<br>Agora eu te dou a estrutura onde eles rodam.</h1>
+    <p>Por R$97, as automações que eu uso para vender por e-mail ficam <strong>prontas dentro
+    da sua conta do ActiveCampaign</strong>. Montadas, conectadas e funcionando — do jeito que
+    rodam aqui.</p>
+  </section>
+
+  <section>
+    <h2>Por que essa página existe</h2>
+    <p>Nos últimos dois anos eu fiquei 100% focado em uma coisa só: vender por e-mail
+    marketing para os meus clientes.</p>
+    <p>Nesses dois anos, mais de <strong>R$20 milhões vendidos por e-mail</strong>.</p>
+    <p>Foi nessa mesma conta que eu estruturei o ActiveCampaign do lançamento do
+    <strong>Thiago Finch</strong>.</p>
+    <p>E é nessa mesma conta que estão as contas de e-commerce que passaram de
+    <strong>R$10 milhões vendidos por e-mail</strong>.</p>
+    <p>Quando um cliente me procura para montar isso na conta dele, o preço é
+    <strong>R$15.000</strong> pela implementação — mais comissão sobre as vendas.</p>
+    <p>Não é caro porque eu escrevo bonito.</p>
+    <p>É caro porque montar a estrutura é a parte lenta. O texto do e-mail você resolve
+    em uma tarde. O que demora é decidir o que dispara o quê, quem entra em qual fluxo,
+    quem sai, quem é marcado com o quê, e em que ordem tudo isso acontece.</p>
+    <p>Você acabou de comprar 51 e-mails prontos.</p>
+    <p>Ótimo. Você resolveu <strong>o que escrever</strong>.</p>
+    <p>O que ficou de fora é <strong>onde isso vive</strong>.</p>
+    <p>E é exatamente isso que eu estou entregando pronto aqui.</p>
+  </section>
+
+  <section>
+    <h2>O que é o Active Campaign By Laschuk</h2>
+    <p>Vou ser bem literal, para não ter mal-entendido depois.</p>
+    <p>As automações que eu uso ficam <strong>prontas na sua conta do ActiveCampaign</strong> —
+    montadas, conectadas e no lugar. Não é material para você estudar e construir depois: é a
+    estrutura já construída, dentro da sua conta.</p>
+
+    <div class="e-sim">
+      <h3>O que muda no seu dia</h3>
+      <p>Você abre a sua conta e os fluxos já estão lá. O que sobra para você é o que é seu:
+      as tags com os seus nomes, os dados da sua oferta e do seu comprador.</p>
+      <p>A parte lenta — decidir o que dispara o quê, quem entra em qual fluxo, quem sai e em
+      que ordem — já vem decidida.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>O que fica pronto na sua conta</h2>
+    <ul>
+      <li><strong>As automações</strong>, montadas e conectadas — cada gatilho, cada
+      condição, cada saída.</li>
+      <li><strong>As campanhas de e-mail</strong> dentro delas — o que é enviado, em que
+      ordem, com que intervalo.</li>
+      <li><strong>A estrutura por trás</strong>: como as tags são nomeadas, como a base é
+      segmentada, quem entra e quem sai de cada fluxo.</li>
+      <li><strong>A lógica das decisões</strong> — a parte que ninguém entrega pronta, porque
+      exige ter feito isso vender antes.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>O Kit e a estrutura, juntos</h2>
+    <p>O Kit sem a estrutura é um documento bonito no seu Drive.</p>
+    <p>A estrutura sem o Kit é um monte de fluxo vazio esperando texto.</p>
+    <p>Junto, é uma operação.</p>
+    <p>Você pega o e-mail número 3 da sequência de Carrinho Abandonado e ele já tem lugar: o
+    fluxo existe, o gatilho está montado e o intervalo está definido. Você põe o texto e liga.</p>
   </section>
 
   <section>
     <h2>O que está na mesa</h2>
     <table class="valor">
       <tr>
-        <td>A sessão ao vivo, com a sua conta na tela e os fluxos sendo montados junto</td>
-        <td>principal</td>
+        <td>As automações do Active Campaign By Laschuk prontas na sua conta — montadas e
+        conectadas, do jeito que rodam</td>
+        <td>R$15.000<small>é o que eu cobro para implementar</small></td>
       </tr>
       <tr>
-        <td>Gravação da sessão, sua para sempre</td>
+        <td>As campanhas de e-mail já dentro de cada fluxo</td>
         <td>incluso</td>
       </tr>
       <tr>
-        <td>Os travamentos clássicos resolvidos na hora, na sua conta</td>
+        <td>A estrutura de tags e segmentação — a nomenclatura que sustenta tudo</td>
         <td>incluso</td>
       </tr>
       <tr>
-        <td>Nesta página, pagamento único</td>
-        <td>R$297</td>
+        <td>Tudo isso rodando na sua conta, sem me pagar comissão nenhuma</td>
+        <td>incluso</td>
+      </tr>
+      <tr>
+        <td>Você paga hoje, uma única vez</td>
+        <td>R$97</td>
       </tr>
     </table>
-    <p>Lembrando o que essa mesma estrutura custa contratada comigo:
-    <strong>R$15.000</strong>, mais comissão sobre as vendas.</p>
+    <p>Uma vez. Sem mensalidade. Sem comissão sobre as suas vendas.</p>
   </section>
 
   <section>
     <div class="preco">
-      <p class="de">De <s>R$597</s> por</p>
-      <p class="num">R$297</p>
-      <p class="cond">pagamento único · vaga liberada na hora</p>
+      <p class="de">De <s>R$497</s></p>
+      <p class="hoje">Hoje, nesta página, uma única vez:</p>
+      <p class="num">R$97</p>
+      <p class="cond">pagamento único · 7 dias de garantia</p>
     </div>
-    <button class="btn" data-cta="cta_oto-principal" type="button">QUERO MONTAR AO VIVO COM VOCÊ →</button>
-    <p class="btn-nota">pagamento único · 7 dias de garantia</p>
+    <button class="btn" data-cta="cta_upsell-principal" type="button">QUERO O ACTIVE CAMPAIGN POR R$97 →</button>
+    <p class="btn-nota">acesso liberado logo após a confirmação do pagamento</p>
+    <p class="btn-nota">Pagamento único. Cartão, Pix ou boleto, pela Eduzz. Check-out seguro.</p>
     <div class="erro" id="erro" hidden></div>
 
+    <!-- So aparece se a Eduzz nao mandar o e-mail no redirect. Fica aqui, na
+         propria pagina, em vez de mandar a pessoa para outra tela: quem acabou
+         de pagar nao pode ser desviado no meio da oferta. -->
     <div class="identidade" id="identidade" hidden>
       <p>Confirma o e-mail que você usou na compra para liberar a oferta:</p>
       <input type="email" id="email-compra" placeholder="seu@email.com"
@@ -177,104 +289,193 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </section>
 
   <section>
+    <div class="autor">
+      <h2>Quem está te abrindo a conta</h2>
+      <p><strong>Guilherme Laschuk.</strong></p>
+      <p>Dois anos 100% focado em vender por e-mail marketing para clientes.</p>
+      <p>Mais de R$20 milhões vendidos por e-mail nesse período.</p>
+      <p>Estruturei o ActiveCampaign do lançamento do Thiago Finch.</p>
+      <p>Tenho contas de e-commerce que passaram de R$10 milhões vendidos por e-mail.</p>
+      <p>Cobro R$15.000 para implementar um ActiveCampaign para um cliente, mais comissão
+      sobre as vendas.</p>
+      <p>Hoje, R$97 para essa estrutura ficar pronta na sua conta.</p>
+    </div>
+  </section>
+
+  <section>
     <h2>O que você deve estar pensando</h2>
 
     <div class="obj">
-      <h3>“Eu já gastei R$114 hoje.”</h3>
-      <p>Gastou. E é exatamente por isso que eu estou te oferecendo isto agora, e não
-      daqui a três meses num anúncio.</p>
-      <p>Você está com a conta aberta e o assunto na cabeça. Daqui a três meses você vai
-      estar com outro problema, e essa estrutura vai continuar sem sair do lugar.</p>
+      <h3>“Isso instala tudo na minha conta automaticamente?”</h3>
+      <p>Instala. As automações vão para a sua conta montadas e conectadas — você não
+      reconstrói nada.</p>
+      <p>O que fica com você é o que só você sabe: as tags com os seus nomes, os dados da sua
+      oferta e do seu comprador. O esqueleto já vem pronto.</p>
     </div>
 
     <div class="obj">
-      <h3>“Eu consigo fazer sozinho.”</h3>
-      <p>Consegue. Você tem o acesso, tem os e-mails e tem a lógica na tela.</p>
-      <p>A pergunta não é se você consegue. É quando.</p>
-      <p>Se a resposta for “esta semana, com certeza”, ignora esta página e vai fazer.
-      Sério.</p>
+      <h3>“Eu já tenho minha conta com automações montadas.”</h3>
+      <p>Ótimo — e nada do que você já tem é substituído. O que roda hoje continua rodando
+      exatamente igual.</p>
+      <p>Isso aqui entra somando: os fluxos que você ainda não tem, com as decisões de uma
+      conta que já vendeu R$20 milhões por e-mail, prontos para você ligar quando quiser.</p>
     </div>
 
-    <div class="obj">
-      <h3>“E se eu travar no meio?”</h3>
-      <p>É para isso que serve. A sessão é ao vivo — você levanta a mão, mostra a tela, e
-      a gente destrava ali mesmo, antes de você sair.</p>
-    </div>
-
-    <div class="obj">
-      <h3>“Isso é obrigatório para usar o acesso que eu já comprei?”</h3>
-      <p>Não. Zero. O que você comprou já está liberado e não depende disso.</p>
-      <p>Isto aqui é atalho, não pedágio.</p>
-    </div>
-
-    <div class="obj">
-      <h3>“E se não for para mim?”</h3>
-      <p>7 dias de garantia, igual a tudo que eu vendo. Você avisa, eu devolvo, seguimos
-      amigos.</p>
-    </div>
+    <button class="btn" data-cta="cta_upsell-principal" type="button">SIM, ME DÁ O ACESSO →</button>
+    <p class="btn-nota">R$97 · pagamento único · 7 dias de garantia</p>
   </section>
 
   <section>
-    <div class="garantia">
-      <h2>A mesma garantia de sempre</h2>
-      <p>7 dias. Não gostou, me avisa, devolvo integral.</p>
-    </div>
-  </section>
+    <h2>Recapitulando o que você leva por R$97</h2>
+    <ul>
+      <li>As automações do Active Campaign By Laschuk prontas na sua conta</li>
+      <li>Montadas e conectadas — gatilho, condição, intervalo, saída</li>
+      <li>As campanhas de e-mail dentro de cada fluxo</li>
+      <li>A estrutura de tags e segmentação por trás de tudo</li>
+      <li>7 dias de garantia, dinheiro de volta</li>
+    </ul>
+    <p>De <s>R$497</s> por <strong>R$97</strong>. Pagamento único.</p>
 
-  <section>
-    <button class="btn" data-cta="cta_oto-principal" type="button">SIM, QUERO A SESSÃO AO VIVO →</button>
-    <p class="btn-nota">R$297 · pagamento único · 7 dias de garantia</p>
-    <a class="recusa" href="obrigado.html">Não, obrigado. Quero ir para os meus acessos →</a>
+    <button class="btn" data-cta="cta_upsell-principal" type="button">SIM, QUERO ENTRAR NO ACTIVE CAMPAIGN →</button>
+    <p class="btn-nota">R$97 · pagamento único · 7 dias de garantia</p>
+
+    <button class="recusa" data-cta="recusou-upsell" data-acao="recusar" type="button">Não, obrigado. Meu problema agora não é a estrutura →</button>
+    <a class="pular" id="pular" href="obrigado.html">Só quero baixar o Kit que eu já comprei →</a>
   </section>
 
 </div>
 
-<div class="rodape">GUILHERME LASCHUK © 2026 — Todos os direitos reservados.</div>
+<div class="rodape">
+  GUILHERME LASCHUK © <span id="ano">2026</span> — Todos os direitos reservados.
+  <a href="mailto:help@blackbird.ac">help@blackbird.ac</a>
+</div>
+<script>document.getElementById('ano').textContent = new Date().getFullYear();</script>
 
 <script>
 (function(){
   'use strict';
+  var API = '/kit-51-emails/api';
   var erro = document.getElementById('erro');
 
+  // Autoplay so passa se o video comecar mudo. O overlay existe pra devolver o
+  // som num gesto do usuario, que e o que o navegador exige.
+  var v = document.getElementById('vsl');
+  var som = document.getElementById('som');
+  var ctrl = document.getElementById('ctrl');
+  var ico = document.getElementById('ctrl-ico');
+
+  var PAUSE = '<rect x="6" y="4" width="4.4" height="16" rx="1.2"/>' +
+              '<rect x="13.6" y="4" width="4.4" height="16" rx="1.2"/>';
+  var PLAY  = '<path d="M7 4.5v15a1 1 0 0 0 1.54.84l11.2-7.5a1 1 0 0 0 0-1.68L8.54 3.66A1 1 0 0 0 7 4.5z"/>';
+
+  function pintarBotao(){
+    if (!ctrl || !ico) return;
+    var parado = v.paused;
+    ico.innerHTML = parado ? PLAY : PAUSE;
+    ctrl.setAttribute('aria-label', parado ? 'Reproduzir o vídeo' : 'Pausar o vídeo');
+  }
+
+  if (v && som) {
+    som.addEventListener('click', function(){
+      v.muted = false;
+      v.play().catch(function(){});
+      som.hidden = true;
+    });
+    v.addEventListener('play', function(){ if (!v.muted) som.hidden = true; });
+
+    // O icone acompanha o estado real do player, nao o clique — assim ele fica
+    // certo tambem quando o navegador pausa sozinho (aba em segundo plano).
+    v.addEventListener('play', pintarBotao);
+    v.addEventListener('pause', pintarBotao);
+
+    if (ctrl) ctrl.addEventListener('click', function(){
+      if (v.paused) v.play().catch(function(){}); else v.pause();
+    });
+
+    // Com o overlay fora, clicar no video tambem pausa — e o gesto que todo
+    // mundo tenta primeiro.
+    v.addEventListener('click', function(){
+      if (!som.hidden) return;
+      if (v.paused) v.play().catch(function(){}); else v.pause();
+    });
+
+    // Se o navegador bloquear ate o autoplay mudo, o overlay vira "dar play".
+    var p = v.play();
+    if (p && p.catch) p.catch(function(){
+      som.querySelector('span').textContent = '▶ clique para assistir';
+    });
+    pintarBotao();
+  }
+
   function mostrarErro(msg){
-    erro.textContent = msg; erro.hidden = false;
+    if (!erro) return;
+    erro.textContent = msg;
+    erro.hidden = false;
     erro.scrollIntoView({behavior:'smooth', block:'center'});
   }
 
-  Array.prototype.forEach.call(document.querySelectorAll('[data-cta]'), function(b){
-    b.addEventListener('click', async function(){
+  async function chamar(rota, botao, textoOriginal){
+    try {
+      var r = await fetch(API + rota, {
+        method:'POST',
+        credentials:'include',
+        headers:{'content-type':'application/json'},
+        body:'{}'
+      });
+      var d = await r.json();
+
+      if (r.status === 401) {
+        // Sem sessao: ou a Eduzz nao mandou o e-mail no redirect, ou a pagina
+        // ficou aberta mais de 2h. Resolve aqui mesmo — tirar da pagina quem ja
+        // clicou em comprar e perder a venda.
+        var painel = document.getElementById('identidade');
+        if (painel) {
+          painel.hidden = false;
+          painel.scrollIntoView({behavior:'smooth', block:'center'});
+          var c = document.getElementById('email-compra');
+          if (c) c.focus();
+        }
+        mostrarErro('Confirma o e-mail da compra abaixo para continuar.');
+        if (botao) { botao.disabled = false; botao.textContent = textoOriginal; }
+        return;
+      }
+      if (d && d.ok && d.url) { location.href = d.url; return; }
+      mostrarErro('Não consegui abrir o checkout agora. Tenta de novo em alguns segundos.');
+    } catch (e) {
+      mostrarErro('Falha de conexão. Verifica sua internet e tenta de novo.');
+    }
+    if (botao) { botao.disabled = false; botao.textContent = textoOriginal; }
+  }
+
+  // So os botoes de compra (data-cta="cta_*") abrem o checkout. Os de recusa
+  // tambem tem data-cta — pro rastreio no dataLayer —, e um seletor generico
+  // [data-cta] fazia o mesmo clique disparar /upsell-checkout E /recusar-upsell:
+  // as duas chamadas mexiam em location.href, entao quem clicava em "nao,
+  // obrigado" podia cair no checkout de R$97, marcado no AC com as duas tags.
+  Array.prototype.forEach.call(document.querySelectorAll('[data-cta^="cta_"]'), function(b){
+    b.addEventListener('click', function(){
       var t = b.textContent;
       b.disabled = true; b.textContent = 'abrindo o checkout...';
-      try {
-        var r = await fetch('/kit-51-emails/api/oto-checkout', {
-          method:'POST', credentials:'include',
-          headers:{'content-type':'application/json'}, body:'{}'
-        });
-        var d = await r.json();
-        if (r.status === 401) {
-          var painel = document.getElementById('identidade');
-          if (painel) {
-            painel.hidden = false;
-            painel.scrollIntoView({behavior:'smooth', block:'center'});
-            var c = document.getElementById('email-compra');
-            if (c) c.focus();
-          }
-          mostrarErro('Confirma o e-mail da compra abaixo para continuar.');
-          b.disabled = false; b.textContent = t;
-          return;
-        }
-        if (d && d.ok && d.url) { location.href = d.url; return; }
-        mostrarErro('Não consegui abrir o checkout agora. Tenta de novo em alguns segundos.');
-      } catch (e) {
-        mostrarErro('Falha de conexão. Verifica sua internet e tenta de novo.');
-      }
-      b.disabled = false; b.textContent = t;
+      chamar('/upsell-checkout', b, t);
+    });
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-acao="recusar"]'), function(rec){
+    rec.addEventListener('click', function(){
+      rec.disabled = true;
+      chamar('/recusar-upsell', null, null);
     });
   });
 
   // ── quem esta do outro lado ──
-  // Esta pagina e destino de redirect da Eduzz depois da compra do upsell, entao
-  // a identidade vem do proprio link. Mesma logica da upsell.html.
+  //
+  // Esta pagina e a PRIMEIRA coisa que o comprador ve depois de pagar: a Eduzz
+  // redireciona o checkout direto para ca. Entao a identidade tem que sair do
+  // proprio redirect, sem pedir nada — cada campo a mais aqui derruba a
+  // conversao da oferta.
+  //
+  // O nome do parametro varia conforme a configuracao da Eduzz, por isso a
+  // lista: o primeiro que parecer e-mail vale.
   function emailDaURL(){
     var q = new URLSearchParams(location.search);
     var chaves = ['email','e','cus_email','client_email','customer_email','buyer_email'];
@@ -285,37 +486,59 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     return '';
   }
 
+  // Troca o e-mail por um cookie de sessao assinado. A partir daqui a pagina
+  // nao carrega mais o e-mail em lugar nenhum.
   async function abrirSessao(email){
     try {
-      var r = await fetch('/kit-51-emails/api/verificar-acesso', {
+      var r = await fetch(API + '/verificar-acesso', {
         method:'POST', credentials:'include',
         headers:{'content-type':'application/json'},
         body: JSON.stringify({email: email})
       });
       var d = await r.json();
-      return !!(d && d.ok);
-    } catch (e) { return false; }
+      if (d && d.ok) {
+        if (d.kit_url) {
+          try { sessionStorage.setItem('kit51_kit_url', d.kit_url); } catch(e){}
+          var p = document.getElementById('pular');
+          if (p) p.href = d.kit_url;
+        }
+        return true;
+      }
+    } catch (e) {}
+    return false;
   }
 
-  var okBtn = document.getElementById('confirmar-email');
-  var campo = document.getElementById('email-compra');
+  var painel = document.getElementById('identidade');
+  var campo  = document.getElementById('email-compra');
+  var okBtn  = document.getElementById('confirmar-email');
+
   if (okBtn) okBtn.addEventListener('click', async function(){
     var v = (campo.value || '').trim().toLowerCase();
     if (v.indexOf('@') < 1) { mostrarErro('Digita o e-mail que você usou na compra.'); return; }
     okBtn.disabled = true; okBtn.textContent = 'confirmando...';
     if (await abrirSessao(v)) {
-      document.getElementById('identidade').hidden = true;
-      erro.hidden = true;
+      painel.hidden = true;
+      if (erro) erro.hidden = true;
     } else {
-      mostrarErro('Não encontramos esse e-mail entre as compras confirmadas.');
+      mostrarErro('Não encontramos esse e-mail entre as compras confirmadas. ' +
+                  'Confira o e-mail do checkout ou escreve pra help@blackbird.ac.');
     }
     okBtn.disabled = false; okBtn.textContent = 'CONFIRMAR →';
   });
 
   (async function(){
+    // Link do Kit guardado numa passagem anterior, se houver.
+    try {
+      var kit = sessionStorage.getItem('kit51_kit_url');
+      var pular = document.getElementById('pular');
+      if (kit && pular) pular.href = kit;
+    } catch (e) {}
+
     var email = emailDaURL();
     if (email) {
       await abrirSessao(email);
+      // Tira o e-mail da barra de enderecos: link com e-mail dentro e
+      // compartilhavel e vaza no Referer para todo dominio de terceiro da pagina.
       try { history.replaceState({}, '', location.pathname); } catch (e) {}
     }
   })();
@@ -330,7 +553,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   document.querySelectorAll('[data-cta]').forEach(function(el){
     el.addEventListener('click', function(){
       var nome = el.dataset.cta || 'sem-nome';
-      try { (window.dataLayer = window.dataLayer || []).push({event: 'cta_oto', cta: nome}); } catch(e){}
+      try { (window.dataLayer = window.dataLayer || []).push({event: 'cta_upsell', cta: nome}); } catch(e){}
     });
   });
 })();

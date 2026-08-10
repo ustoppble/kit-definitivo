@@ -1050,7 +1050,11 @@ const CONFIG = {
     const d = soDigitos(tel);
     const cel = d.length > 11 ? d.slice(-11) : d;
     if (cel) u.searchParams.set('cel', cel);
-    u.searchParams.set('skip', '1');
+    // NAO reintroduzir skip=1. Ele pulava a etapa de confirmacao dos dados, mas
+    // combinado com nome/email/cel fazia a Eduzz recusar o cupom ULTIMACHANCE
+    // ("Ha algo errado com o seu cupom") — e sem o cupom o preco vai de R$17
+    // para R$197, que e o preco base do produto. Testado: link puro OK,
+    // cupom+skip OK, cupom+dados OK, cupom+dados+skip QUEBRA.
     window.location.href = u.toString();
   }
 
