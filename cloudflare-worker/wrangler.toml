@@ -9,3 +9,9 @@ zone_name = "blackbird.ac"
 [[kv_namespaces]]
 binding = "COMPRADORES"
 id = "542b0e7612f64a4e8aa23943ac558a11"
+
+# O TidyCal nao tem webhook de agendamento, entao o Worker pergunta de tempos em
+# tempos quem marcou o diagnostico. 5 minutos e o suficiente: o aviso e para
+# acompanhar a agenda, nao para atender em tempo real.
+[triggers]
+crons = ["*/5 * * * *"]

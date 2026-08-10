@@ -82,6 +82,17 @@ const COOKIE = 'kit51_sess';
 const SESSAO_HORAS = 2;
 
 export default {
+  // O TidyCal nao manda webhook de agendamento, entao a unica forma de saber
+  // que alguem marcou o diagnostico e perguntar. O Cron pergunta de 5 em 5
+  // minutos e avisa so o que e novo.
+  //
+  // /api/agendar-diagnostico avisa que a pessoa CLICOU em agendar; isso aqui
+  // avisa que ela realmente marcou. Sao coisas diferentes e as duas importam:
+  // a distancia entre uma e outra e o quanto a agenda esta espantando gente.
+  async scheduled(evento, env, ctx) {
+    ctx.waitUntil(verificarAgendamentos(env));
+  },
+
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
@@ -588,6 +599,89 @@ function qualProduto(body, env) {
   if (bate(env.EDUZZ_PRODUTO_UPSELL)) return 'upsell';
   if (bate(env.EDUZZ_PRODUTO_OTO)) return 'oto';
   return 'kit';
+}
+
+// ── TidyCal ─────────────────────────────────────────────────────────────────
+
+// O TidyCal so expoe a agenda por MCP — a API REST recusa este token. MCP exige
+// duas viagens: initialize devolve o mcp-session-id, e so entao da pra chamar
+// uma ferramenta.
+async function tidycalBookings(env) {
+  const cab = {
+    Authorization: `Bearer ${env.TIDYCAL_TOKEN}`,
+    'content-type': 'application/json',
+    accept: 'application/json, text/event-stream',
+  };
+  const ini = await fetch('https://tidycal.com/mcp', {
+    method: 'POST', headers: cab,
+    body: JSON.stringify({
+      jsonrpc: '2.0', id: 1, method: 'initialize',
+      params: {
+        protocolVersion: '2024-11-05', capabilities: {},
+        clientInfo: { name: 'kit51-worker', version: '1' },
+      },
+    }),
+  });
+  const sessao = ini.headers.get('mcp-session-id');
+  if (!sessao) throw new Error('tidycal sem sessao');
+
+  const r = await fetch('https://tidycal.com/mcp', {
+    method: 'POST', headers: { ...cab, 'mcp-session-id': sessao },
+    body: JSON.stringify({
+      jsonrpc: '2.0', id: 2, method: 'tools/call',
+      params: { name: 'list-bookings', arguments: {} },
+    }),
+  });
+
+  // A resposta vem como SSE: linhas "data: {json}".
+  const bruto = await r.text();
+  for (const linha of bruto.split('\n')) {
+    const corpo = linha.replace(/^data:\s*/, '').trim();
+    if (!corpo.startsWith('{')) continue;
+    const d = JSON.parse(corpo);
+    if (!d.result) continue;
+    const txt = (d.result.content || []).map((c) => c.text || '').join('');
+    const dados = JSON.parse(txt);
+    return Array.isArray(dados) ? dados : (dados.data || dados.bookings || []);
+  }
+  return [];
+}
+
+async function verificarAgendamentos(env) {
+  if (!env.TIDYCAL_TOKEN) return;
+
+  let bookings;
+  try { bookings = await tidycalBookings(env); }
+  catch (e) { console.log('[tidycal] falhou:', String(e)); return; }
+
+  // Primeira execucao: registra tudo que ja existe sem avisar, senao o canal
+  // levaria uma enxurrada com o historico inteiro da agenda.
+  const jaRodou = await env.COMPRADORES.get('tidycal:iniciado');
+
+  for (const b of bookings) {
+    const id = String(b.id || '');
+    if (!id) continue;
+    const chave = `tidycal:${id}`;
+    if (await env.COMPRADORES.get(chave)) continue;
+    await env.COMPRADORES.put(chave, '1');
+    if (!jaRodou) continue;
+
+    const contato = b.contact || {};
+    const quando = String(b.starts_at || '').replace('T', ' ').slice(0, 16);
+    await notificar(env,
+      `📅 **[KIT51] AGENDOU o diagnostico**\n` +
+      `\`${contato.email || 'sem e-mail'}\`` +
+      (contato.name ? `\nnome: ${contato.name}` : '') +
+      (quando ? `\nquando: ${quando} UTC` : '')
+    ).catch((e) => console.log('[tidycal] discord falhou:', String(e)));
+
+    if (contato.email) {
+      await acTaguear(env, String(contato.email).toLowerCase(), TAGS.agendouDiagnostico)
+        .catch((e) => console.log('[tidycal] ac falhou:', String(e)));
+    }
+  }
+
+  if (!jaRodou) await env.COMPRADORES.put('tidycal:iniciado', '1');
 }
 
 // ── CORS ────────────────────────────────────────────────────────────────────
