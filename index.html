@@ -1010,26 +1010,23 @@ const CONFIG = {
     window.location.href = u.toString();
   }
 
+  /* O cadastro vai pro Worker, nao mais pro formulario hospedado do AC. O
+     Worker cria o contato pela API, aplica a tag [KIT51] - Novo Lead e avisa no
+     canal privado do Discord. Assim a gente fica sabendo de quem preencheu e
+     NAO comprou, que antes se perdia: com acFormAction vazio, esta funcao
+     retornava na primeira linha e o cadastro nao ia a lugar nenhum.
+
+     keepalive porque logo em seguida a pagina navega pro checkout — sem ele o
+     navegador cancela a requisicao no meio. */
   function enviarParaAC(nome, email, tel){
-    if (!CONFIG.acFormAction) return;
-    const f = document.createElement('form');
-    f.method = 'POST';
-    f.action = CONFIG.acFormAction;
-    f.target = 'acSink';
-    f.style.display = 'none';
-    const add = (n, v) => {
-      const i = document.createElement('input');
-      i.type = 'hidden'; i.name = n; i.value = v; f.appendChild(i);
-    };
-    add('u', CONFIG.acFormId);
-    add('f', CONFIG.acFormId);
-    add('ml', CONFIG.acListId);
-    add('fullname', nome);
-    add('email', email);
-    add('phone', tel);
-    add('jsonp', 'true');
-    document.body.appendChild(f);
-    f.submit();
+    try {
+      fetch('/kit-51-emails/api/lead', {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({nome: nome, email: email, telefone: tel}),
+        keepalive: true
+      }).catch(function(){});
+    } catch(e){}
   }
 
   form.addEventListener('submit', function(ev){

@@ -45,7 +45,7 @@ const ORIGIN = 'https://ustoppble.github.io';
 
 // Caminho publico (o que o visitante ve) e caminho real no GitHub Pages.
 const PUBLICO = '/kit-51-emails';
-const REPO = '/kit-51-emails';
+const REPO = '/kit-definitivo';
 
 // Valores de href/src que nunca devem ser reescritos.
 const ABSOLUTO = /^(https?:)?\/\/|^[a-z][a-z0-9+.-]*:|^#|^\//i;
@@ -64,6 +64,7 @@ const ORIGENS_PERMITIDAS = new Set([
 // tag pelo nome a cada checkout seria uma chamada extra no caminho critico da
 // venda, e o nome pode ser editado no painel sem que o ID mude.
 const TAGS = {
+  novoLead: 1157,
   checkout: 1152,
   recusouUpsell: 1153,
   compraAprovada: 1154,
@@ -114,6 +115,7 @@ async function rotaApi(resto, request, env, ctx) {
   }
 
   switch (resto) {
+    case '/api/lead': return novoLead(request, env, ctx);
     case '/api/verificar-acesso': return verificarAcesso(request, env);
     case '/api/upsell-checkout': return upsellCheckout(request, env, ctx);
     case '/api/oto-checkout': return otoCheckout(request, env, ctx);
@@ -254,14 +256,28 @@ function cookieSessao(valor) {
 
 // ── ActiveCampaign ──────────────────────────────────────────────────────────
 
-async function acTaguear(env, email, tagId) {
+function acTaguear(env, email, tagId) {
+  return acContato(env, email, '', '', tagId);
+}
+
+// O cadastro traz nome e telefone; os outros pontos do funil so tem o e-mail.
+// Campo vazio nao e enviado, para nao apagar o que o contato ja tinha.
+async function acContato(env, email, nome, telefone, tagId) {
   if (!env.AC_ACCOUNT || !env.AC_API_KEY) return;
   const base = `https://${env.AC_ACCOUNT}.api-us1.com/api/3`;
   const cab = { 'Api-Token': env.AC_API_KEY, 'Content-Type': 'application/json' };
 
+  const contato = { email };
+  if (nome) {
+    const partes = nome.split(/\s+/);
+    contato.firstName = partes[0];
+    if (partes.length > 1) contato.lastName = partes.slice(1).join(' ');
+  }
+  if (telefone) contato.phone = telefone;
+
   // contact/sync cria ou atualiza sem precisar saber se o contato ja existe.
   const r = await fetch(`${base}/contact/sync`, {
-    method: 'POST', headers: cab, body: JSON.stringify({ contact: { email } }),
+    method: 'POST', headers: cab, body: JSON.stringify({ contact: contato }),
   });
   if (!r.ok) throw new Error(`AC sync ${r.status}`);
   const id = (await r.json())?.contact?.id;
@@ -325,6 +341,50 @@ function emSegundoPlano(ctx, env, email, tagId, texto) {
 }
 
 // ── Rotas ───────────────────────────────────────────────────────────────────
+
+// Cadastro na pagina de conversao — dispara antes de o visitante ir pro
+// checkout, entao e o unico ponto em que a gente fica sabendo de quem nao
+// comprou. Rota publica de proposito: quem preenche o formulario ainda nao tem
+// sessao nenhuma.
+async function novoLead(request, env, ctx) {
+  const origin = request.headers.get('origin') || '';
+  // Sem sessao para autenticar, a origem e a unica barreira barata contra
+  // alguem despejar lixo no ActiveCampaign e no Discord a partir de fora.
+  if (origin && !ORIGENS_PERMITIDAS.has(origin)) {
+    return json(request, { ok: false, erro: 'origem_nao_permitida' }, 403);
+  }
+
+  let body;
+  try { body = await request.json(); } catch {
+    return json(request, { ok: false, erro: 'requisicao_invalida' }, 400);
+  }
+
+  const email = String(body.email || '').trim().toLowerCase();
+  const nome = String(body.nome || '').trim().slice(0, 120);
+  const telefone = String(body.telefone || '').trim().slice(0, 40);
+  if (!email.includes('@') || email.length > 160) {
+    return json(request, { ok: false, erro: 'email_invalido' }, 400);
+  }
+
+  // Quem recarrega a pagina e preenche de novo nao pode gerar dois avisos. A
+  // tag continua sendo reaplicada (o AC ignora duplicata), so o alerta cala.
+  const repetido = Boolean(await env.COMPRADORES.get(`lead:${email}`));
+  if (!repetido) await env.COMPRADORES.put(`lead:${email}`, '1', { expirationTtl: 86400 });
+
+  ctx.waitUntil((async () => {
+    const tarefas = [acContato(env, email, nome, telefone, TAGS.novoLead)];
+    if (!repetido) {
+      tarefas.push(notificar(env,
+        `🆕 **[KIT51] novo cadastro**\n\`${email}\`` +
+        (nome ? `\nnome: ${nome}` : '') +
+        (telefone ? `\ntelefone: ${telefone}` : '')));
+    }
+    const r = await Promise.allSettled(tarefas);
+    r.forEach((x) => { if (x.status === 'rejected') console.log('[lead] falhou:', String(x.reason)); });
+  })());
+
+  return json(request, { ok: true }, 200);
+}
 
 async function verificarAcesso(request, env) {
   let body;
