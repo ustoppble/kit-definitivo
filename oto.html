@@ -414,6 +414,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     erro.scrollIntoView({behavior:'smooth', block:'center'});
   }
 
+  // ── Rede de seguranca enquanto o Worker estiver atras das paginas ──
+  //
+  // As paginas sobem sozinhas pelo GitHub Pages a cada push; o Worker precisa
+  // de um deploy separado na Cloudflare, com acesso que nem todo mundo do time
+  // tem. Nessa janela, o HTML e novo e a API e velha — e as duas divergencias
+  // abaixo custariam dinheiro ou confundiriam o comprador.
+  //
+  // Quando o Worker for publicado, estas linhas viram no-op: ele passa a
+  // devolver exatamente o que elas forcam. Sao seguras de manter.
+  function destino(rota, url) {
+    // 1. Sem cupom, o Active Campaign volta ao preco cadastrado — R$497, cinco
+    //    vezes o que a pagina anuncia.
+    if (rota === '/upsell-checkout' && url.indexOf('cupom=') === -1) {
+      url += (url.indexOf('?') === -1 ? '?' : '&') + 'cupom=OTO';
+    }
+    // 2. O Worker antigo manda quem recusa para diagnostico.html, que hoje e a
+    //    entrega de quem COMPROU. Quem clicou em "nao, obrigado" leria
+    //    "Parabens, agora voce tem as duas pecas".
+    if (rota === '/recusar-upsell') {
+      url = 'obrigado.html';
+    }
+    return url;
+  }
+
   async function chamar(rota, botao, textoOriginal){
     try {
       var r = await fetch(API + rota, {
@@ -439,7 +463,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if (botao) { botao.disabled = false; botao.textContent = textoOriginal; }
         return;
       }
-      if (d && d.ok && d.url) { location.href = d.url; return; }
+      if (d && d.ok && d.url) { location.href = destino(rota, d.url); return; }
       mostrarErro('Não consegui abrir o checkout agora. Tenta de novo em alguns segundos.');
     } catch (e) {
       mostrarErro('Falha de conexão. Verifica sua internet e tenta de novo.');

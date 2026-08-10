@@ -134,6 +134,22 @@ O checkout de R$97 **não** é secret: mora no código (`CHECKOUT_UPSELL` em
 URL na barra de endereços. O secret `CHECKOUT_UPSELL_URL` continua valendo como
 override, se o link mudar sem deploy.
 
+### Rede de segurança na `oto.html` (temporária)
+
+As páginas sobem sozinhas a cada `push`; o Worker precisa de deploy separado na
+Cloudflare. Nessa janela o HTML fica novo e a API velha, e duas divergências
+custam caro:
+
+| Divergência | O que a página faz enquanto isso |
+|---|---|
+| Worker devolve o checkout sem `?cupom=OTO` | acrescenta o cupom antes de redirecionar — sem ele o comprador paga R$497 |
+| Worker manda quem recusa para `diagnostico.html` | força `obrigado.html` — a outra é a página de quem **comprou** |
+
+Está em `destino()`, dentro da `oto.html`. **Depois do deploy do Worker as duas
+viram no-op** — ele passa a devolver exatamente o que elas forçam. Pode remover
+quando quiser, mas manter não custa nada e protege da próxima vez em que as duas
+versões saírem de sincronia.
+
 ### Ordem de publicação
 
 O site já está no ar, e hoje a Eduzz manda o comprador do Kit para
