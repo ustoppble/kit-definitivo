@@ -15,3 +15,9 @@ id = "542b0e7612f64a4e8aa23943ac558a11"
 # acompanhar a agenda, nao para atender em tempo real.
 [triggers]
 crons = ["*/5 * * * *"]
+
+# Guarda os logs do Worker. Sem isso so da para ver o payload da Eduzz com um
+# `wrangler tail` rodando no exato momento do evento — e o payload e o que diz
+# qual campo identifica cada produto (Kit, upsell, OTO).
+[observability]
+enabled = true

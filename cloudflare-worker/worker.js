@@ -533,6 +533,12 @@ async function webhookEduzz(request, env, ctx) {
   const evento = classificarEvento(body);
   const produto = qualProduto(body, env);
 
+  // Origem da chamada no aviso: o secret do webhook e curto e ja circulou, e a
+  // decisao foi mantê-lo. Isso nao impede uma compra forjada, mas faz ela se
+  // denunciar — toda compra legitima vem sempre da mesma origem, entao uma que
+  // venha de outro lugar salta aos olhos no canal.
+  const origem = `${request.headers.get('cf-connecting-ip') || '?'}${request.cf?.country ? ' · ' + request.cf.country : ''}`;
+
   if (evento === 'revoga') {
     if (email) {
       await env.COMPRADORES.delete(email);
@@ -559,7 +565,7 @@ async function webhookEduzz(request, env, ctx) {
     // comprador do Kit nao ganhar a sandbox — nunca o contrario.
     await env.COMPRADORES.put(email, '1');
     emSegundoPlano(ctx, env, email, null,
-      `💰 **[KIT51] COMPROU o Kit** (R$17)\n\`${email}\``);
+      `💰 **[KIT51] COMPROU o Kit** (R$17)\n\`${email}\`\norigem: ${origem}`);
   }
 
   return new Response('OK', { status: 200 });
