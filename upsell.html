@@ -115,6 +115,14 @@ li{margin:0 0 9px}
   border-radius:8px;padding:12px 14px;margin:12px auto 0;max-width:520px;
   text-align:center;font-size:15px}
 .erro[hidden]{display:none}
+.identidade{max-width:520px;margin:16px auto 0;background:#fff;border:2px solid var(--azul);
+  border-radius:10px;padding:18px 20px;text-align:center}
+.identidade[hidden]{display:none}
+.identidade p{margin:0 0 12px;font-size:15.5px}
+.identidade input{width:100%;padding:13px 15px;font-size:16px;font-family:Barlow,sans-serif;
+  border:2px solid var(--borda);border-radius:8px;margin:0 0 10px}
+.identidade input:focus{outline:none;border-color:var(--azul)}
+.identidade .btn{margin:0;font-size:17px;padding:14px}
 </style>
 </head>
 <body>
@@ -260,6 +268,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="btn-nota">acesso liberado logo após a confirmação do pagamento</p>
     <p class="btn-nota">Pagamento único. Cartão, Pix ou boleto, pela Eduzz. Check-out seguro.</p>
     <div class="erro" id="erro" hidden></div>
+
+    <!-- So aparece se a Eduzz nao mandar o e-mail no redirect. Fica aqui, na
+         propria pagina, em vez de mandar a pessoa para outra tela: quem acabou
+         de pagar nao pode ser desviado no meio da oferta. -->
+    <div class="identidade" id="identidade" hidden>
+      <p>Confirma o e-mail que você usou na compra para liberar a oferta:</p>
+      <input type="email" id="email-compra" placeholder="seu@email.com"
+             autocomplete="email" inputmode="email">
+      <button class="btn" id="confirmar-email" type="button">CONFIRMAR →</button>
+    </div>
   </section>
 
   <section>
@@ -421,9 +439,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       var d = await r.json();
 
       if (r.status === 401) {
-        // Sessao expirada ou pagina aberta direto, sem passar pela obrigado.
-        mostrarErro('Sua sessão expirou. Confirme seu e-mail de novo para continuar.');
-        setTimeout(function(){ location.href = 'obrigado.html'; }, 2200);
+        // Sem sessao: ou a Eduzz nao mandou o e-mail no redirect, ou a pagina
+        // ficou aberta mais de 2h. Resolve aqui mesmo — tirar da pagina quem ja
+        // clicou em comprar e perder a venda.
+        var painel = document.getElementById('identidade');
+        if (painel) {
+          painel.hidden = false;
+          painel.scrollIntoView({behavior:'smooth', block:'center'});
+          var c = document.getElementById('email-compra');
+          if (c) c.focus();
+        }
+        mostrarErro('Confirma o e-mail da compra abaixo para continuar.');
+        if (botao) { botao.disabled = false; botao.textContent = textoOriginal; }
         return;
       }
       if (d && d.ok && d.url) { location.href = d.url; return; }
@@ -448,13 +475,81 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     chamar('/recusar-upsell', null, null);
   });
 
-  // A obrigado.html guardou o link do Kit ao confirmar o e-mail. Usar ele aqui
-  // evita mandar quem so quer o material baixado para digitar o e-mail de novo.
-  try {
-    var kit = sessionStorage.getItem('kit51_kit_url');
-    var pular = document.getElementById('pular');
-    if (kit && pular) pular.href = kit;
-  } catch (e) {}
+  // ── quem esta do outro lado ──
+  //
+  // Esta pagina e a PRIMEIRA coisa que o comprador ve depois de pagar: a Eduzz
+  // redireciona o checkout direto para ca. Entao a identidade tem que sair do
+  // proprio redirect, sem pedir nada — cada campo a mais aqui derruba a
+  // conversao da oferta.
+  //
+  // O nome do parametro varia conforme a configuracao da Eduzz, por isso a
+  // lista: o primeiro que parecer e-mail vale.
+  function emailDaURL(){
+    var q = new URLSearchParams(location.search);
+    var chaves = ['email','e','cus_email','client_email','customer_email','buyer_email'];
+    for (var i = 0; i < chaves.length; i++) {
+      var v = q.get(chaves[i]);
+      if (v && v.indexOf('@') > 0) return v.trim().toLowerCase();
+    }
+    return '';
+  }
+
+  // Troca o e-mail por um cookie de sessao assinado. A partir daqui a pagina
+  // nao carrega mais o e-mail em lugar nenhum.
+  async function abrirSessao(email){
+    try {
+      var r = await fetch(API + '/verificar-acesso', {
+        method:'POST', credentials:'include',
+        headers:{'content-type':'application/json'},
+        body: JSON.stringify({email: email})
+      });
+      var d = await r.json();
+      if (d && d.ok) {
+        if (d.kit_url) {
+          try { sessionStorage.setItem('kit51_kit_url', d.kit_url); } catch(e){}
+          var p = document.getElementById('pular');
+          if (p) p.href = d.kit_url;
+        }
+        return true;
+      }
+    } catch (e) {}
+    return false;
+  }
+
+  var painel = document.getElementById('identidade');
+  var campo  = document.getElementById('email-compra');
+  var okBtn  = document.getElementById('confirmar-email');
+
+  if (okBtn) okBtn.addEventListener('click', async function(){
+    var v = (campo.value || '').trim().toLowerCase();
+    if (v.indexOf('@') < 1) { mostrarErro('Digita o e-mail que você usou na compra.'); return; }
+    okBtn.disabled = true; okBtn.textContent = 'confirmando...';
+    if (await abrirSessao(v)) {
+      painel.hidden = true;
+      if (erro) erro.hidden = true;
+    } else {
+      mostrarErro('Não encontramos esse e-mail entre as compras confirmadas. ' +
+                  'Confira o e-mail do checkout ou escreve pra help@blackbird.ac.');
+    }
+    okBtn.disabled = false; okBtn.textContent = 'CONFIRMAR →';
+  });
+
+  (async function(){
+    // Link do Kit guardado numa passagem anterior, se houver.
+    try {
+      var kit = sessionStorage.getItem('kit51_kit_url');
+      var pular = document.getElementById('pular');
+      if (kit && pular) pular.href = kit;
+    } catch (e) {}
+
+    var email = emailDaURL();
+    if (email) {
+      await abrirSessao(email);
+      // Tira o e-mail da barra de enderecos: link com e-mail dentro e
+      // compartilhavel e vaza no Referer para todo dominio de terceiro da pagina.
+      try { history.replaceState({}, '', location.pathname); } catch (e) {}
+    }
+  })();
 })();
 </script>
 

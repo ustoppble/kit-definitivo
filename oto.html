@@ -73,6 +73,14 @@ li{margin:0 0 10px}
   border-radius:8px;padding:12px 14px;margin:10px auto 0;max-width:520px;
   text-align:center;font-size:15px}
 .erro[hidden]{display:none}
+.identidade{max-width:520px;margin:16px auto 0;background:#fff;border:2px solid var(--azul);
+  border-radius:10px;padding:18px 20px;text-align:center}
+.identidade[hidden]{display:none}
+.identidade p{margin:0 0 12px;font-size:15.5px}
+.identidade input{width:100%;padding:13px 15px;font-size:16px;font-family:Barlow,sans-serif;
+  border:2px solid var(--borda);border-radius:8px;margin:0 0 10px}
+.identidade input:focus{outline:none;border-color:var(--azul)}
+.identidade .btn{margin:0;font-size:17px;padding:14px}
 </style>
 </head>
 <body>
@@ -159,6 +167,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <button class="btn" data-cta="cta_oto-principal" type="button">QUERO MONTAR AO VIVO COM VOCÊ →</button>
     <p class="btn-nota">pagamento único · 7 dias de garantia</p>
     <div class="erro" id="erro" hidden></div>
+
+    <div class="identidade" id="identidade" hidden>
+      <p>Confirma o e-mail que você usou na compra para liberar a oferta:</p>
+      <input type="email" id="email-compra" placeholder="seu@email.com"
+             autocomplete="email" inputmode="email">
+      <button class="btn" id="confirmar-email" type="button">CONFIRMAR →</button>
+    </div>
   </section>
 
   <section>
@@ -237,8 +252,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         });
         var d = await r.json();
         if (r.status === 401) {
-          mostrarErro('Sua sessão expirou. Confirme seu e-mail de novo para continuar.');
-          setTimeout(function(){ location.href = 'obrigado.html'; }, 2200);
+          var painel = document.getElementById('identidade');
+          if (painel) {
+            painel.hidden = false;
+            painel.scrollIntoView({behavior:'smooth', block:'center'});
+            var c = document.getElementById('email-compra');
+            if (c) c.focus();
+          }
+          mostrarErro('Confirma o e-mail da compra abaixo para continuar.');
+          b.disabled = false; b.textContent = t;
           return;
         }
         if (d && d.ok && d.url) { location.href = d.url; return; }
@@ -249,6 +271,54 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       b.disabled = false; b.textContent = t;
     });
   });
+
+  // ── quem esta do outro lado ──
+  // Esta pagina e destino de redirect da Eduzz depois da compra do upsell, entao
+  // a identidade vem do proprio link. Mesma logica da upsell.html.
+  function emailDaURL(){
+    var q = new URLSearchParams(location.search);
+    var chaves = ['email','e','cus_email','client_email','customer_email','buyer_email'];
+    for (var i = 0; i < chaves.length; i++) {
+      var v = q.get(chaves[i]);
+      if (v && v.indexOf('@') > 0) return v.trim().toLowerCase();
+    }
+    return '';
+  }
+
+  async function abrirSessao(email){
+    try {
+      var r = await fetch('/kit-51-emails/api/verificar-acesso', {
+        method:'POST', credentials:'include',
+        headers:{'content-type':'application/json'},
+        body: JSON.stringify({email: email})
+      });
+      var d = await r.json();
+      return !!(d && d.ok);
+    } catch (e) { return false; }
+  }
+
+  var okBtn = document.getElementById('confirmar-email');
+  var campo = document.getElementById('email-compra');
+  if (okBtn) okBtn.addEventListener('click', async function(){
+    var v = (campo.value || '').trim().toLowerCase();
+    if (v.indexOf('@') < 1) { mostrarErro('Digita o e-mail que você usou na compra.'); return; }
+    okBtn.disabled = true; okBtn.textContent = 'confirmando...';
+    if (await abrirSessao(v)) {
+      document.getElementById('identidade').hidden = true;
+      erro.hidden = true;
+    } else {
+      mostrarErro('Não encontramos esse e-mail entre as compras confirmadas.');
+    }
+    okBtn.disabled = false; okBtn.textContent = 'CONFIRMAR →';
+  });
+
+  (async function(){
+    var email = emailDaURL();
+    if (email) {
+      await abrirSessao(email);
+      try { history.replaceState({}, '', location.pathname); } catch (e) {}
+    }
+  })();
 })();
 </script>
 
