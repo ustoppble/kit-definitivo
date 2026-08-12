@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 84 1080 452" width="1080" height="452" role="img" aria-labelledby="x4t x4d">
+<title id="x4t">As 7 sequências do Kit e quando cada uma roda</title>
+<desc id="x4d">Bloco de cima, que roda sempre: quem chega ao checkout e não paga entra no Carrinho Abandonado; quem compra segue para Boas-vindas, UpSell 2X e High Ticket. Bloco de baixo, condicional, com borda tracejada: quem se inscreve num evento entra em paralelo nas sequências de Lançamento, Leads Aquecidos e Leads Gratuitos, e a Lançamento leva essa gente ao checkout do bloco de cima.</desc>
+<defs>
+<marker id="x4s" viewBox="0 0 8 8" refX="6.4" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 1 L6.4 4 L0 7" fill="none" stroke="#8A8078" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="x4v" viewBox="0 0 8 8" refX="6.4" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 1 L6.4 4 L0 7" fill="none" stroke="#00A82E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="x4a" viewBox="0 0 8 8" refX="6.4" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 1 L6.4 4 L0 7" fill="none" stroke="#234A95" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<style>
+  .vh{font-family:'Roboto',Arial,Helvetica,sans-serif;font-weight:700}
+  .vb{font-family:'Barlow','Segoe UI',system-ui,sans-serif}
+  .vm{font-family:ui-monospace,'Cascadia Mono',Consolas,monospace}
+</style>
+<rect id="fundo" x="0" y="84" width="1080" height="452" fill="#F8F3EF"/>
+<rect x="44" y="104" width="996" height="224" rx="8" fill="#234A95" opacity=".06"/>
+<rect x="76" y="134" width="170" height="52" rx="8" fill="#234A95"/>
+<text class="vm" x="161" y="157" font-size="10" letter-spacing=".07em" text-anchor="middle" fill="#FFFFFF">ALGUÉM CHEGA</text>
+<text class="vm" x="161" y="172" font-size="10" letter-spacing=".07em" text-anchor="middle" fill="#FFFFFF">NO CHECKOUT</text>
+<path d="M246 160 H284" fill="none" stroke="#8A8078" stroke-width="1.5" marker-end="url(#x4s)"/>
+<rect x="290" y="129" width="222" height="62" rx="6" fill="#FFFFFF" stroke="#D5CABF"/>
+<text class="vh" x="306" y="156" font-size="15.5" fill="#0D0D0F">Carrinho Abandonado</text>
+<g opacity="1"><rect x="306" y="167" width="13" height="9.5" rx="1.5" fill="#234A95"/><path d="M308.0 169.7 L312.5 173.4 L317.0 169.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="1"><rect x="323" y="167" width="13" height="9.5" rx="1.5" fill="#234A95"/><path d="M325.0 169.7 L329.5 173.4 L334.0 169.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="1"><rect x="340" y="167" width="13" height="9.5" rx="1.5" fill="#234A95"/><path d="M342.0 169.7 L346.5 173.4 L351.0 169.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity=".3"><rect x="357" y="167" width="13" height="9.5" rx="1.5" fill="#234A95"/><path d="M359.0 169.7 L363.5 173.4 L368.0 169.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<path d="M512 160 H554" fill="none" stroke="#8A8078" stroke-width="1.5" marker-end="url(#x4s)"/>
+<rect x="560" y="134" width="190" height="52" rx="26" fill="#00A82E"/>
+<text class="vh" x="655" y="166" font-size="18" text-anchor="middle" fill="#FFFFFF" letter-spacing=".02em">COMPROU</text>
+<path d="M655 186 V206 Q655 216 645 216 H197 Q187 216 187 226 V235" fill="none" stroke="#00A82E" stroke-width="1.8" marker-end="url(#x4v)"/>
+<rect x="76" y="241" width="222" height="62" rx="6" fill="#FFFFFF" stroke="#D5CABF"/>
+<text class="vh" x="92" y="268" font-size="15.5" fill="#0D0D0F">Boas-vindas</text>
+<g opacity="1"><rect x="92" y="279" width="13" height="9.5" rx="1.5" fill="#00A82E"/><path d="M94.0 281.7 L98.5 285.4 L103.0 281.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="1"><rect x="109" y="279" width="13" height="9.5" rx="1.5" fill="#00A82E"/><path d="M111.0 281.7 L115.5 285.4 L120.0 281.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="1"><rect x="126" y="279" width="13" height="9.5" rx="1.5" fill="#00A82E"/><path d="M128.0 281.7 L132.5 285.4 L137.0 281.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity=".3"><rect x="143" y="279" width="13" height="9.5" rx="1.5" fill="#00A82E"/><path d="M145.0 281.7 L149.5 285.4 L154.0 281.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<rect x="346" y="241" width="222" height="62" rx="6" fill="#FFFFFF" stroke="#D5CABF"/>
+<text class="vh" x="362" y="268" font-size="15.5" fill="#0D0D0F">UpSell 2X</text>
+<g opacity="1"><rect x="362" y="279" width="13" height="9.5" rx="1.5" fill="#00A82E"/><path d="M364.0 281.7 L368.5 285.4 L373.0 281.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="1"><rect x="379" y="279" width="13" height="9.5" rx="1.5" fill="#00A82E"/><path d="M381.0 281.7 L385.5 285.4 L390.0 281.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="1"><rect x="396" y="279" width="13" height="9.5" rx="1.5" fill="#00A82E"/><path d="M398.0 281.7 L402.5 285.4 L407.0 281.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity=".3"><rect x="413" y="279" width="13" height="9.5" rx="1.5" fill="#00A82E"/><path d="M415.0 281.7 L419.5 285.4 L424.0 281.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<rect x="616" y="241" width="222" height="62" rx="6" fill="#FFFFFF" stroke="#D5CABF"/>
+<text class="vh" x="632" y="268" font-size="15.5" fill="#0D0D0F">High Ticket</text>
+<g opacity="1"><rect x="632" y="279" width="13" height="9.5" rx="1.5" fill="#00A82E"/><path d="M634.0 281.7 L638.5 285.4 L643.0 281.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="1"><rect x="649" y="279" width="13" height="9.5" rx="1.5" fill="#00A82E"/><path d="M651.0 281.7 L655.5 285.4 L660.0 281.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="1"><rect x="666" y="279" width="13" height="9.5" rx="1.5" fill="#00A82E"/><path d="M668.0 281.7 L672.5 285.4 L677.0 281.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity=".3"><rect x="683" y="279" width="13" height="9.5" rx="1.5" fill="#00A82E"/><path d="M685.0 281.7 L689.5 285.4 L694.0 281.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<path d="M298 272 H340" fill="none" stroke="#8A8078" stroke-width="1.5" marker-end="url(#x4s)"/>
+<path d="M568 272 H610" fill="none" stroke="#8A8078" stroke-width="1.5" marker-end="url(#x4s)"/>
+<rect x="44" y="356" width="996" height="160" rx="8" fill="none" stroke="#234A95" stroke-width="1.5" stroke-dasharray="5 5" opacity=".6"/>
+<rect x="280" y="381" width="210" height="62" rx="6" fill="#FFFFFF" stroke="#D5CABF"/>
+<text class="vh" x="296" y="408" font-size="15.5" fill="#0D0D0F">Lançamento</text>
+<g opacity="1"><rect x="296" y="419" width="13" height="9.5" rx="1.5" fill="#234A95"/><path d="M298.0 421.7 L302.5 425.4 L307.0 421.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="1"><rect x="313" y="419" width="13" height="9.5" rx="1.5" fill="#234A95"/><path d="M315.0 421.7 L319.5 425.4 L324.0 421.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="1"><rect x="330" y="419" width="13" height="9.5" rx="1.5" fill="#234A95"/><path d="M332.0 421.7 L336.5 425.4 L341.0 421.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity=".3"><rect x="347" y="419" width="13" height="9.5" rx="1.5" fill="#234A95"/><path d="M349.0 421.7 L353.5 425.4 L358.0 421.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<rect x="530" y="381" width="210" height="62" rx="6" fill="#FFFFFF" stroke="#D5CABF"/>
+<text class="vh" x="546" y="408" font-size="15.5" fill="#0D0D0F">Leads Aquecidos</text>
+<g opacity="1"><rect x="546" y="419" width="13" height="9.5" rx="1.5" fill="#234A95"/><path d="M548.0 421.7 L552.5 425.4 L557.0 421.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="1"><rect x="563" y="419" width="13" height="9.5" rx="1.5" fill="#234A95"/><path d="M565.0 421.7 L569.5 425.4 L574.0 421.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="1"><rect x="580" y="419" width="13" height="9.5" rx="1.5" fill="#234A95"/><path d="M582.0 421.7 L586.5 425.4 L591.0 421.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity=".3"><rect x="597" y="419" width="13" height="9.5" rx="1.5" fill="#234A95"/><path d="M599.0 421.7 L603.5 425.4 L608.0 421.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<rect x="780" y="381" width="210" height="62" rx="6" fill="#FFFFFF" stroke="#D5CABF"/>
+<text class="vh" x="796" y="408" font-size="15.5" fill="#0D0D0F">Leads Gratuitos</text>
+<g opacity="1"><rect x="796" y="419" width="13" height="9.5" rx="1.5" fill="#234A95"/><path d="M798.0 421.7 L802.5 425.4 L807.0 421.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="1"><rect x="813" y="419" width="13" height="9.5" rx="1.5" fill="#234A95"/><path d="M815.0 421.7 L819.5 425.4 L824.0 421.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity="1"><rect x="830" y="419" width="13" height="9.5" rx="1.5" fill="#234A95"/><path d="M832.0 421.7 L836.5 425.4 L841.0 421.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g opacity=".3"><rect x="847" y="419" width="13" height="9.5" rx="1.5" fill="#234A95"/><path d="M849.0 421.7 L853.5 425.4 L858.0 421.7" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+<rect x="76" y="444" width="150" height="48" rx="8" fill="#234A95"/>
+<text class="vm" x="151" y="465" font-size="10" letter-spacing=".07em" text-anchor="middle" fill="#FFFFFF">INSCREVEU-SE</text>
+<text class="vm" x="151" y="480" font-size="10" letter-spacing=".07em" text-anchor="middle" fill="#FFFFFF">NO EVENTO</text>
+<path d="M226 468 H885" fill="none" stroke="#8A8078" stroke-width="1.5"/>
+<path d="M385 468 V449" fill="none" stroke="#8A8078" stroke-width="1.5" marker-end="url(#x4s)"/>
+<path d="M635 468 V449" fill="none" stroke="#8A8078" stroke-width="1.5" marker-end="url(#x4s)"/>
+<path d="M885 468 V449" fill="none" stroke="#8A8078" stroke-width="1.5" marker-end="url(#x4s)"/>
+<path d="M990 412 H1006 Q1018 412 1018 424 V456 Q1018 468 1006 468 H892" fill="none" stroke="#234A95" stroke-width="1.5" stroke-dasharray="3 6" marker-end="url(#x4a)"/>
+<path d="M385 381 V364 Q385 352 373 352 H52 Q40 352 40 340 V172 Q40 160 52 160 H70" fill="none" stroke="#234A95" stroke-width="1.8" marker-end="url(#x4a)"/>
+</svg>

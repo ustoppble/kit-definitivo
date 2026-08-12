@@ -383,7 +383,8 @@ function emSegundoPlano(ctx, env, email, tagId, texto) {
 const PAGINAS = {
   '/': 'pagina de vendas (Kit R$17)',
   '/index.html': 'pagina de vendas (Kit R$17)',
-  '/kit.html': 'pagina de vendas — variante B (Kit R$17)',
+  '/kit.html': 'pagina de vendas — variante B, curta (Kit R$17)',
+  '/kit-mapa.html': 'pagina de vendas — variante C, curta + mapa (Kit R$17)',
   '/oto.html': 'oferta do AC By Laschuk (R$49,99)',
   '/diagnostico.html': 'entrega — comprou o AC',
   '/obrigado.html': 'entrega — recusou o AC',
