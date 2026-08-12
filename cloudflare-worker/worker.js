@@ -13,7 +13,7 @@
  *
  * ── O funil ──
  *   index.html      Kit 51 e-mails, R$17
- *   oto.html        Active Campaign By Laschuk, R$97 (de R$497)
+ *   oto.html        Active Campaign By Laschuk, R$49,99 (de R$497)
  *   diagnostico.html  quem COMPROU o AC: destrava o Kit e agenda o diagnostico
  *   obrigado.html   quem RECUSOU: destrava o Kit e agenda o diagnostico
  *
@@ -44,7 +44,7 @@
  *   secret  DISCORD_BOT_TOKEN      bot Maverick
  *   secret  DISCORD_ADMIN_USER_ID  so para mencionar no canal (@voce)
  *   secret  DISCORD_CANAL_ALERTAS  canal privado que recebe TODOS os alertas
- *   secret  CHECKOUT_UPSELL_URL    checkout Eduzz de R$97
+ *   secret  CHECKOUT_UPSELL_URL    checkout Eduzz de R$49,99
  *   secret  EDUZZ_PRODUTO_UPSELL   identificador do produto upsell na Eduzz
  */
 
@@ -67,14 +67,14 @@ const TIDYCAL_URL = 'https://tidycal.com/team/blackbird/email-scan-diagnostico';
 // pagina entrar no ar. O secret CHECKOUT_UPSELL_URL continua valendo como
 // override, caso o link mude sem deploy.
 //
-// O ?cupom=OTO NAO e opcional: o preco cadastrado do produto e R$497 e o cupom
-// e o que leva a R$97, que e o valor anunciado na oto.html. Sem ele o comprador
-// e cobrado cinco vezes o prometido.
+// O ?cupom=900FF NAO e opcional: o preco cadastrado do produto e R$497 e o
+// cupom e o que leva a R$49,99, que e o valor anunciado na oto.html. Sem ele
+// o comprador e cobrado dez vezes o prometido.
 //
 // urlCheckoutUpsell() acrescenta nome/e-mail/telefone a esta base. Testado no
 // checkout do Kit: cupom + dados do comprador funciona; o que quebra e somar
 // skip=1 a isso — ver o comentario em irParaCheckout, no index.html.
-const CHECKOUT_UPSELL = 'https://chk.eduzz.com/8017V3XQ07?cupom=OTO';
+const CHECKOUT_UPSELL = 'https://sun.eduzz.com/8017V3XQ07?cupom=900FF';
 
 const ORIGENS_PERMITIDAS = new Set([
   'https://www.blackbird.ac',
@@ -383,7 +383,8 @@ function emSegundoPlano(ctx, env, email, tagId, texto) {
 const PAGINAS = {
   '/': 'pagina de vendas (Kit R$17)',
   '/index.html': 'pagina de vendas (Kit R$17)',
-  '/oto.html': 'oferta do AC By Laschuk (R$97)',
+  '/kit.html': 'pagina de vendas — variante B (Kit R$17)',
+  '/oto.html': 'oferta do AC By Laschuk (R$49,99)',
   '/diagnostico.html': 'entrega — comprou o AC',
   '/obrigado.html': 'entrega — recusou o AC',
 };
@@ -506,7 +507,7 @@ async function upsellCheckout(request, env, ctx) {
   if (!email) return json(request, { ok: false, erro: 'sessao_invalida' }, 401);
 
   emSegundoPlano(ctx, env, email, TAGS.checkout,
-    `🟡 **[KIT51] checkout do upsell** (R$97)\n\`${email}\``);
+    `🟡 **[KIT51] checkout do upsell** (R$49,99)\n\`${email}\``);
 
   return json(request, { ok: true, url: await urlCheckoutUpsell(email, env) }, 200);
 }
@@ -616,7 +617,7 @@ async function webhookEduzz(request, env, ctx) {
   if (produto === 'upsell') {
     await env.COMPRADORES.put(`sandbox:${email}`, '1');
     emSegundoPlano(ctx, env, email, TAGS.compraAprovada,
-      `🟢 **[KIT51] COMPROU o upsell** (R$97) — sandbox liberada\n\`${email}\``);
+      `🟢 **[KIT51] COMPROU o upsell** (R$49,99) — sandbox liberada\n\`${email}\``);
   } else {
     // Produto desconhecido cai aqui e libera SO o Kit. E de proposito: enquanto
     // os identificadores da Eduzz nao estiverem configurados, o pior caso e o
@@ -650,7 +651,7 @@ function classificarEvento(body) {
 }
 
 // Com dois produtos na mesma conta Eduzz, o webhook precisa distinguir qual foi
-// comprado — senao a compra do Kit de R$17 liberaria a entrega do AC de R$97.
+// comprado — senao a compra do Kit de R$17 liberaria a entrega do AC de R$49,99.
 function qualProduto(body, env) {
   const texto = [
     body?.product_cod, body?.product_id, body?.product_name,

@@ -6,7 +6,7 @@
 > consultar argumento, prova e estrutura — não a premissa de entrega, que mudou.
 
 **Produto:** Active Campaign By Laschuk
-**Preço:** R$97 (ancorado em R$497) · âncora de custo real: R$15.000
+**Preço:** R$49,99 (ancorado em R$497) · âncora de custo real: R$15.000
 **Entrega:** ~~acesso a uma conta ActiveCampaign sandbox, para VER e COPIAR
 manualmente~~ → **as automações prontas dentro da conta do próprio comprador**,
 instaladas por link de compartilhamento. Ele só ajusta tags e dados da oferta.
@@ -45,7 +45,7 @@ O Kit te deu os e-mails.
 Agora eu te dou a conta onde eles rodam.
 
 **Subheadline:**
-Por R$97, você entra na minha conta do ActiveCampaign e vê — do lado de dentro — as
+Por R$49,99, você entra na minha conta do ActiveCampaign e vê — do lado de dentro — as
 automações, as campanhas e a estrutura que eu uso para vender por e-mail. Aberta.
 Para você olhar e copiar do seu jeito.
 
@@ -155,7 +155,7 @@ ponto do fluxo ele entra, com que intervalo dispara e para quem — e monta igua
 
 O preço de tabela desta página é **R$497**.
 
-Você paga **R$97**.
+Você paga **R$49,99**.
 
 Uma vez. Sem mensalidade. Sem comissão sobre as suas vendas.
 
@@ -172,10 +172,10 @@ factual, deixe apenas a linha do R$15.000 e corte as outras duas.]`
 De ~~R$497~~
 Hoje, nesta página, uma única vez:
 
-# R$97
+# R$49,99
 
 **Botão (CTA #1):**
-**QUERO O ACTIVE CAMPAIGN POR R$97 →**
+**QUERO O ACTIVE CAMPAIGN POR R$49,99 →**
 *acesso liberado logo após a confirmação do pagamento*
 
 **Nota abaixo do botão:**
@@ -200,7 +200,7 @@ Tenho contas de e-commerce que passaram de R$10 milhões vendidos por e-mail.
 Cobro R$15.000 para implementar um ActiveCampaign para um cliente, mais comissão sobre
 as vendas.
 
-Hoje, R$97 para você entrar e olhar.
+Hoje, R$49,99 para você entrar e olhar.
 
 ---
 
@@ -232,17 +232,17 @@ Se o que você quer é alguém montando na sua conta, isso é o serviço de R$15
 
 ---
 
-**"Acabei de gastar R$17. Agora R$97?"**
+**"Acabei de gastar R$17. Agora R$49,99?"**
 
 Sim, e é justamente por isso que este preço existe.
 
-R$97 é o que eu consigo cobrar de quem já comprou algo meu hoje e já está com a cabeça
+R$49,99 é o que eu consigo cobrar de quem já comprou algo meu hoje e já está com a cabeça
 no assunto. Não é uma oferta que eu consigo repetir em anúncio, porque em anúncio ela não
 se paga.
 
-O que você está comparando não é R$17 com R$97.
+O que você está comparando não é R$17 com R$49,99.
 
-É R$97 com R$15.000.
+É R$49,99 com R$15.000.
 
 ---
 
@@ -280,7 +280,7 @@ decisões tomadas. Tutorial é aula. Isso aqui é gabarito.
 
 **"E se eu entrar e não for o que eu esperava?"**
 
-Você tem 7 dias. Me avisa e eu devolvo os R$97, inteiros, sem discussão.
+Você tem 7 dias. Me avisa e eu devolvo os R$49,99, inteiros, sem discussão.
 
 É a mesma garantia do Kit. Não mudei nada porque o preço subiu.
 
@@ -292,7 +292,7 @@ Você tem 7 dias. Me avisa e eu devolvo os R$97, inteiros, sem discussão.
 
 Entra, abre os fluxos, olha tudo.
 
-Se você achar que não valeu, responde o e-mail da compra e eu devolvo os R$97.
+Se você achar que não valeu, responde o e-mail da compra e eu devolvo os R$49,99.
 
 Sem formulário, sem justificativa, sem ficar tentando te segurar. E a gente segue como
 amigos.
@@ -319,7 +319,7 @@ Fora daqui, montar essa estrutura comigo custa R$15.000.
 
 ## 14. Recap + CTA final
 
-**Título:** Recapitulando o que você leva por R$97
+**Título:** Recapitulando o que você leva por R$49,99
 
 - Acesso à conta Active Campaign By Laschuk, para ver e copiar
 - As automações montadas — gatilho, condição, intervalo, saída
@@ -327,11 +327,11 @@ Fora daqui, montar essa estrutura comigo custa R$15.000.
 - A estrutura de tags e segmentação por trás de tudo
 - 7 dias de garantia, dinheiro de volta
 
-De ~~R$497~~ por **R$97**. Pagamento único.
+De ~~R$497~~ por **R$49,99**. Pagamento único.
 
 **Botão (CTA #2 — final):**
 **SIM, QUERO ENTRAR NO ACTIVE CAMPAIGN →**
-*R$97 · pagamento único · 7 dias de garantia*
+*R$49,99 · pagamento único · 7 dias de garantia*
 
 ---
 
@@ -355,9 +355,9 @@ rodapé da página.)*
 ## Micro-textos
 
 - **Botões (variações para repetir ao longo da página):**
-  - QUERO O ACTIVE CAMPAIGN POR R$97 →
+  - QUERO O ACTIVE CAMPAIGN POR R$49,99 →
   - SIM, ME DÁ O ACESSO →
-  - ENTRAR NA CONTA POR R$97 →
+  - ENTRAR NA CONTA POR R$49,99 →
 - **Nota de segurança:** Check-out criptografado. Pagamento processado pela Eduzz.
 - **Nota de acesso:** Os dados de acesso chegam no e-mail que você usou na compra.
 - **Rodapé:** GUILHERME LASCHUK © 2026 — Todos os direitos reservados.
@@ -373,7 +373,7 @@ rodapé da página.)*
    VSL. Se o vídeo não carregar, a página vende sozinha.
 3. **Nunca escrever nesta página:** "instala", "provisiona", "clona", "1 clique",
    "automático", "na sua conta". Toda a promessa é **ver e copiar**.
-4. **Preço:** R$97, ancorado em R$497. O vídeo, se não estiver editado, ainda diz R$197
+4. **Preço:** R$49,99, ancorado em R$497. O vídeo, se não estiver editado, ainda diz R$197
    — a página nunca repete esse número.
 5. **Pendências marcadas:** `[CONFIRMAR]` na seção 6 (conteúdo da sandbox) e na 12
    (prazo/canal da garantia); `[NOTA DE MONTAGEM]` na seção 8 (valores da tabela).

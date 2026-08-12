@@ -50,7 +50,7 @@ index → checkout R$17 → oto ─┬─ comprou → diagnostico
 Kit Definitivo do Email Marketing, R$17, 51 e-mails prontos. Só leia para
 manter voz e continuidade.
 
-### 2. `oto.html` — R$97 (de R$497)
+### 2. `oto.html` — R$49,99 (de R$497)
 Produto: **Active Campaign By Laschuk**.
 
 **A entrega é a estrutura pronta na conta do comprador.** As automações são
@@ -92,7 +92,7 @@ DIAGNÓSTICO".
 
 ## Regras duras
 
-- Preço do upsell é **R$97**, ancorado em **R$497**. Nunca R$197.
+- Preço do upsell é **R$49,99**, ancorado em **R$497**. Nunca R$197.
 - Nada de promessa de resultado garantido em reais ("você vai faturar X").
 - Não escreva HTML. Markdown, com as seções nomeadas, pronto para eu montar.
 

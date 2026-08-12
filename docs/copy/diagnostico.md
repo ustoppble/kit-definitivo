@@ -6,7 +6,7 @@
 > `obrigado.html`. A copy abaixo não corresponde mais à página. Fonte da
 > verdade: o `README.md` da raiz e o próprio HTML.
 
-**Quem vê:** quem clicou em "não quero" no upsell de R$97.
+**Quem vê:** quem clicou em "não quero" no upsell de R$49,99.
 **Oferta:** diagnóstico de e-mail marketing com o time. Gratuito, 30 minutos, por vídeo.
 **Agendamento:** TidyCal — `https://tidycal.com/team/blackbird/email-scan-diagnostico`
 **Formato:** uma tela. CTA único. Sem segunda tentativa de vender o upsell.
@@ -90,7 +90,7 @@ Ir para os meus acessos →
 2. **Um CTA só.** O link de "ir para os meus acessos" é texto discreto, nunca um
    segundo botão concorrendo.
 3. **Não mencionar o upsell recusado.** Nada de "você recusou", "ainda dá tempo",
-   "última chance". A oferta de R$97 acabou quando ele clicou.
+   "última chance". A oferta de R$49,99 acabou quando ele clicou.
 4. **Não prometer venda na chamada.** "Não tem oferta no fim da chamada" só entra se for
    verdade — se o time pitcha algo ao vivo, trocar por "sem compromisso".
    `[CONFIRMAR com o time: a chamada tem pitch?]`

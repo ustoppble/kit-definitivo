@@ -11,14 +11,14 @@ as tags no ActiveCampaign e os alertas no Discord.
 | Arquivo | Papel | Quem vê |
 |---|---|---|
 | `index.html` | página de vendas do Kit — R$17 | tráfego frio |
-| `oto.html` | Active Campaign By Laschuk — R$97 | quem **acabou de comprar** o Kit |
+| `oto.html` | Active Campaign By Laschuk — R$49,99 | quem **acabou de comprar** o Kit |
 | `diagnostico.html` | entrega: Kit + Active Campaign | quem **comprou** a oferta |
 | `obrigado.html` | entrega: só o Kit | quem **recusou** a oferta |
 | `politica-de-privacidade.html` · `termos-de-uso.html` | páginas legais | linkadas no rodapé da index |
 | `upsell.html` | ponte: redireciona para `oto.html` | links antigos e o redirect da Eduzz enquanto não for trocado |
 
 ```
-index → checkout R$17 → PAGOU → oto ─┬─ comprou → checkout R$97 → diagnostico ─┐
+index → checkout R$17 → PAGOU → oto ─┬─ comprou → checkout R$49,99 → diagnostico ─┐
                                      └─ recusou ───────────────→ obrigado ─────┴→ TidyCal
 ```
 
@@ -107,7 +107,7 @@ sozinha:
 | Produto | Redireciona para |
 |---|---|
 | Kit (R$17) | `oto.html` |
-| Active Campaign (R$97) | `diagnostico.html` |
+| Active Campaign (R$49,99) | `diagnostico.html` |
 
 Preencher nos dois campos — **Cartão/Pix** e **Boleto**. Falta um, o comprador
 cai na página padrão da Eduzz e some do funil.
@@ -129,7 +129,7 @@ comprador da oferta não receber, nunca o contrário. Para configurar, é precis
 ver um payload real da Eduzz (os logs do Worker já guardam) e descobrir qual
 campo identifica o produto.
 
-O checkout de R$97 **não** é secret: mora no código (`CHECKOUT_UPSELL` em
+O checkout de R$49,99 **não** é secret: mora no código (`CHECKOUT_UPSELL` em
 `worker.js`), porque link de checkout é público por natureza — o comprador vê a
 URL na barra de endereços. O secret `CHECKOUT_UPSELL_URL` continua valendo como
 override, se o link mudar sem deploy.
@@ -142,7 +142,7 @@ custam caro:
 
 | Divergência | O que a página faz enquanto isso |
 |---|---|
-| Worker devolve o checkout sem `?cupom=OTO` | acrescenta o cupom antes de redirecionar — sem ele o comprador paga R$497 |
+| Worker devolve o checkout sem `?cupom=900FF` | acrescenta o cupom antes de redirecionar — sem ele o comprador paga R$497 |
 | Worker manda quem recusa para `diagnostico.html` | força `obrigado.html` — a outra é a página de quem **comprou** |
 
 Está em `destino()`, dentro da `oto.html`. **Depois do deploy do Worker as duas
@@ -159,7 +159,7 @@ do caminho.
 
 1. `git push` — republica as páginas
 2. Eduzz — trocar os dois redirects
-3. Deploy do Worker — sem ele o `?cupom=OTO` e o pré-preenchimento não existem
+3. Deploy do Worker — sem ele o `?cupom=900FF` e o pré-preenchimento não existem
    em produção, e o comprador do upsell é cobrado R$497
 4. Compra real de R$17 para validar webhook, tags e alertas
 

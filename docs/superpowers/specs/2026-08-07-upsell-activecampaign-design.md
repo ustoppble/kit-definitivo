@@ -14,7 +14,7 @@ Status: aprovado no brainstorming, aguardando revisão do spec
 
 ## Objetivo
 
-Vender, logo depois da compra do Kit 51 e-mails (R$17), um upsell de **R$97
+Vender, logo depois da compra do Kit 51 e-mails (R$17), um upsell de **R$49,99
 (ancorado em R$497)** que dá ao comprador acesso a uma **conta ActiveCampaign
 sandbox** onde ele pode ver e copiar as automações, campanhas e estratégias.
 
@@ -25,7 +25,7 @@ Fonte da oferta: VSL em `video cc.mp4.mp4` (110s), transcrita em
 
 | Item | Valor |
 |---|---|
-| Preço | R$97 |
+| Preço | R$49,99 |
 | Preço de ancoragem | R$497 |
 | Âncora de custo real | R$15.000 (implementação avulsa de AC para cliente) |
 | Entrega | Acesso a conta AC sandbox (ver + copiar) |
@@ -68,7 +68,7 @@ no ar.
 | `ADMIN_WHATSAPP` | novo | seu número, destino do alerta |
 | `SANDBOX_ACESSO` | novo | credencial da sandbox (JSON: url, usuário, senha) |
 | `SESSAO_HMAC` | novo | chave para assinar o cookie de sessão |
-| `CHECKOUT_UPSELL_URL` | novo | URL do checkout Eduzz de R$97 |
+| `CHECKOUT_UPSELL_URL` | novo | URL do checkout Eduzz de R$49,99 |
 
 Nenhum desses valores entra no HTML ou no repo. Todos vivem como secret do
 Worker, no mesmo padrão que o `EDUZZ_WEBHOOK_SECRET` já usa hoje.
@@ -88,9 +88,9 @@ upsell.html
   └→ CTA "quero o Active Campaign" → POST /api/upsell-checkout (cookie)
         ├→ AC: tag [KIT51] - Checkout
         ├→ WhatsApp para ADMIN_WHATSAPP
-        └→ 200 { url } → browser vai para o checkout Eduzz R$97
+        └→ 200 { url } → browser vai para o checkout Eduzz R$49,99
 
-compra do upsell (R$97)
+compra do upsell (R$49,99)
   └→ webhook Eduzz (mesma rota, distingue pelo produto)
        ├→ AC: tag [KIT51] - Compra Aprovada
        └→ KV COMPRADORES["sandbox:" + email] = 1 → libera SANDBOX_ACESSO
@@ -125,7 +125,7 @@ existentes.
 | Tag | Quando |
 |---|---|
 | `[KIT51] - Checkout` | clicou no CTA do upsell, antes de pagar |
-| `[KIT51] - Compra Aprovada` | pagou o upsell de R$97 |
+| `[KIT51] - Compra Aprovada` | pagou o upsell de R$49,99 |
 
 Contato criado ou atualizado via `POST /api/3/contact/sync`, tag aplicada via
 `POST /api/3/contactTags`. A tag é criada uma vez, na implementação, e o ID
@@ -140,7 +140,7 @@ resposta com a URL do checkout sai na hora.
 Disparado junto com a tag `[KIT51] - Checkout`, via Evolution API, para
 `ADMIN_WHATSAPP`. É notificação para o Laschuk, não mensagem para o comprador.
 
-Formato: `[KIT51] <email> entrou no checkout do upsell (R$97) — <hora>`.
+Formato: `[KIT51] <email> entrou no checkout do upsell (R$49,99) — <hora>`.
 
 ## Edição do vídeo
 
@@ -148,7 +148,7 @@ O vídeo, como está, contradiz a página em dois pontos:
 
 1. Em 01:00.9–01:23.0 ele descreve **o portal com clone de 1 clique** — que
    não é o que vai ser entregue (sandbox para copiar à mão)
-2. Em 01:16 ele diz **R$197**, enquanto a tarja e a página dizem R$97
+2. Em 01:16 ele diz **R$197**, enquanto a tarja e a página dizem R$49,99
 
 Os dois trechos estão no mesmo intervalo. A edição é **remover 01:00.9 até
 01:23.0** e emendar o resto:
@@ -216,7 +216,7 @@ Discord faz a DM voltar a funcionar sozinha, sem mexer em código.
 
 | Página | Papel |
 |---|---|
-| `upsell.html` | R$97, VSL com autoplay, copy estilo Brunson |
+| `upsell.html` | R$49,99, VSL com autoplay, copy estilo Brunson |
 | `oto.html` | one time offer depois da compra do upsell |
 | `diagnostico.html` | downsell de quem **recusa** o upsell |
 
