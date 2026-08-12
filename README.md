@@ -16,7 +16,7 @@ as tags no ActiveCampaign e os alertas no Discord.
 | `obrigado.html` | entrega: só o Kit | quem **recusou** a oferta |
 | `politica-de-privacidade.html` · `termos-de-uso.html` | páginas legais | linkadas no rodapé da index |
 | `upsell.html` | ponte: redireciona para `oto.html` | links antigos e o redirect da Eduzz enquanto não for trocado |
-| `kit.html` · `kit-mapa.html` | variantes B e C da página de vendas | só quem vem de anúncio apontado para elas |
+| `a/index.html` · `b/index.html` | as duas pernas do teste A/B | só quem vem de anúncio apontado para elas |
 
 ```
 index → checkout R$17 → PAGOU → oto ─┬─ comprou → checkout R$49,99 → diagnostico ─┐
@@ -36,38 +36,52 @@ pessoa já tinha pago — por isso a caixa de acesso existe nas duas, não só e
 
 ## O teste A/B da página de vendas
 
-Três páginas vendendo a mesma coisa, pelo mesmo checkout, com o mesmo cupom.
+Duas páginas vendendo a mesma coisa, pelo mesmo checkout, com o mesmo cupom.
 
-| Página | URL | Diferença |
+| Perna | URL do anúncio | O que é |
 |---|---|---|
-| **A** | `/kit-51-emails` | a que está no ar. Longa, ~1.180 linhas |
-| **B** | `/kit-51-emails/kit.html` | mesma oferta em 1/3 do tamanho, formulário dentro do hero |
-| **C** | `/kit-51-emails/kit-mapa.html` | a B mais o mapa do funil |
+| **A** | `/kit-51-emails/a` | cópia congelada da `index.html` — o controle |
+| **B** | `/kit-51-emails/b` | mesma oferta em 1/3 do tamanho, formulário no hero, mapa do funil |
+
+`/kit-51-emails` continua servindo a `index.html` original, intocada, para quem
+chega por fora do teste.
+
+As duas pernas são pastas com `index.html` dentro, e não `a.html`/`b.html`: a URL
+pedida não tem extensão, e o GitHub Pages só resolve isso como diretório — ele
+responde 301 de `/a` para `/a/`. O Worker busca com `redirect: 'follow'`, então
+resolve do lado do servidor e o visitante nunca vê a barra final aparecer.
+
+Os caminhos relativos continuam valendo mesmo um nível abaixo: o Worker reescreve
+`href`/`src` relativos a partir da **raiz do prefixo**, não da pasta da página —
+`assets/hero.jpg` vira `/kit-51-emails/assets/hero.jpg`.
 
 **O tráfego é dividido no anúncio, não no site.** Não há Worker sorteando
 variante: cada campanha aponta para uma URL. É a única divisão possível sem
 acesso à Cloudflare, e tem a vantagem de não piscar a tela nem sujar a medição
 com redirect.
 
-B e C são `noindex` com canonical apontando para a A. Três páginas de venda
-quase idênticas indexadas competiriam entre si, e o Google escolheria uma
-sozinho.
+As duas pernas são `noindex` com canonical apontando para `/kit-51-emails`.
+Páginas de venda quase idênticas indexadas competiriam entre si, e o Google
+escolheria uma sozinho.
 
-Toda chamada ao `dataLayer` carrega `variante: 'B'` ou `'C'` — é o que separa as
-duas no GTM. A **A não manda esse campo**, então no relatório ela é o conjunto
-sem `variante`.
+Toda chamada ao `dataLayer` carrega `variante: 'A'` ou `'B'` — é o que separa as
+duas no GTM.
 
-### O número da A está inflado
+### O instrumento, não o experimento
 
-Na `index.html`, todo `[data-cta]` dispara `InitiateCheckout`, e a maioria
-desses botões é âncora: eles rolam a tela até o formulário, não abrem checkout.
-Cada clique de rolagem conta como intenção de compra.
+Na `index.html` que está no ar, todo `[data-cta]` dispara `InitiateCheckout`, e a
+maioria desses botões é âncora: rola a tela até o formulário, não abre checkout.
+Cada clique de rolagem entra como intenção de compra, e o CTR sai inflado.
 
-Em B e C isso é separado: `InitiateCheckout` só sai quando a pessoa realmente
-vai para a Eduzz, e carrega `metodo` — `'direto'` (botão da página) ou
-`'formulario'` (card do topo). **Comparar o CTR bruto de A contra B/C compara
-métricas diferentes**; ou se aplica a mesma separação na A, ou se compara venda
-por sessão, que não depende de tagueamento.
+**A cópia em `/a` corrige isso**, para que as duas pernas meçam a mesma coisa:
+âncora vira `cta_click`, e `InitiateCheckout` só sai quando a pessoa realmente
+vai para a Eduzz. Nenhum botão mudou de comportamento — mudou o nome do evento
+que cada um reporta.
+
+Os dois lados carregam `metodo`: `'formulario'` quando passa pelo cadastro,
+`'direto'` quando o botão leva ao checkout sem pedir dados. Na perna B os quatro
+botões da página são diretos e só o card do topo pede dados — comparar os dois
+`metodo` responde, dentro do próprio teste, se vale pedir os dados antes.
 
 ## Como o Worker sabe quem é o comprador
 
