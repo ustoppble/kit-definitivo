@@ -149,6 +149,11 @@ cd cloudflare-worker && npx wrangler deploy
 
 ## O que ainda falta para o funil vender
 
+O que depende de acesso à conta da Cloudflare está reunido em
+[`cloudflare-worker/PENDENCIAS-CLOUDFLARE.md`](cloudflare-worker/PENDENCIAS-CLOUDFLARE.md)
+— passo a passo, na ordem, com o que já está pronto marcado como pronto. Há um
+`.docx` do mesmo conteúdo ao lado, para mandar a quem não vai clonar o repo.
+
 ### Na Eduzz
 
 Apontar a página de obrigado de cada produto. É isso que faz a corrente andar

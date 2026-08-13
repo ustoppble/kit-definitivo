@@ -3,6 +3,11 @@
 > **Atenção:** este README descreve só o proxy original. O funil completo
 > (upsell, OTO, downsell, tags no ActiveCampaign, alertas no Discord e o
 > cron do TidyCal) está documentado no `README.md` da raiz do repositório.
+>
+> Este arquivo explica **como o proxy funciona**. Se você abriu aqui para saber
+> **o que ainda falta fazer**, vá direto para
+> [`PENDENCIAS-CLOUDFLARE.md`](PENDENCIAS-CLOUDFLARE.md) — é a lista na ordem,
+> com o que já está pronto marcado como pronto.
 
 O site do Kit fica hospedado no GitHub Pages, mas é servido sob o domínio
 principal do Blackbird. Este diretório tem o Worker que faz a ponte.

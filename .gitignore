@@ -1,1 +1,10 @@
 .DS_Store
+
+# Cache que o wrangler cria ao rodar qualquer comando na pasta. Nao e do projeto
+# e nao serve pra mais ninguem.
+.wrangler/
+
+# Valores de secret nunca entram no repositorio: eles moram no Worker. Estes
+# nomes existem aqui so para que um `git add .` distraido nao publique um deles.
+.env
+.dev.vars

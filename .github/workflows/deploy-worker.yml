@@ -12,6 +12,12 @@ on:
     branches: [main]
     paths:
       - 'cloudflare-worker/**'
+      # A documentacao mora na mesma pasta que o codigo, de proposito: runbook
+      # longe do que ele descreve envelhece sem ninguem perceber. Mas corrigir
+      # uma frase do README nao pode republicar o Worker — e, enquanto o token
+      # nao existir, cada correcao dessas deixaria um X vermelho na aba Actions.
+      - '!cloudflare-worker/**.md'
+      - '!cloudflare-worker/**.docx'
       - '.github/workflows/deploy-worker.yml'
   # Permite disparar na mao pela aba Actions, sem precisar de commit.
   workflow_dispatch:
