@@ -6,6 +6,12 @@ compatibility_date = "2026-08-07"
 pattern = "www.blackbird.ac/kit-51-emails*"
 zone_name = "blackbird.ac"
 
+# A rota do apex precisa estar declarada aqui: o `wrangler deploy` sincroniza as
+# rotas com este arquivo e remove qualquer rota criada so pelo painel.
+[[routes]]
+pattern = "blackbird.ac/kit-51-emails*"
+zone_name = "blackbird.ac"
+
 [[kv_namespaces]]
 binding = "COMPRADORES"
 id = "542b0e7612f64a4e8aa23943ac558a11"
