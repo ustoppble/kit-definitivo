@@ -49,6 +49,11 @@ section:first-of-type{border-top:0}
 .player{position:relative;border-radius:12px;overflow:hidden;background:#000;
   box-shadow:0 10px 34px rgba(13,13,15,.22)}
 .player video{display:block;width:100%;height:auto}
+.preco-selo{position:absolute;top:12px;right:12px;z-index:3;background:var(--amarelo);
+  color:var(--preto);font-family:Roboto,sans-serif;font-weight:900;font-size:14px;
+  padding:7px 14px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.35);
+  letter-spacing:.2px}
+@media (max-width:560px){ .preco-selo{font-size:12px;padding:6px 11px;top:8px;right:8px} }
 .som{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;
   background:rgba(13,13,15,.42);border:0;cursor:pointer;color:#fff;
   font-family:Barlow,sans-serif;font-size:17px;font-weight:700;gap:10px}
@@ -83,6 +88,9 @@ li{margin:0 0 9px}
 .valor td:last-child small{display:block;white-space:normal;font-weight:400;
   color:var(--texto-suave);line-height:1.35;margin-top:3px}
 .valor tr:last-child td{background:var(--amarelo);font-weight:800}
+
+/* corte duplo de preco: 497 riscado, 97 riscado, so entao o valor final */
+.riscado{opacity:.65}
 
 /* preco */
 .preco{text-align:center;background:var(--azul);color:#fff;border-radius:14px;padding:30px 22px}
@@ -149,6 +157,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="eyebrow">OFERTA ÚNICA · SÓ NESTA PÁGINA</p>
     <p class="vsl-linha">Aperta o play. São 90 segundos.</p>
     <div class="player">
+      <div class="preco-selo">HOJE: R$49,99</div>
       <video id="vsl" src="assets/vsl.mp4" poster="assets/vsl-poster.jpg"
              muted autoplay loop playsinline preload="metadata"></video>
       <button class="som" id="som" type="button" aria-label="Ativar o som do vídeo">
@@ -172,7 +181,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <section>
     <h1>O Kit te deu os e-mails.<br>Agora eu te dou a estrutura onde eles rodam.</h1>
-    <p>Por R$49,99, as automações que eu uso para vender por e-mail ficam <strong>prontas dentro
+    <p>Por <s class="riscado">R$497</s> <s class="riscado">R$97</s> R$49,99, as automações que eu uso para vender por e-mail ficam <strong>prontas dentro
     da sua conta do ActiveCampaign</strong>. Montadas, conectadas e funcionando — do jeito que
     rodam aqui.</p>
   </section>
@@ -259,7 +268,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </tr>
       <tr>
         <td>Você paga hoje, uma única vez</td>
-        <td>R$49,99</td>
+        <td><s class="riscado">R$497</s><br><s class="riscado">R$97</s><br>R$49,99</td>
       </tr>
     </table>
     <p>Uma vez. Sem mensalidade. Sem comissão sobre as suas vendas.</p>
@@ -267,7 +276,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <section>
     <div class="preco">
-      <p class="de">De <s>R$497</s></p>
+      <p class="de">De <s>R$497</s><br><s>R$97</s></p>
       <p class="hoje">Hoje, nesta página, uma única vez:</p>
       <p class="num">R$49,99</p>
       <p class="cond">pagamento único · 7 dias de garantia</p>
@@ -298,7 +307,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p>Tenho contas de e-commerce que passaram de R$10 milhões vendidos por e-mail.</p>
       <p>Cobro R$15.000 para implementar um ActiveCampaign para um cliente, mais comissão
       sobre as vendas.</p>
-      <p>Hoje, R$49,99 para essa estrutura ficar pronta na sua conta.</p>
+      <p>Hoje, <s class="riscado">R$497</s> <s class="riscado">R$97</s> R$49,99 para essa estrutura ficar pronta na sua conta.</p>
     </div>
   </section>
 
@@ -322,7 +331,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <button class="btn" data-cta="cta_upsell-principal" type="button">SIM, ME DÁ O ACESSO →</button>
-    <p class="btn-nota">R$49,99 · pagamento único · 7 dias de garantia</p>
+    <p class="btn-nota"><s class="riscado">R$497</s> <s class="riscado">R$97</s> R$49,99 · pagamento único · 7 dias de garantia</p>
   </section>
 
   <section>
@@ -334,10 +343,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <li>A estrutura de tags e segmentação por trás de tudo</li>
       <li>7 dias de garantia, dinheiro de volta</li>
     </ul>
-    <p>De <s>R$497</s> por <strong>R$49,99</strong>. Pagamento único.</p>
+    <p>De <s>R$497</s> <s>R$97</s> por <strong>R$49,99</strong>. Pagamento único.</p>
 
     <button class="btn" data-cta="cta_upsell-principal" type="button">SIM, QUERO ENTRAR NO ACTIVE CAMPAIGN →</button>
-    <p class="btn-nota">R$49,99 · pagamento único · 7 dias de garantia</p>
+    <p class="btn-nota"><s class="riscado">R$497</s> <s class="riscado">R$97</s> R$49,99 · pagamento único · 7 dias de garantia</p>
 
     <button class="recusa" data-cta="recusou-upsell" data-acao="recusar" type="button">Não, obrigado. Meu problema agora não é a estrutura →</button>
     <a class="pular" id="pular" href="obrigado.html">Só quero baixar o Kit que eu já comprei →</a>
