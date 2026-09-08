@@ -4,6 +4,8 @@ Execução de `prompt.md` em 8 de setembro de 2026. Registro principal: **K51E-7
 
 ## 1. Caminho da página
 
+**Para ver agora:** abra [PREVIA.html](PREVIA.html) diretamente no navegador. É uma cópia autocontida com CSS e imagens embutidos, sem tracking ou pagamentos reais. A demonstração funciona e os CTAs apenas mostram o bloco de oferta. Regerar com `node scripts/preview-c.mjs`; verificar com `node tests/preview-c.mjs` usando Playwright disponível.
+
 Arquivo: [c/index.html](../../c/index.html). Rota da variante: `/c/`, sob o prefixo público já utilizado pelo funil. A implementação não substitui a home, A ou B.
 
 Os recursos usam caminhos absolutos sob o prefixo do funil porque a reescrita atual do Worker trata recursos relativos de forma diferente em subpastas. Não abrir por `file://` como teste de produção: usar a suíte isolada ou a infraestrutura de preview já adotada pelo projeto.
@@ -108,6 +110,8 @@ As skills de advertising e Higgsfield não existiam dentro deste repositório. S
 - `c/assets/hero.webp`, `hero-small.webp` — hero ilustrativo otimizado.
 - `c/assets/bonus-lista.webp`, `bonus-maestria.webp`, `autor.webp` — derivados de assets reais, originais preservados.
 - `tests/variant-c.mjs` — navegador isolado, verificações e geração das evidências.
+- `docs/c/PREVIA.html` e `scripts/preview-c.mjs` — prévia offline autocontida e gerador reproduzível, adicionados após o pedido de visualização.
+- `tests/preview-c.mjs` — valida estilo, imagens, amostra interativa e ausência de rede externa na prévia.
 - `docs/c/ENTREGA.md`, `CLAIM-LEDGER.md`, `PROMPTS-IMAGENS.md` — decisões, fontes e prompts.
 - `docs/c/qa/` — resultados por teste e capturas mobile/desktop/amostras.
 
